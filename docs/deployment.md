@@ -34,6 +34,7 @@ Run browser suites sequentially on constrained development machines; parallel re
 npm run deploy
 npm run test:live
 npm run test:pwa -- https://competitive-crafting.eoghancollins.com
+npm run test:music -- https://competitive-crafting.eoghancollins.com
 npx wrangler deployments list
 ```
 

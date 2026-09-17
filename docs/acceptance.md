@@ -1,43 +1,48 @@
 # Release acceptance checklist
 
-## Current rules — supersede initial five-round design
+## Gameplay overhaul — 2026-09-17
 
-- [x] No Memory preset, preview phase, or related help/UI remains.
-- [x] New rooms default to ten rounds and a 30-second base timer.
-- [x] Blitz defaults to a 15-second base timer.
-- [x] Only creative/unconstrained inventory adds time: two seconds per occupied slot in the supplied target recipe. Constrained time is not difficulty-scaled.
-- [x] Overclock is offered before the first gameplay interaction. It halves the original duration from the round start and multiplies earned points by 1.5.
-- [x] The choice is irreversible, deadline and eligibility are server-authoritative, reconnects preserve it, and expiry means zero points for that round without ending other players' time.
-- [x] Search/category/item/grid gameplay interactions lock out Overclock. Sound/help controls do not count as crafting interactions.
-- [x] No waiting exploit: activating later never grants half of a fresh clock.
-- [x] A full valid grid alone awards nothing; output collection is explicit.
-- [x] Large classified recipe pool, family-balanced selection, no near-identical recipes in one match where alternatives exist; recent full-grid finale.
-- [x] Crafting table, torch, stick, chest, furnace, bucket and iron pickaxe are tier 1; ladder and bow are tier 2.
-- [x] Valid recipe offsets, horizontal mirrors, mixed ingredient tags and shapeless arrangements are supported. Server corpus accepts all 2,031 distinct transforms across 827 shaped recipes.
+These requirements supersede the launch release's Overclock and reconnect-grace design. The overhaul has passed local application acceptance and is ready for deployment; live verification is tracked below.
 
-## Presentation and delivery
+### Rules and room lifecycle
 
-- [x] Native 256×256 transparent Minecraft inventory artwork; no low-resolution demo assets.
-- [x] Recognizable mob faces, including pig snout and front-facing dragon.
-- [x] Rotating native cubemap panorama; reduced-motion fallback and hidden-tab pause.
-- [x] Host can copy an invite link and code; QR independently decodes to the correct join URL.
-- [x] Desktop drag/click, mobile tap/place and keyboard collection have passed real-browser tests.
-- [x] Spotify official player loads under production CSP; unavailable/retry states and sound-off pause are tested. Full authenticated playback remains provider-dependent and was not tested.
-- [x] Main document scrolling disabled. Essential controls and menu entry points fit tested phone/tablet/desktop/landscape viewports; designated panels scroll internally.
-- [x] Compact Overclock and mobile/tablet menu; desktop does not show compact-only controls.
-- [x] Creative inventory excludes distractor controls; custom settings do not falsely highlight an unchanged preset; home overlays are mutually exclusive.
-- [x] Add-to-home-screen guidance, install-event handling, production service-worker offline fallback and invite-preserving retry verified.
-- [x] Refreshed screenshots/recordings in ignored `ui-progress/`, with dated history and latest files.
-- [x] Public GitHub repository and incremental milestones using configured Git identity without AI attribution.
-- [x] Core gameplay matrix after reconnect fixes: 11 passed, nine intentional duplicate-engine skips. Visual regression reruns passed after focus and inventory-scroller corrections.
-- [x] Short-desktop controls remain inside panel padding at 1280×650, 1280×720 and 1366×768 in Chromium/WebKit. Jukebox has 22 verified favourites, random initial selection, visible title and a no-repeat Next shuffle; 12 browser and three shuffle unit tests pass.
-- [x] Final full formatting/typecheck/build and implementation milestone commit (`d909cf8`, pushed to `development`).
-- [x] Cloudflare custom-domain deployment verified, including normal-DNS HTTPS multiplayer and offline recovery without resolver overrides.
+- [x] Default ten rounds, Classic 30 seconds, Blitz 15 seconds. Only creative inventory adds two seconds per occupied recipe slot. No Memory mode.
+- [x] Remove Overclock, engagement lock and multiplier entirely. Migrate persisted room state without erasing earned scores.
+- [x] Keep server-tracked grids and explicit output collection; filling a valid grid alone never scores.
+- [x] Accept all vanilla offsets and horizontal mirrors, including seven source recipes with empty outer padding. Preserve internal gaps; do not accept arbitrary rotations. The independent worker corpus accepts 2,055 layouts across 827 shaped recipes.
+- [x] Broaden meaningful tier families and rotate recent recipes: tier 1 has 67 families, tier 4 has 28, and finales have 17. The seeded 30,000-round audit has no target repeats from the preceding five matches; history remains bounded and room-local.
+- [x] Irreversible per-round forfeit earns no points; all resolved players advance the round, spectators excluded.
+- [x] A closed tab/current transport departure counts as leaving, host transfers, and returning players may rejoin a valid room with their retained identity.
+- [x] An active multiplayer match reduced to one connected player ends without awarding a win and displays the requested “All alone? Try getting some friends, loser.” message. Zero survivors also ends without a winner. Practice is exempt. Finished matches do not resurrect on rejoin.
+- [x] Disconnected identities release party capacity but remain resumable; 30-second join reservations prevent overbooking, and retained identities are bounded at 128 per room.
+- [x] Room codes expire after 30 minutes of inactivity or six hours total; reconnects cannot revive expired rooms and pings do not extend life.
+
+### Interface and feedback
+
+- [x] Desktop held-mouse painting and right-drag erasing, including release/cancellation/deduplication; preserve native ingredient/output drag and keyboard controls.
+- [x] Mobile active play has only compact target/timer/menu, crafting board and inventory. Outer brand/header/footer/jukebox are hidden without stopping music. Results restore sound controls.
+- [x] Native search input remains visible and usable with selection/caret/paste/IME while the visual viewport follows keyboard position. Query/tab/scroll survive keyboard transitions. No document scrolling.
+- [x] Canonical Minecraft creative tab membership and item order, from pinned vanilla runtime rather than regex guesses; unsupported component-only variants explicitly excluded. Cached native generation reproduces ten tabs and 1,617 plain items with all supported recipe inputs/outputs covered.
+- [x] Twelve compact, selectable player faces, including Blaze, Villager, Skeleton and a clearly labelled Herobrine homage. All twelve decode/select, server entry preserves the choice, and five dialog viewport screenshots were inspected.
+- [x] Tapping QR opens an enlarged, independently decodable dialog with correct focus, dismissal and viewport sizing.
+- [x] Local native Minecraft button sound, cached decoding and mute respected; no duplicate placement/collection sounds.
+- [x] Music attempts startup from ordinary trusted interaction, confirms actual playback rather than a play request, remains mounted when hidden, and offers honest fallback when the provider/browser blocks it. Explicit Pause and remembered mute are respected. All 32 dedicated browser audio checks pass across the four projects.
+- [x] Nonblocking low-time red vignette, numeric timer and reduced-motion support.
+- [x] Eight-second round summary reveals recipe plus authoritative score deltas/rank movement and all standings. Final podium handles ties/solo/alone/abandoned accurately.
+
+### Verification gates
+
+- [x] Format, TypeScript, ESLint and 46 shared/unit tests pass; production build succeeds.
+- [x] Worker and native runtime suites: 61 deterministic tests and four native runtime tests pass, including schema-4 migration, padded recipe corpus, simultaneous collect/forfeit, tab departure, host transfer, capacity reservations and expiry.
+- [x] Full Chromium/Firefox/WebKit/mobile browser matrix: **119 passed, 21 intentional skips, zero failures** in 6.5 minutes. Eighteen skips avoid repeating specialized Chromium lifecycle cases, two skip unsupported service-worker lifecycle checks, and one excludes mouse-only painting from touch emulation.
+- [ ] Final screenshot/recording refresh and inspection: home/lobby/QR/playing/search keyboard/round leaderboard/podium, phone/tablet/landscape/short desktop.
+- [ ] Final commit and push with configured Git identity only; no generated assets, credentials or recordings tracked.
+- [ ] Deploy to the existing custom domain, then repeat ordinary-DNS live multiplayer/PWA/provider checks.
 
 ## Verification boundaries
 
-As of 2026-09-17, the final integrated run passes formatting, TypeScript, ESLint, shared/shuffle tests (12), Worker tests (55), native runtime tests (4), production build and the full Playwright suite: **65 passed, 11 intentionally skipped**, with no failures. Nine skips avoid duplicating specialized Chromium gameplay cases across engines, and two skip the service-worker lifecycle on engines where that check is not supported here. Chromium desktop/mobile, WebKit and Firefox all pass their supported cases. Earlier focus-restoration and development WebSocket cleanup failures were corrected and pass in this final run. The bounded local concurrency smoke also passed. Screenshots and verification commands are recorded in [testing documentation](testing.md).
+The overhaul's full 140-case matrix passes all 119 applicable cases across four browser projects. Earlier failures exposed and corrected Safari menu restoration, avatar keyboard navigation and round-standings keyboard access. The audio test now waits for asynchronous provider messages, and keyboard-scrolling checks wait for native movement rather than coalescing rapid key presses. Avatar geometry tests use reduced motion to isolate them from the separately tested animated panorama. Local simulated HTTP clients have independent rate-limit buckets; production limits are unchanged. These results supersede the launch release's smaller suite.
 
-The requested custom domain is deployed. Real HTTPS two-player smoke passes: invitation/mobile join, valid grid with zero premature points, explicit collection, broadcast and score persistence after reload. Live service-worker offline invitation recovery and official Spotify track switching pass. Public Cloudflare and Google DNS resolve the hostname; initial live checks used their verified A answer with normal certificate validation because the development machine retained a negative DNS cache. No system resolver or certificate settings were changed. The default resolver subsequently recovered, and the live two-player smoke plus deployed PWA offline recovery both passed again through normal DNS without overrides.
+The local production-build multiplayer smoke passed with ordinary clients and no test headers. Real Spotify automatic playback was provider-confirmed in Chromium, including hidden-player retention and mute. WebKit reported buffering but did not confirm playback within 20 seconds; its fallback appeared with no console/page errors. This external-provider result is not recorded as a playback pass. Full authenticated music playback was not tested.
 
-Visual inspection of the live reveal screenshot caught clipped target copy at short desktop height after the full suite passed. A reveal-only sizing correction and child-text containment regression now pass the entire **28-case visual matrix** across Chromium desktop/mobile, WebKit and Firefox, plus formatting/typecheck/lint/shared tests and the production build. Browser emulation and WebKit checks are not equivalent to hands-on testing of every real iOS/Android device, browser toolbar or installation flow.
+Unexpected network loss can only be handled when the server observes transport failure; mobile operating systems may suspend or kill a tab without delivering `pagehide`. Provider preview/authentication/autoplay restrictions remain outside the game's control. Browser emulation and WebKit tests do not establish behavior on every physical phone or keyboard.

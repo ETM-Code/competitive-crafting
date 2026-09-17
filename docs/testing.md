@@ -4,7 +4,7 @@
 
 Use Node 26 for the bounded load script's native WebSocket Origin headers. Run `npm ci`, `npm run sync:data`, `npm run build`. Start `npm run dev:worker` and `npm run dev` in separate terminals. Playwright starts these automatically when absent. Install engines with `npx playwright install chromium firefox webkit`.
 
-Normal builds and logic tests do not fetch Minecraft data. `sync:data` restores pinned assets, classification, avatars, app icons and the panorama; immutable downloads are cached under `build/cache`.
+Normal builds and logic tests do not fetch Minecraft data. `sync:data` restores pinned assets, canonical creative tabs, classification, avatars, app icons, panorama and button audio; immutable downloads are cached under `build/cache`. Creative regeneration uses Java 25 (an isolated verified JDK is supplied on macOS ARM64; other platforms use `JAVA_HOME`). Sound regeneration uses FFmpeg for a Safari-compatible WAV fallback. See [canonical creative sources](creative-inventory-sources.md) for reproducibility and exclusions.
 
 ## Test tiers
 
@@ -20,7 +20,7 @@ Normal builds and logic tests do not fetch Minecraft data. `sync:data` restores 
 | `npm run format:check`         | Readable consistent source/data formatting                      |
 | `npm run build`                | Production typecheck and Vite bundle                            |
 
-The matcher suite covers every supported recipe, fitting offsets, horizontal mirrors, randomized tag choices, missing/extra ingredients and overlapping shapeless tags. Named shovel/axe regressions preserve familiar Minecraft flexibility. Worker tests send all 2,031 distinct offset/mirror layouts of the 827 shaped recipes through tracked-grid and explicit collection commands.
+The matcher suite covers every supported recipe, fitting offsets, horizontal mirrors, randomized tag choices, missing/extra ingredients and overlapping shapeless tags. Named shovel/axe and padded mace/spyglass/creaking-heart/copper regressions preserve Minecraft flexibility. The worker corpus test currently checks 2,055 distinct offset/mirror layouts across all 827 shaped recipes and sends each through tracked-grid and explicit collection commands. Its independent oracle trims empty outer borders; the launch test's 2,031 layouts missed some valid offsets because its oracle retained the same padding as the importer.
 
 Browser projects cover Chromium desktop, Chromium touch emulation, WebKit and Firefox. The iPhone 13 device profile has a 390×844 physical CSS screen but a 390×664 browser viewport with browser chrome; both the smaller browser viewport and larger standalone-like dimensions are tested. Emulation does not replace final hands-on iPhone/Android testing of browser toolbars, virtual keyboards, audio permissions or installation.
 
@@ -39,7 +39,9 @@ npx playwright test tests/e2e/game.spec.ts --project=chromium --output=test-resu
 npx playwright test tests/e2e/visual.spec.ts --project=webkit --output=test-results/visual --reporter=list
 ```
 
-Prefer sequential full suites on an eight-core development machine. Concurrent browser/rendering jobs can consume enough time to expire real 15-second Overclock deadlines; do not weaken the server clock to hide that.
+Prefer sequential full suites on an eight-core development machine. Concurrent browser/rendering jobs can consume real round deadlines and stall browser drivers; do not weaken the server clock to hide that. Non-audio gameplay suites set the remembered sound preference off, isolating game acceptance from external Spotify availability. Avatar geometry/focus tests use reduced motion rather than simultaneously exercising the separately tested panorama. Dedicated audio tests separately cover automatic startup, actual sample decoding, mute/pause, shuffle and blocked-provider fallback.
+
+The shared browser fixture gives each simulated context its own RFC3849 client address for loopback-only HTTP `POST /api/*` requests. This avoids unrelated sequential tests exhausting one local 30-request/minute bucket. Native WebSocket traffic is not rewritten; production/external URLs and live verification scripts receive no synthetic headers. The limiter itself is unchanged and has a separate persisted-window/alarm regression.
 
 ## Production and offline checks
 
@@ -55,8 +57,10 @@ The service worker caches only the honest offline page, not API responses or an 
 
 The load command requires `--local`, rejects non-loopback origins, bounds rooms and players, expires after 20 seconds and closes/leaves connections. It is not a production load generator. Use ordinary isolated browser sessions for live deployment smoke tests.
 
-`npm run test:live` runs a bounded two-player ordinary gameplay smoke against the requested deployment. Pass `-- http://127.0.0.1:8787` to test the production build locally. It creates one room, verifies an invite join on mobile, fills and explicitly collects one recipe, checks the shared score, reloads, and closes both clients. It writes token-redacted diagnostics and screenshots to `ui-progress/`.
+`npm run test:live` runs a bounded two-player ordinary gameplay smoke against the requested deployment. Pass `-- http://127.0.0.1:8787` to test the production build locally. It creates one room, verifies an invite join on mobile, fills and explicitly collects one recipe, checks the shared score, then reloads the host. That departure now deliberately ends the two-player match with the alone message; rejoining preserves the score and finished state. It then closes both clients. It writes token-redacted diagnostics and screenshots to `ui-progress/`.
 
 ## Known external prerequisites
+
+`npm run test:music -- https://competitive-crafting.eoghancollins.com` performs a bounded real-provider check in Chromium and WebKit: trusted Practice/Ready/Start interactions, provider-confirmed playback while hidden, retained iframe and mute. It saves screenshots and token-redacted diagnostics. Unlike mock tests this intentionally fails if the provider cannot confirm playback; that result is not automatically an application defect.
 
 Cloudflare deployment needs a login for the account controlling the requested subdomain. Spotify full playback depends on provider availability, login and browser permission. Automated mock-control tests can verify pause/mute behavior but cannot establish an account's music entitlement.

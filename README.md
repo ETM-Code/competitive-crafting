@@ -4,19 +4,22 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 
 **Play:** [competitive-crafting.eoghancollins.com](https://competitive-crafting.eoghancollins.com)
 
-Live on Cloudflare Workers. HTTPS multiplayer, mobile invitation joining, score persistence and offline recovery pass through the normal DNS resolver without overrides. The initial negative DNS cache has cleared. The official Spotify embed and curated track switching are also verified; full authenticated playback remains provider-dependent.
+The launch release is live on Cloudflare Workers. The gameplay overhaul below is being verified locally before deployment; see the [acceptance status](docs/acceptance.md) for release evidence. Full authenticated Spotify playback remains provider-dependent.
 
 ## Current game design
 
 - Ten-round Classic matches, 30-second base timer.
 - Constrained ingredient palette or searchable creative inventory.
 - Blitz uses a 15-second base timer. Creative inventory adds two seconds per required grid placement.
-- Optional Overclock before your first crafting interaction: half the original time, 1.5× earned points.
+- Irreversible round forfeit for unfamiliar recipes; once everyone is finished or forfeits, reveal and advance. No Overclock.
 - Classic first-finisher scoring and an all-finish option.
-- Hundreds of classified recipe targets with family-balanced selection and a recent, full-grid finale.
-- Native 256×256 item renders, six mob-face avatars, and a moving Minecraft title panorama.
-- Fixed game screens with internal inventory/settings scrolling; desktop drag/keyboard and mobile tap/place controls.
-- Spotify jukebox with 22 curated nostalgic/disc favourites and a no-repeat Next shuffle, add-to-home-screen guidance, and an honest offline/reconnect screen.
+- Hundreds of classified recipe targets with family-balanced selection, recent-history avoidance and a full-grid finale.
+- Native 256×256 item renders, twelve player faces including a custom Herobrine homage, and a moving Minecraft title panorama.
+- Desktop mouse-held grid painting, right-drag erasing, native item dragging and keyboard crafting.
+- Immersive mobile table/inventory with native keyboard-aware search; canonical creative tabs and ordering.
+- Animated per-round standings, score deltas, final podium and low-time edge warning.
+- Expandable QR invitations; tab departures transfer ownership and end multiplayer matches that become solitary. Codes expire after 30 idle minutes or six hours total.
+- Native Minecraft button sounds and a 22-track curated jukebox that attempts playback on normal user interaction, with a no-repeat Next shuffle and provider-controlled playback limits.
 
 See [acceptance criteria](docs/acceptance.md) for the current requirements and verification status.
 
