@@ -32,14 +32,6 @@
     "finaleEligible": false
   },
   {
-    "item": "bamboo_mosaic",
-    "tier": 1,
-    "introduced": "by 1.20",
-    "note": "An everyday recipe. Make it count.",
-    "family": "wood_mosaic",
-    "finaleEligible": false
-  },
-  {
     "item": "bamboo_planks",
     "tier": 1,
     "introduced": "by 1.20",
@@ -88,59 +80,11 @@
     "finaleEligible": false
   },
   {
-    "item": "black_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "black_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "blaze_powder",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "blaze_powder",
-    "finaleEligible": false
-  },
-  {
     "item": "blue_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "blue_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "blue_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "bone_meal",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "bone_meal",
     "finaleEligible": false
   },
   {
@@ -173,22 +117,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "brown_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "brown_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -232,94 +160,6 @@
     "finaleEligible": false
   },
   {
-    "item": "chiseled_copper",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_copper",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_deepslate",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_deepslate",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_nether_bricks",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_nether_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_polished_blackstone",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_polished_blackstone",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_quartz_block",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_quartz_block",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_red_sandstone",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_red_sandstone",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_sandstone",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_sandstone",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_stone_bricks",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_stone_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_tuff",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_tuff",
-    "finaleEligible": false
-  },
-  {
-    "item": "chiseled_tuff_bricks",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_tuff_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "coal",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "coal",
-    "finaleEligible": false
-  },
-  {
     "item": "coal_block",
     "tier": 1,
     "introduced": "≤1.16",
@@ -357,14 +197,6 @@
     "introduced": "by 1.21.9",
     "note": "An everyday recipe. Make it count.",
     "family": "material_hoe",
-    "finaleEligible": false
-  },
-  {
-    "item": "copper_ingot",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "copper_ingot",
     "finaleEligible": false
   },
   {
@@ -432,22 +264,6 @@
     "finaleEligible": false
   },
   {
-    "item": "cyan_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "cyan_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
     "item": "dark_oak_button",
     "tier": 1,
     "introduced": "≤1.16",
@@ -469,14 +285,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "wood_pressure_plate",
-    "finaleEligible": false
-  },
-  {
-    "item": "diamond",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "diamond",
     "finaleEligible": false
   },
   {
@@ -525,30 +333,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "material_sword",
-    "finaleEligible": false
-  },
-  {
-    "item": "dried_kelp",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "dried_kelp",
-    "finaleEligible": false
-  },
-  {
-    "item": "emerald",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "emerald",
-    "finaleEligible": false
-  },
-  {
-    "item": "exposed_chiseled_copper",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_copper",
     "finaleEligible": false
   },
   {
@@ -640,43 +424,11 @@
     "finaleEligible": false
   },
   {
-    "item": "gray_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "gray_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
     "item": "green_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "green_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "heavy_weighted_pressure_plate",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "heavy_weighted_pressure_plate",
     "finaleEligible": false
   },
   {
@@ -768,35 +520,11 @@
     "finaleEligible": false
   },
   {
-    "item": "lapis_lazuli",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "lapis_lazuli",
-    "finaleEligible": false
-  },
-  {
     "item": "light_blue_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_blue_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_blue_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -808,30 +536,6 @@
     "finaleEligible": false
   },
   {
-    "item": "light_gray_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_gray_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_weighted_pressure_plate",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "light_weighted_pressure_plate",
-    "finaleEligible": false
-  },
-  {
     "item": "lime_bed",
     "tier": 1,
     "introduced": "≤1.16",
@@ -840,35 +544,11 @@
     "finaleEligible": false
   },
   {
-    "item": "lime_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
     "item": "magenta_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "magenta_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "magenta_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -893,30 +573,6 @@
     "introduced": "by 1.19",
     "note": "An everyday recipe. Make it count.",
     "family": "wood_pressure_plate",
-    "finaleEligible": false
-  },
-  {
-    "item": "melon_seeds",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "melon_seeds",
-    "finaleEligible": false
-  },
-  {
-    "item": "moss_carpet",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "moss_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "netherite_ingot",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "netherite_ingot",
     "finaleEligible": false
   },
   {
@@ -1000,30 +656,6 @@
     "finaleEligible": false
   },
   {
-    "item": "orange_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "orange_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "oxidized_chiseled_copper",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_copper",
-    "finaleEligible": false
-  },
-  {
     "item": "paper",
     "tier": 1,
     "introduced": "≤1.16",
@@ -1040,46 +672,6 @@
     "finaleEligible": false
   },
   {
-    "item": "pink_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "pink_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_blackstone_button",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "polished_blackstone_button",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_blackstone_pressure_plate",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "polished_blackstone_pressure_plate",
-    "finaleEligible": false
-  },
-  {
-    "item": "pumpkin_seeds",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "pumpkin_seeds",
-    "finaleEligible": false
-  },
-  {
     "item": "purple_bed",
     "tier": 1,
     "introduced": "≤1.16",
@@ -1088,83 +680,11 @@
     "finaleEligible": false
   },
   {
-    "item": "purple_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "purpur_pillar",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "purpur_pillar",
-    "finaleEligible": false
-  },
-  {
-    "item": "quartz_pillar",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "quartz_pillar",
-    "finaleEligible": false
-  },
-  {
-    "item": "raw_copper",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "raw_copper",
-    "finaleEligible": false
-  },
-  {
-    "item": "raw_gold",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "raw_gold",
-    "finaleEligible": false
-  },
-  {
-    "item": "raw_iron",
-    "tier": 1,
-    "introduced": "by 1.17",
-    "note": "An everyday recipe. Make it count.",
-    "family": "raw_iron",
-    "finaleEligible": false
-  },
-  {
     "item": "red_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "red_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "red_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "redstone",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "redstone",
     "finaleEligible": false
   },
   {
@@ -1181,14 +701,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "shears",
-    "finaleEligible": false
-  },
-  {
-    "item": "slime_ball",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "slime_ball",
     "finaleEligible": false
   },
   {
@@ -1232,14 +744,6 @@
     "finaleEligible": false
   },
   {
-    "item": "stone_button",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "stone_button",
-    "finaleEligible": false
-  },
-  {
     "item": "stone_hoe",
     "tier": 1,
     "introduced": "≤1.16",
@@ -1253,14 +757,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "material_pickaxe",
-    "finaleEligible": false
-  },
-  {
-    "item": "stone_pressure_plate",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "stone_pressure_plate",
     "finaleEligible": false
   },
   {
@@ -1320,51 +816,11 @@
     "finaleEligible": false
   },
   {
-    "item": "weathered_chiseled_copper",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "chiseled_copper",
-    "finaleEligible": false
-  },
-  {
-    "item": "wheat",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "wheat",
-    "finaleEligible": false
-  },
-  {
     "item": "white_bed",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "white_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "white_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
-    "finaleEligible": false
-  },
-  {
-    "item": "wind_charge",
-    "tier": 1,
-    "introduced": "by 1.21",
-    "note": "An everyday recipe. Make it count.",
-    "family": "wind_charge",
     "finaleEligible": false
   },
   {
@@ -1413,22 +869,6 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "colored_bed",
-    "finaleEligible": false
-  },
-  {
-    "item": "yellow_carpet",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_carpet",
-    "finaleEligible": false
-  },
-  {
-    "item": "yellow_dye",
-    "tier": 1,
-    "introduced": "≤1.16",
-    "note": "An everyday recipe. Make it count.",
-    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -1488,6 +928,14 @@
     "finaleEligible": false
   },
   {
+    "item": "acacia_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "acacia_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1517,6 +965,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "andesite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -1568,11 +1024,27 @@
     "finaleEligible": false
   },
   {
+    "item": "bamboo_mosaic",
+    "tier": 2,
+    "introduced": "by 1.20",
+    "note": "A familiar shape, a little more thought.",
+    "family": "wood_mosaic",
+    "finaleEligible": false
+  },
+  {
     "item": "bamboo_mosaic_slab",
     "tier": 2,
     "introduced": "by 1.20",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "bamboo_mosaic_stairs",
+    "tier": 2,
+    "introduced": "by 1.20",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -1597,6 +1069,14 @@
     "introduced": "by 1.20",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "bamboo_stairs",
+    "tier": 2,
+    "introduced": "by 1.20",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -1672,6 +1152,14 @@
     "finaleEligible": false
   },
   {
+    "item": "birch_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "birch_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1693,6 +1181,22 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "black_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "black_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -1720,6 +1224,14 @@
     "finaleEligible": false
   },
   {
+    "item": "blackstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "blackstone_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1728,11 +1240,35 @@
     "finaleEligible": false
   },
   {
+    "item": "blaze_powder",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "blaze_powder",
+    "finaleEligible": false
+  },
+  {
     "item": "blue_candle",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "blue_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "blue_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -1768,6 +1304,14 @@
     "finaleEligible": false
   },
   {
+    "item": "bone_meal",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "bone_meal",
+    "finaleEligible": false
+  },
+  {
     "item": "bookshelf",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1792,6 +1336,14 @@
     "finaleEligible": false
   },
   {
+    "item": "brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "brick_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1813,6 +1365,22 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "brown_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "brown_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -1912,6 +1480,14 @@
     "finaleEligible": false
   },
   {
+    "item": "cherry_stairs",
+    "tier": 2,
+    "introduced": "by 1.20",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "cherry_trapdoor",
     "tier": 2,
     "introduced": "by 1.20",
@@ -1944,11 +1520,75 @@
     "finaleEligible": false
   },
   {
+    "item": "chiseled_copper",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_copper",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_deepslate",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_deepslate",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_nether_bricks",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_nether_bricks",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_polished_blackstone",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_polished_blackstone",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_quartz_block",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_quartz_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_red_sandstone",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_red_sandstone",
+    "finaleEligible": false
+  },
+  {
     "item": "chiseled_resin_bricks",
     "tier": 2,
     "introduced": "by 1.21.9",
     "note": "A familiar shape, a little more thought.",
     "family": "chiseled_resin_bricks",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_sandstone",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_sandstone",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_stone_bricks",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_stone_bricks",
     "finaleEligible": false
   },
   {
@@ -1960,6 +1600,22 @@
     "finaleEligible": false
   },
   {
+    "item": "chiseled_tuff",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_tuff",
+    "finaleEligible": false
+  },
+  {
+    "item": "chiseled_tuff_bricks",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_tuff_bricks",
+    "finaleEligible": false
+  },
+  {
     "item": "clay",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1968,11 +1624,27 @@
     "finaleEligible": false
   },
   {
+    "item": "coal",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "coal",
+    "finaleEligible": false
+  },
+  {
     "item": "cobbled_deepslate_slab",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "cobbled_deepslate_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -2056,6 +1728,14 @@
     "finaleEligible": false
   },
   {
+    "item": "copper_ingot",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "copper_ingot",
+    "finaleEligible": false
+  },
+  {
     "item": "copper_leggings",
     "tier": 2,
     "introduced": "by 1.21.9",
@@ -2136,6 +1816,14 @@
     "finaleEligible": false
   },
   {
+    "item": "crimson_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "crimson_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2157,6 +1845,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "cut_copper_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -2197,6 +1893,22 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "cyan_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "cyan_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -2272,6 +1984,14 @@
     "finaleEligible": false
   },
   {
+    "item": "dark_oak_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "dark_oak_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2296,6 +2016,14 @@
     "finaleEligible": false
   },
   {
+    "item": "dark_prismarine_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "decorated_pot",
     "tier": 2,
     "introduced": "by 1.20",
@@ -2309,6 +2037,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "deepslate_brick_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -2336,6 +2072,14 @@
     "finaleEligible": false
   },
   {
+    "item": "deepslate_tile_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "deepslate_tile_wall",
     "tier": 2,
     "introduced": "by 1.17",
@@ -2349,6 +2093,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "deepslate_tiles",
+    "finaleEligible": false
+  },
+  {
+    "item": "diamond",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "diamond",
     "finaleEligible": false
   },
   {
@@ -2392,11 +2144,27 @@
     "finaleEligible": false
   },
   {
+    "item": "diorite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "diorite_wall",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_wall",
+    "finaleEligible": false
+  },
+  {
+    "item": "dried_kelp",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "dried_kelp",
     "finaleEligible": false
   },
   {
@@ -2416,6 +2184,14 @@
     "finaleEligible": false
   },
   {
+    "item": "emerald",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "emerald",
+    "finaleEligible": false
+  },
+  {
     "item": "emerald_block",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2429,6 +2205,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "end_stone_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -2456,6 +2240,14 @@
     "finaleEligible": false
   },
   {
+    "item": "exposed_chiseled_copper",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_copper",
+    "finaleEligible": false
+  },
+  {
     "item": "exposed_copper_grate",
     "tier": 2,
     "introduced": "by 1.21",
@@ -2477,6 +2269,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "exposed_cut_copper_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -2608,6 +2408,14 @@
     "finaleEligible": false
   },
   {
+    "item": "granite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "granite_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2621,6 +2429,22 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "gray_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "gray_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -2648,6 +2472,14 @@
     "finaleEligible": false
   },
   {
+    "item": "green_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
     "item": "green_stained_glass_pane",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2669,6 +2501,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "hay_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "heavy_weighted_pressure_plate",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "heavy_weighted_pressure_plate",
     "finaleEligible": false
   },
   {
@@ -2816,6 +2656,14 @@
     "finaleEligible": false
   },
   {
+    "item": "jungle_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "jungle_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2845,6 +2693,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "lapis_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "lapis_lazuli",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "lapis_lazuli",
     "finaleEligible": false
   },
   {
@@ -2912,6 +2768,22 @@
     "finaleEligible": false
   },
   {
+    "item": "light_blue_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "light_blue_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
+    "finaleEligible": false
+  },
+  {
     "item": "light_blue_stained_glass_pane",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2936,6 +2808,22 @@
     "finaleEligible": false
   },
   {
+    "item": "light_gray_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "light_gray_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
+    "finaleEligible": false
+  },
+  {
     "item": "light_gray_stained_glass_pane",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2952,6 +2840,14 @@
     "finaleEligible": false
   },
   {
+    "item": "light_weighted_pressure_plate",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "light_weighted_pressure_plate",
+    "finaleEligible": false
+  },
+  {
     "item": "lightning_rod",
     "tier": 2,
     "introduced": "by 1.17",
@@ -2965,6 +2861,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "lime_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
     "finaleEligible": false
   },
   {
@@ -2997,6 +2901,22 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "magenta_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "magenta_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -3088,6 +3008,14 @@
     "finaleEligible": false
   },
   {
+    "item": "mangrove_stairs",
+    "tier": 2,
+    "introduced": "by 1.19",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "mangrove_trapdoor",
     "tier": 2,
     "introduced": "by 1.19",
@@ -3112,6 +3040,14 @@
     "finaleEligible": false
   },
   {
+    "item": "melon_seeds",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "melon_seeds",
+    "finaleEligible": false
+  },
+  {
     "item": "minecart",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3125,6 +3061,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "mojang_banner_pattern",
+    "finaleEligible": false
+  },
+  {
+    "item": "moss_carpet",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "moss_carpet",
     "finaleEligible": false
   },
   {
@@ -3144,6 +3088,14 @@
     "finaleEligible": false
   },
   {
+    "item": "mossy_cobblestone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "mossy_cobblestone_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3157,6 +3109,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "mossy_stone_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3181,6 +3141,14 @@
     "introduced": "by 1.19",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "mud_brick_stairs",
+    "tier": 2,
+    "introduced": "by 1.19",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3232,6 +3200,14 @@
     "finaleEligible": false
   },
   {
+    "item": "nether_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "nether_brick_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3253,6 +3229,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "nether_wart_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "netherite_ingot",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "netherite_ingot",
     "finaleEligible": false
   },
   {
@@ -3296,6 +3280,22 @@
     "finaleEligible": false
   },
   {
+    "item": "orange_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "orange_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
+    "finaleEligible": false
+  },
+  {
     "item": "orange_stained_glass_pane",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3309,6 +3309,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_wool",
+    "finaleEligible": false
+  },
+  {
+    "item": "oxidized_chiseled_copper",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_copper",
     "finaleEligible": false
   },
   {
@@ -3333,6 +3341,14 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "oxidized_cut_copper_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3392,6 +3408,22 @@
     "finaleEligible": false
   },
   {
+    "item": "pink_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "pink_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
+    "finaleEligible": false
+  },
+  {
     "item": "pink_stained_glass_pane",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3424,6 +3456,14 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_andesite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_basalt",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3448,6 +3488,14 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_blackstone_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_blackstone_brick_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3464,11 +3512,35 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_blackstone_button",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "polished_blackstone_button",
+    "finaleEligible": false
+  },
+  {
+    "item": "polished_blackstone_pressure_plate",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "polished_blackstone_pressure_plate",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_blackstone_slab",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "polished_blackstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3496,6 +3568,14 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_deepslate_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_deepslate_wall",
     "tier": 2,
     "introduced": "by 1.17",
@@ -3520,6 +3600,14 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_diorite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_granite",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3536,6 +3624,14 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_granite_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_tuff",
     "tier": 2,
     "introduced": "by 1.21",
@@ -3549,6 +3645,14 @@
     "introduced": "by 1.21",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "polished_tuff_stairs",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3592,6 +3696,14 @@
     "finaleEligible": false
   },
   {
+    "item": "prismarine_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "prismarine_slab",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3600,11 +3712,43 @@
     "finaleEligible": false
   },
   {
+    "item": "prismarine_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
+    "item": "prismarine_wall",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_wall",
+    "finaleEligible": false
+  },
+  {
+    "item": "pumpkin_seeds",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "pumpkin_seeds",
+    "finaleEligible": false
+  },
+  {
     "item": "purple_candle",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "purple_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
     "finaleEligible": false
   },
   {
@@ -3640,11 +3784,35 @@
     "finaleEligible": false
   },
   {
+    "item": "purpur_pillar",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "purpur_pillar",
+    "finaleEligible": false
+  },
+  {
     "item": "purpur_slab",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "purpur_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
+    "item": "quartz_pillar",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "quartz_pillar",
     "finaleEligible": false
   },
   {
@@ -3656,6 +3824,22 @@
     "finaleEligible": false
   },
   {
+    "item": "quartz_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
+    "item": "raw_copper",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "raw_copper",
+    "finaleEligible": false
+  },
+  {
     "item": "raw_copper_block",
     "tier": 2,
     "introduced": "by 1.17",
@@ -3664,11 +3848,27 @@
     "finaleEligible": false
   },
   {
+    "item": "raw_gold",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "raw_gold",
+    "finaleEligible": false
+  },
+  {
     "item": "raw_gold_block",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "raw_gold_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "raw_iron",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "raw_iron",
     "finaleEligible": false
   },
   {
@@ -3688,11 +3888,35 @@
     "finaleEligible": false
   },
   {
+    "item": "red_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "red_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
+    "finaleEligible": false
+  },
+  {
     "item": "red_nether_brick_slab",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "red_nether_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3720,6 +3944,14 @@
     "finaleEligible": false
   },
   {
+    "item": "red_sandstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "red_sandstone_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3741,6 +3973,14 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_wool",
+    "finaleEligible": false
+  },
+  {
+    "item": "redstone",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "redstone",
     "finaleEligible": false
   },
   {
@@ -3776,6 +4016,14 @@
     "finaleEligible": false
   },
   {
+    "item": "sandstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "sandstone_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3800,6 +4048,14 @@
     "finaleEligible": false
   },
   {
+    "item": "slime_ball",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "slime_ball",
+    "finaleEligible": false
+  },
+  {
     "item": "slime_block",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3816,6 +4072,14 @@
     "finaleEligible": false
   },
   {
+    "item": "smooth_quartz_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "smooth_red_sandstone_slab",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3824,11 +4088,27 @@
     "finaleEligible": false
   },
   {
+    "item": "smooth_red_sandstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "smooth_sandstone_slab",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "smooth_sandstone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -3912,6 +4192,14 @@
     "finaleEligible": false
   },
   {
+    "item": "spruce_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "spruce_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3936,6 +4224,14 @@
     "finaleEligible": false
   },
   {
+    "item": "stone_brick_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "stone_brick_wall",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3952,11 +4248,35 @@
     "finaleEligible": false
   },
   {
+    "item": "stone_button",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "stone_button",
+    "finaleEligible": false
+  },
+  {
+    "item": "stone_pressure_plate",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "stone_pressure_plate",
+    "finaleEligible": false
+  },
+  {
     "item": "stone_slab",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "stone_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4064,6 +4384,14 @@
     "finaleEligible": false
   },
   {
+    "item": "tuff_brick_stairs",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "tuff_brick_wall",
     "tier": 2,
     "introduced": "by 1.21",
@@ -4085,6 +4413,14 @@
     "introduced": "by 1.21",
     "note": "A familiar shape, a little more thought.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "tuff_stairs",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4152,11 +4488,27 @@
     "finaleEligible": false
   },
   {
+    "item": "warped_stairs",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "warped_trapdoor",
     "tier": 2,
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "wood_trapdoor",
+    "finaleEligible": false
+  },
+  {
+    "item": "weathered_chiseled_copper",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "chiseled_copper",
     "finaleEligible": false
   },
   {
@@ -4184,11 +4536,43 @@
     "finaleEligible": false
   },
   {
+    "item": "weathered_cut_copper_stairs",
+    "tier": 2,
+    "introduced": "by 1.17",
+    "note": "A familiar shape, a little more thought.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
+    "item": "wheat",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "wheat",
+    "finaleEligible": false
+  },
+  {
     "item": "white_candle",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "white_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "white_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -4208,11 +4592,35 @@
     "finaleEligible": false
   },
   {
+    "item": "wind_charge",
+    "tier": 2,
+    "introduced": "by 1.21",
+    "note": "A familiar shape, a little more thought.",
+    "family": "wind_charge",
+    "finaleEligible": false
+  },
+  {
     "item": "yellow_candle",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "colored_candle",
+    "finaleEligible": false
+  },
+  {
+    "item": "yellow_carpet",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_carpet",
+    "finaleEligible": false
+  },
+  {
+    "item": "yellow_dye",
+    "tier": 2,
+    "introduced": "≤1.16",
+    "note": "A familiar shape, a little more thought.",
+    "family": "colored_dye",
     "finaleEligible": false
   },
   {
@@ -4240,35 +4648,11 @@
     "finaleEligible": false
   },
   {
-    "item": "acacia_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "acacia_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "amethyst_block",
     "tier": 3,
     "introduced": "by 1.17",
     "note": "Less common. Every ingredient has its place.",
     "family": "amethyst_block",
-    "finaleEligible": false
-  },
-  {
-    "item": "andesite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4304,30 +4688,6 @@
     "finaleEligible": false
   },
   {
-    "item": "bamboo_mosaic_stairs",
-    "tier": 3,
-    "introduced": "by 1.20",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "bamboo_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "bamboo_stairs",
-    "tier": 3,
-    "introduced": "by 1.20",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "barrel",
     "tier": 3,
     "introduced": "≤1.16",
@@ -4360,22 +4720,6 @@
     "finaleEligible": false
   },
   {
-    "item": "birch_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "birch_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "black_banner",
     "tier": 3,
     "introduced": "≤1.16",
@@ -4397,6 +4741,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "black_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4448,14 +4800,6 @@
     "finaleEligible": false
   },
   {
-    "item": "blackstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "blue_banner",
     "tier": 3,
     "introduced": "≤1.16",
@@ -4477,6 +4821,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "blue_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4544,14 +4896,6 @@
     "finaleEligible": false
   },
   {
-    "item": "brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "brown_banner",
     "tier": 3,
     "introduced": "≤1.16",
@@ -4573,6 +4917,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "brown_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4664,27 +5016,19 @@
     "finaleEligible": false
   },
   {
-    "item": "cherry_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "cherry_stairs",
-    "tier": 3,
-    "introduced": "by 1.20",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "cinnabar_brick_slab",
     "tier": 3,
     "introduced": "by 26.2",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "cinnabar_brick_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4712,6 +5056,14 @@
     "finaleEligible": false
   },
   {
+    "item": "cinnabar_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "cinnabar_wall",
     "tier": 3,
     "introduced": "by 26.2",
@@ -4733,14 +5085,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "coarse_dirt",
-    "finaleEligible": false
-  },
-  {
-    "item": "cobbled_deepslate_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4792,30 +5136,6 @@
     "finaleEligible": false
   },
   {
-    "item": "crimson_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "crimson_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "cut_copper_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "cyan_banner",
     "tier": 3,
     "introduced": "≤1.16",
@@ -4837,6 +5157,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "cyan_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4896,51 +5224,11 @@
     "finaleEligible": false
   },
   {
-    "item": "dark_oak_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "dark_oak_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "dark_prismarine_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "daylight_detector",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "daylight_detector",
-    "finaleEligible": false
-  },
-  {
-    "item": "deepslate_brick_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "deepslate_tile_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -4965,14 +5253,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "diorite",
-    "finaleEligible": false
-  },
-  {
-    "item": "diorite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5008,14 +5288,6 @@
     "finaleEligible": false
   },
   {
-    "item": "end_stone_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "ender_chest",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5029,14 +5301,6 @@
     "introduced": "by 1.21",
     "note": "Less common. Every ingredient has its place.",
     "family": "copper_bulb",
-    "finaleEligible": false
-  },
-  {
-    "item": "exposed_cut_copper_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5096,14 +5360,6 @@
     "finaleEligible": false
   },
   {
-    "item": "granite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "gray_banner",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5125,6 +5381,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "gray_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5197,6 +5461,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "green_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5312,22 +5584,6 @@
     "finaleEligible": false
   },
   {
-    "item": "jungle_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "jungle_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "lantern",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5373,6 +5629,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "light_blue_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5448,6 +5712,14 @@
     "finaleEligible": false
   },
   {
+    "item": "light_gray_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "light_gray_cushion",
     "tier": 3,
     "introduced": "by 26.3",
@@ -5517,6 +5789,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "lime_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5616,6 +5896,14 @@
     "finaleEligible": false
   },
   {
+    "item": "magenta_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "magenta_cushion",
     "tier": 3,
     "introduced": "by 26.3",
@@ -5672,51 +5960,11 @@
     "finaleEligible": false
   },
   {
-    "item": "mangrove_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "mangrove_stairs",
-    "tier": 3,
-    "introduced": "by 1.19",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "map",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "map",
-    "finaleEligible": false
-  },
-  {
-    "item": "mossy_cobblestone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "mossy_stone_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "mud_brick_stairs",
-    "tier": 3,
-    "introduced": "by 1.19",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5733,14 +5981,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "nether_brick_fence",
-    "finaleEligible": false
-  },
-  {
-    "item": "nether_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5800,6 +6040,14 @@
     "finaleEligible": false
   },
   {
+    "item": "orange_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "orange_cushion",
     "tier": 3,
     "introduced": "by 26.3",
@@ -5856,14 +6104,6 @@
     "finaleEligible": false
   },
   {
-    "item": "oxidized_cut_copper_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "painting",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5912,14 +6152,6 @@
     "finaleEligible": false
   },
   {
-    "item": "pale_oak_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
     "item": "pale_oak_sign",
     "tier": 3,
     "introduced": "by 1.21.9",
@@ -5933,6 +6165,14 @@
     "introduced": "by 1.21.9",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "pale_oak_stairs",
+    "tier": 3,
+    "introduced": "by 1.21.9",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -5973,6 +6213,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "pink_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6032,30 +6280,6 @@
     "finaleEligible": false
   },
   {
-    "item": "polished_andesite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_blackstone_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_blackstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "polished_cinnabar",
     "tier": 3,
     "introduced": "by 26.2",
@@ -6072,35 +6296,19 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_cinnabar_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_cinnabar_wall",
     "tier": 3,
     "introduced": "by 26.2",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_wall",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_deepslate_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_diorite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_granite_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6120,19 +6328,19 @@
     "finaleEligible": false
   },
   {
+    "item": "polished_sulfur_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "polished_sulfur_wall",
     "tier": 3,
     "introduced": "by 26.2",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_wall",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_tuff_stairs",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6176,14 +6384,6 @@
     "finaleEligible": false
   },
   {
-    "item": "poplar_shelf",
-    "tier": 3,
-    "introduced": "by 26.3",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
     "item": "poplar_sign",
     "tier": 3,
     "introduced": "by 26.3",
@@ -6197,6 +6397,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "poplar_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6240,35 +6448,11 @@
     "finaleEligible": false
   },
   {
-    "item": "prismarine_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "prismarine_bricks",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "prismarine_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "prismarine_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "prismarine_wall",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_wall",
     "finaleEligible": false
   },
   {
@@ -6301,6 +6485,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "purple_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6352,14 +6544,6 @@
     "finaleEligible": false
   },
   {
-    "item": "purpur_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "quartz_block",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6373,14 +6557,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "quartz_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "quartz_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6424,6 +6600,14 @@
     "finaleEligible": false
   },
   {
+    "item": "red_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "red_cushion",
     "tier": 3,
     "introduced": "by 26.3",
@@ -6440,27 +6624,11 @@
     "finaleEligible": false
   },
   {
-    "item": "red_nether_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "red_nether_bricks",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "colored_nether_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "red_sandstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6528,6 +6696,14 @@
     "finaleEligible": false
   },
   {
+    "item": "resin_brick_stairs",
+    "tier": 3,
+    "introduced": "by 1.21.9",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "resin_brick_wall",
     "tier": 3,
     "introduced": "by 1.21.9",
@@ -6560,14 +6736,6 @@
     "finaleEligible": false
   },
   {
-    "item": "sandstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "scaffolding",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6597,30 +6765,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "smoker",
-    "finaleEligible": false
-  },
-  {
-    "item": "smooth_quartz_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "smooth_red_sandstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "smooth_sandstone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6664,22 +6808,6 @@
     "finaleEligible": false
   },
   {
-    "item": "spruce_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "spruce_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "spyglass",
     "tier": 3,
     "introduced": "by 1.17",
@@ -6696,27 +6824,11 @@
     "finaleEligible": false
   },
   {
-    "item": "stone_brick_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "stone_spear",
     "tier": 3,
     "introduced": "by 26.1",
     "note": "Less common. Every ingredient has its place.",
     "family": "material_spear",
-    "finaleEligible": false
-  },
-  {
-    "item": "stone_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6768,6 +6880,14 @@
     "finaleEligible": false
   },
   {
+    "item": "sulfur_brick_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "sulfur_brick_wall",
     "tier": 3,
     "introduced": "by 26.2",
@@ -6789,6 +6909,14 @@
     "introduced": "by 26.2",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "sulfur_stairs",
+    "tier": 3,
+    "introduced": "by 26.2",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6832,22 +6960,6 @@
     "finaleEligible": false
   },
   {
-    "item": "tuff_brick_stairs",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "tuff_stairs",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "warped_fungus_on_a_stick",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6864,35 +6976,11 @@
     "finaleEligible": false
   },
   {
-    "item": "warped_shelf",
-    "tier": 3,
-    "introduced": "by 1.21.9",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wood_shelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "warped_stairs",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "weathered_copper_bulb",
     "tier": 3,
     "introduced": "by 1.21",
     "note": "Less common. Every ingredient has its place.",
     "family": "copper_bulb",
-    "finaleEligible": false
-  },
-  {
-    "item": "weathered_cut_copper_stairs",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -6917,6 +7005,14 @@
     "introduced": "by 26.3",
     "note": "Less common. Every ingredient has its place.",
     "family": "building_slab",
+    "finaleEligible": false
+  },
+  {
+    "item": "white_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -7016,6 +7112,14 @@
     "finaleEligible": false
   },
   {
+    "item": "yellow_concrete_stairs",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
     "item": "yellow_cushion",
     "tier": 3,
     "introduced": "by 26.3",
@@ -7064,6 +7168,14 @@
     "finaleEligible": false
   },
   {
+    "item": "acacia_shelf",
+    "tier": 4,
+    "introduced": "by 1.21.9",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
     "item": "activator_rail",
     "tier": 4,
     "introduced": "≤1.16",
@@ -7072,11 +7184,19 @@
     "finaleEligible": false
   },
   {
-    "item": "black_concrete_stairs",
+    "item": "bamboo_shelf",
     "tier": 4,
-    "introduced": "by 26.3",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
+    "item": "birch_shelf",
+    "tier": 4,
+    "introduced": "by 1.21.9",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
@@ -7085,22 +7205,6 @@
     "introduced": "≤1.16",
     "note": "A specialist recipe. Trust your memory.",
     "family": "blast_furnace",
-    "finaleEligible": false
-  },
-  {
-    "item": "blue_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "brown_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -7120,27 +7224,19 @@
     "finaleEligible": false
   },
   {
+    "item": "cherry_shelf",
+    "tier": 4,
+    "introduced": "by 1.21.9",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
     "item": "chiseled_bookshelf",
     "tier": 4,
     "introduced": "by 1.20",
     "note": "A specialist recipe. Trust your memory.",
     "family": "chiseled_bookshelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "cinnabar_brick_stairs",
-    "tier": 4,
-    "introduced": "by 26.2",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "cinnabar_stairs",
-    "tier": 4,
-    "introduced": "by 26.2",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
     "finaleEligible": false
   },
   {
@@ -7176,6 +7272,14 @@
     "finaleEligible": false
   },
   {
+    "item": "crimson_shelf",
+    "tier": 4,
+    "introduced": "by 1.21.9",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
     "item": "crossbow",
     "tier": 4,
     "introduced": "≤1.16",
@@ -7184,11 +7288,11 @@
     "finaleEligible": false
   },
   {
-    "item": "cyan_concrete_stairs",
+    "item": "dark_oak_shelf",
     "tier": 4,
-    "introduced": "by 26.3",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
@@ -7208,51 +7312,19 @@
     "finaleEligible": false
   },
   {
-    "item": "gray_concrete_stairs",
+    "item": "jungle_shelf",
     "tier": 4,
-    "introduced": "by 26.3",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
-    "item": "green_concrete_stairs",
+    "item": "mangrove_shelf",
     "tier": 4,
-    "introduced": "by 26.3",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_blue_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "light_gray_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "lime_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "magenta_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
@@ -7264,59 +7336,35 @@
     "finaleEligible": false
   },
   {
-    "item": "orange_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "pale_oak_stairs",
+    "item": "pale_oak_hanging_sign",
     "tier": 4,
     "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_hanging_sign",
     "finaleEligible": false
   },
   {
-    "item": "pink_concrete_stairs",
+    "item": "pale_oak_shelf",
+    "tier": 4,
+    "introduced": "by 1.21.9",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
+    "item": "poplar_hanging_sign",
     "tier": 4,
     "introduced": "by 26.3",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_hanging_sign",
     "finaleEligible": false
   },
   {
-    "item": "polished_cinnabar_stairs",
-    "tier": 4,
-    "introduced": "by 26.2",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "polished_sulfur_stairs",
-    "tier": 4,
-    "introduced": "by 26.2",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "poplar_stairs",
+    "item": "poplar_shelf",
     "tier": 4,
     "introduced": "by 26.3",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "purple_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
@@ -7328,22 +7376,6 @@
     "finaleEligible": false
   },
   {
-    "item": "red_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "resin_brick_stairs",
-    "tier": 4,
-    "introduced": "by 1.21.9",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
     "item": "sea_lantern",
     "tier": 4,
     "introduced": "≤1.16",
@@ -7352,35 +7384,19 @@
     "finaleEligible": false
   },
   {
-    "item": "sulfur_brick_stairs",
+    "item": "spruce_shelf",
     "tier": 4,
-    "introduced": "by 26.2",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
-    "item": "sulfur_stairs",
+    "item": "warped_shelf",
     "tier": 4,
-    "introduced": "by 26.2",
+    "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "white_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
-    "finaleEligible": false
-  },
-  {
-    "item": "yellow_concrete_stairs",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "building_stairs",
+    "family": "wood_shelf",
     "finaleEligible": false
   },
   {
@@ -7421,22 +7437,6 @@
     "introduced": "by 26.1",
     "note": "A recent full-grid recipe for the final showdown.",
     "family": "golden_dandelion",
-    "finaleEligible": true
-  },
-  {
-    "item": "pale_oak_hanging_sign",
-    "tier": 5,
-    "introduced": "by 1.21.9",
-    "note": "A recent full-grid recipe for the final showdown.",
-    "family": "wood_hanging_sign",
-    "finaleEligible": true
-  },
-  {
-    "item": "poplar_hanging_sign",
-    "tier": 5,
-    "introduced": "by 26.3",
-    "note": "A recent full-grid recipe for the final showdown.",
-    "family": "wood_hanging_sign",
     "finaleEligible": true
   }
 ]
