@@ -423,6 +423,17 @@ function beginRound(g: Game, at: number) {
   g.public.phase = 'playing';
   g.public.deadline = endsAt;
 }
+function finishReveal(g: Game, at: number) {
+  const state = g.public;
+  state.round = null;
+  if (g.nextIndex >= g.targets.length) {
+    state.phase = 'finished';
+    state.deadline = null;
+  } else {
+    state.phase = 'countdown';
+    state.deadline = at + COUNTDOWN_MS;
+  }
+}
 export function advance(g: Game, now: number): boolean {
   let changed = false;
   for (const member of g.members) {
@@ -445,16 +456,8 @@ export function advance(g: Game, now: number): boolean {
       if (at >= state.round.endsAt || allDone(g, state.round)) reveal(g, at);
     } else if (state.deadline !== null && at >= state.deadline) {
       if (state.phase === 'countdown') beginRound(g, at);
-      else if (state.phase === 'reveal') {
-        state.round = null;
-        if (g.nextIndex >= g.targets.length) {
-          state.phase = 'finished';
-          state.deadline = null;
-        } else {
-          state.phase = 'countdown';
-          state.deadline = at + COUNTDOWN_MS;
-        }
-      } else state.deadline = null;
+      else if (state.phase === 'reveal') finishReveal(g, at);
+      else state.deadline = null;
     }
     settleRound(g, at);
     changed = true;
@@ -546,6 +549,19 @@ export function command(g: Game, member: Member, message: ClientMessage, now: nu
       state.deadline = now + COUNTDOWN_MS;
       break;
     }
+    case 'skipReveal':
+      host();
+      if (!g.members.includes(member) || !member.player.connected || !member.connection)
+        throw new GameError('Player is not connected', 403);
+      if (
+        state.phase !== 'reveal' ||
+        state.round?.id !== message.roundId ||
+        state.deadline === null ||
+        now >= state.deadline
+      )
+        throw new GameError('This round reveal has ended');
+      finishReveal(g, now);
+      break;
     case 'forfeit': {
       const existing = state.round;
       if (

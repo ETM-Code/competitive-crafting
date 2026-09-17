@@ -110,6 +110,7 @@ export type ClientMessage =
   | { type: 'start' }
   | { type: 'grid'; roundId: string; grid: Grid }
   | { type: 'forfeit'; roundId: string }
+  | { type: 'skipReveal'; roundId: string }
   | { type: 'collect'; roundId: string; grid: Grid }
   | { type: 'rematch' }
   | { type: 'ping'; sentAt: number }

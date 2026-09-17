@@ -260,8 +260,14 @@
 .round-summary-footer > span:first-child {
   white-space: nowrap;
 }
+.round-skip-button {
+  flex: none;
+  min-height: 48px;
+  white-space: nowrap;
+}
 .round-countdown-track {
   display: block;
+  min-width: 0;
   height: 9px;
   background: #7a8c6b;
   border: 1px solid #4e633d;
@@ -637,7 +643,17 @@
   }
   .round-summary-footer {
     font-size: 11px;
-    gap: 12px;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+  .round-summary-footer .round-countdown-track {
+    flex-basis: 100%;
+    order: 1;
+  }
+  .round-skip-button {
+    margin-left: auto;
+    font-size: 11px;
+    padding-inline: 10px;
   }
   .match-heading p {
     font-size: 11px;

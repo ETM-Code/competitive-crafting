@@ -14,7 +14,7 @@ import {
   nextAlarm,
   snapshot,
 } from '../../worker/game';
-import { DEFAULT_SETTINGS, solutionFor } from './fixtures';
+import { COUNTDOWN_MS, DEFAULT_SETTINGS, REVEAL_MS, solutionFor } from './fixtures';
 function lobby(count = 2, settings = DEFAULT_SETTINGS) {
   const game = createGame('ABC234', count === 1, settings, 1000);
   const members = Array.from({ length: count }, (_, i) =>
@@ -77,10 +77,11 @@ describe('authoritative game', () => {
     expect(() => command(game, members[0], claim, 4201)).toThrow();
     expect(game.public.history).toHaveLength(1);
     expect(snapshot(game, 4201).round?.solution).toBeDefined();
-    advance(game, 12200);
+    const revealEnds = 4200 + REVEAL_MS;
+    advance(game, revealEnds);
     expect(game.public.round).toBeNull();
-    advance(game, 15200);
-    expect(() => command(game, members[1], claim, 15201)).toThrow();
+    advance(game, revealEnds + COUNTDOWN_MS);
+    expect(() => command(game, members[1], claim, revealEnds + COUNTDOWN_MS + 1)).toThrow();
   });
   it('scores all finishers, floors placement at 20%, and rejects repeat collect', () => {
     const { game, members } = playing(12, {

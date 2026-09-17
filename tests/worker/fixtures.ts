@@ -1,6 +1,6 @@
 import type { Grid, Item, Recipe, Settings, Target } from '../../src/shared/types';
 export const VERSION = 'test';
-export const REVEAL_MS = 8000;
+export const REVEAL_MS = 5000;
 export const COUNTDOWN_MS = 3000;
 export function rankPlayers<
   T extends { score: number; wins: number; winningTime: number; name: string },

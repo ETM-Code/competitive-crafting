@@ -6,7 +6,7 @@ import { GameRoom } from '../../worker/room';
 import type { Game } from '../../worker/game';
 import type { RoomSnapshot, ServerMessage } from '../../src/shared/types';
 import { IDLE_TTL, JOIN_RESERVATION_MS, MAX_AGE, MAX_IDENTITIES } from '../../worker/game';
-import { DEFAULT_SETTINGS, solutionFor } from './fixtures';
+import { COUNTDOWN_MS, DEFAULT_SETTINGS, REVEAL_MS, solutionFor } from './fixtures';
 import worker from '../../worker/index';
 
 class Socket {
@@ -506,6 +506,50 @@ function lastState(socket: Socket): RoomSnapshot {
   if (message?.type !== 'state') throw new Error('Expected state message');
   return message.state;
 }
+
+describe('persisted host intermission skips', () => {
+  it('serializes duplicate skips with alarms, persists before broadcasting and rejects the guest', async () => {
+    const h = await setup();
+    const roundId = await start(h);
+    await send(h.room, h.a, { type: 'forfeit', roundId });
+    await send(h.room, h.b!, { type: 'forfeit', roundId });
+    const reveal = (await h.storage.get<Game>('game'))!;
+    expect(reveal.public.deadline).toBe(Date.now() + REVEAL_MS);
+    await send(h.room, h.b!, { type: 'skipReveal', roundId });
+    expect(JSON.parse(h.b!.sent.at(-1)!)).toMatchObject({
+      type: 'error',
+      message: 'Only the host can do that',
+    });
+    expect((await h.storage.get<Game>('game'))!.public.phase).toBe('reveal');
+    h.storage.fail = true;
+    await send(h.room, h.a, { type: 'skipReveal', roundId });
+    expect((await h.storage.get<Game>('game'))!.public.phase).toBe('reveal');
+    h.storage.fail = false;
+    vi.setSystemTime(Date.now() + 100);
+    const nextDeadline = Date.now() + COUNTDOWN_MS;
+    await Promise.all([
+      send(h.room, h.a, { type: 'skipReveal', roundId }),
+      send(h.room, h.a, { type: 'skipReveal', roundId }),
+      h.room.alarm(),
+    ]);
+    const game = (await h.storage.get<Game>('game'))!;
+    expect(game.public.phase).toBe('countdown');
+    expect(game.public.deadline).toBe(nextDeadline);
+    expect(game.public.history).toEqual(reveal.public.history);
+    expect(h.storage.alarm).toBe(nextDeadline);
+    expect(JSON.parse(h.b!.sent.at(-1)!)).toMatchObject({
+      type: 'state',
+      state: { phase: 'countdown', deadline: nextDeadline },
+    });
+    vi.setSystemTime(nextDeadline);
+    await h.room.alarm();
+    const next = (await h.storage.get<Game>('game'))!;
+    expect(next.public.round?.index).toBe(1);
+    expect(next.public.round?.startsAt).toBe(nextDeadline);
+    await send(h.room, h.a, { type: 'skipReveal', roundId });
+    expect((await h.storage.get<Game>('game'))!.public).toEqual(next.public);
+  });
+});
 
 describe('persisted forfeits, departures and legacy migration', () => {
   it('persists a private grid, forfeit and standings through hibernation and session replacement', async () => {

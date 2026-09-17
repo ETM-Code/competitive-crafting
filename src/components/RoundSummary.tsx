@@ -22,14 +22,20 @@ export function RoundSummary({
   room,
   session,
   now,
+  connected = false,
   onOpenMenu,
+  onSkipReveal,
 }: {
   room: RoomSnapshot;
   session: Session;
   now: number;
+  connected?: boolean;
   onOpenMenu?: () => void;
+  onSkipReveal?: () => boolean;
 }) {
   const round = room.round;
+  const [skipping, setSkipping] = useState(false);
+  useEffect(() => setSkipping(false), [round?.id, connected]);
   const list = useRef<HTMLOListElement>(null);
   const elapsed = Math.max(0, now - ((room.deadline ?? now) - REVEAL_MS));
   const elapsedRef = useRef(elapsed);
@@ -246,6 +252,18 @@ export function RoundSummary({
             }}
           />
         </span>
+        {connected && room.hostId === session.playerId && onSkipReveal && (
+          <button
+            className="button compact primary round-skip-button"
+            data-testid="skip-reveal"
+            disabled={skipping || remaining === 0}
+            onClick={() => {
+              if (onSkipReveal()) setSkipping(true);
+            }}
+          >
+            {finalRound ? 'Show results' : 'Next round'} →
+          </button>
+        )}
       </footer>
     </section>
   );

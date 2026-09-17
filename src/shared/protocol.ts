@@ -31,6 +31,7 @@ export const clientMessageSchema = z.discriminatedUnion('type', [
   z.object({ type: z.literal('settings'), settings: settingsSchema }).strict(),
   z.object({ type: z.literal('start') }).strict(),
   z.object({ type: z.literal('forfeit'), roundId: z.string().min(1).max(80) }).strict(),
+  z.object({ type: z.literal('skipReveal'), roundId: z.string().min(1).max(80) }).strict(),
   z
     .object({
       type: z.literal('grid'),

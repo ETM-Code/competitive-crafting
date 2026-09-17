@@ -305,6 +305,44 @@ test('individual forfeit is irreversible and all forfeits skip the round', async
   await guest.context.close();
 });
 
+test('host skips a shared intermission from mobile while guests cannot', async ({
+  page,
+  browser,
+}, info) => {
+  test.skip(
+    info.project.name !== 'chromium',
+    'Authority is shared; skip geometry is tested on every engine.',
+  );
+  const errors = observe(page);
+  await page.setViewportSize({ width: 390, height: 664 });
+  await create(page);
+  const url = await page.getByTestId('room-link').inputValue();
+  const guest = await joinSecond(browser, url);
+  try {
+    await guest.page.getByTestId('ready-button').click();
+    await readyStart(page);
+    await fillTarget(page);
+    await page.getByTestId('collect-output').click();
+    await expect(page.getByTestId('round-summary')).toBeVisible();
+    await expect(guest.page.getByTestId('round-summary')).toBeVisible();
+    await expect(guest.page.getByTestId('skip-reveal')).toHaveCount(0);
+    const skip = page.getByTestId('skip-reveal');
+    await expect(skip).toBeInViewport({ ratio: 1 });
+    await skip.click();
+    await expect(page.getByTestId('countdown')).toBeVisible();
+    await expect(guest.page.getByTestId('countdown')).toBeVisible();
+    await expect(page.getByTestId('target-name')).toBeVisible();
+    await expect(guest.page.getByTestId('target-name')).toHaveText(
+      await page.getByTestId('target-name').innerText(),
+    );
+    await expectScore(page, '100');
+    expect(errors).toEqual([]);
+    expect(guest.errors).toEqual([]);
+  } finally {
+    await guest.context.close();
+  }
+});
+
 test('closing the host tab transfers ownership and rejoining preserves the ended match', async ({
   page,
   browser,
@@ -347,8 +385,10 @@ test('complete short custom match and return for rematch', async ({ page }, info
     await fillTarget(page);
     await page.getByTestId('collect-output').click();
     await expect(page.getByTestId('recipe-reveal')).toBeVisible();
-    if (round < 2)
-      await expect(page.getByTestId('recipe-reveal')).toHaveCount(0, { timeout: 15000 });
+    const skip = page.getByTestId('skip-reveal');
+    await expect(skip).toHaveText(round < 2 ? 'Next round →' : 'Show results →');
+    await skip.click();
+    if (round < 2) await expect(page.getByTestId('countdown')).toBeVisible();
   }
   await expect(page.getByTestId('results')).toBeVisible({ timeout: 15000 });
   for (const viewport of [

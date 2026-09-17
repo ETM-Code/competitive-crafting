@@ -13,7 +13,8 @@ import {
   upgradeGame,
 } from '../../worker/game';
 import type { Grid, Settings } from '../../src/shared/types';
-import { DEFAULT_SETTINGS, REVEAL_MS, solutionFor } from './fixtures';
+import { COUNTDOWN_MS, DEFAULT_SETTINGS, REVEAL_MS, solutionFor } from './fixtures';
+import { clientMessageSchema } from '../../src/shared/protocol';
 const blank = (): Grid => Array(9).fill(null);
 function playing(count = 2, settings: Settings = DEFAULT_SETTINGS) {
   const game = createGame('ABC234', count === 1, settings, 1000);
@@ -50,6 +51,107 @@ function playing(count = 2, settings: Settings = DEFAULT_SETTINGS) {
     player: (i: number) => round.playerStates[members[i].player.id],
   };
 }
+describe('host-controlled round intermissions', () => {
+  it('accepts only a bounded round-scoped skip command', () => {
+    expect(clientMessageSchema.safeParse({ type: 'skipReveal', roundId: 'round-1' }).success).toBe(
+      true,
+    );
+    expect(clientMessageSchema.safeParse({ type: 'skipReveal' }).success).toBe(false);
+    expect(clientMessageSchema.safeParse({ type: 'skipReveal', roundId: '' }).success).toBe(false);
+    expect(
+      clientMessageSchema.safeParse({ type: 'skipReveal', roundId: 'x'.repeat(81) }).success,
+    ).toBe(false);
+  });
+  it('lets the connected host shorten only the reveal, preserving awards and the next countdown', () => {
+    const h = playing();
+    h.grid(0);
+    h.collect(0);
+    const history = structuredClone(h.game.public.history);
+    command(h.game, h.members[0], { type: 'skipReveal', roundId: h.round.id }, 4400);
+    expect(h.game.public.phase).toBe('countdown');
+    expect(h.game.public.round).toBeNull();
+    expect(h.game.public.deadline).toBe(4400 + COUNTDOWN_MS);
+    expect(nextAlarm(h.game)).toBe(4400 + COUNTDOWN_MS);
+    expect(h.game.public.history).toEqual(history);
+    expect(h.members.map((member) => member.player.score)).toEqual([100, 0]);
+    advance(h.game, 4400 + COUNTDOWN_MS);
+    expect(h.game.public.round?.index).toBe(1);
+    expect(h.game.public.round?.startsAt).toBe(4400 + COUNTDOWN_MS);
+  });
+  it('rejects guests, disconnected or removed hosts, wrong phases and stale round IDs', () => {
+    const h = playing();
+    const skip = (member = h.members[0], roundId = h.round.id) =>
+      command(h.game, member, { type: 'skipReveal', roundId }, 4400);
+    expect(skip).toThrow('reveal has ended');
+    h.forfeit(0);
+    h.forfeit(1);
+    const unchanged = structuredClone(h.game.public);
+    expect(() => skip(h.members[1])).toThrow('Only the host');
+    expect(() => skip(h.members[0], 'stale')).toThrow('reveal has ended');
+    h.members[0].player.connected = false;
+    expect(skip).toThrow('not connected');
+    h.members[0].player.connected = true;
+    h.members[0].connection = null;
+    expect(skip).toThrow('not connected');
+    h.members[0].connection = h.members[0].player.id;
+    expect(() => skip({ ...h.members[0] })).toThrow('not connected');
+    expect(h.game.public).toEqual(unchanged);
+  });
+  it('a replay cannot bypass another countdown or a later reveal', () => {
+    const h = playing(1);
+    h.forfeit(0);
+    const skip = () =>
+      command(h.game, h.members[0], { type: 'skipReveal', roundId: h.round.id }, 4400);
+    skip();
+    expect(skip).toThrow('reveal has ended');
+    expect(h.game.public.deadline).toBe(4400 + COUNTDOWN_MS);
+    advance(h.game, 4400 + COUNTDOWN_MS);
+    const next = h.game.public.round!;
+    command(h.game, h.members[0], { type: 'forfeit', roundId: next.id }, 7500);
+    expect(skip).toThrow('reveal has ended');
+    expect(h.game.public.phase).toBe('reveal');
+    expect(h.game.public.round?.id).toBe(next.id);
+    expect(h.game.public.history).toHaveLength(2);
+  });
+  it('skips the final reveal to results and otherwise advances automatically after five seconds', () => {
+    const h = playing(1, { ...DEFAULT_SETTINGS, rounds: 3 });
+    expect(REVEAL_MS).toBe(5000);
+    for (let index = 0; index < 3; index++) {
+      const round = h.game.public.round!;
+      const now = round.startsAt + 100;
+      command(h.game, h.members[0], { type: 'forfeit', roundId: round.id }, now);
+      if (index < 2) {
+        advance(h.game, now + REVEAL_MS - 1);
+        expect(h.game.public.phase).toBe('reveal');
+        advance(h.game, now + REVEAL_MS + COUNTDOWN_MS);
+      } else {
+        command(h.game, h.members[0], { type: 'skipReveal', roundId: round.id }, now + 1);
+      }
+    }
+    expect(h.game.public.phase).toBe('finished');
+    expect(h.game.public.deadline).toBeNull();
+    expect(h.game.public.history).toHaveLength(3);
+    expect(h.members[0].player.score).toBe(0);
+  });
+  it('honors host transfer and does not extend a reveal at its deadline', () => {
+    const h = playing(3);
+    h.grid(0);
+    h.collect(0);
+    disconnect(h.game, h.members[0], 4350);
+    expect(h.game.public.hostId).toBe(h.members[1].player.id);
+    expect(() =>
+      command(h.game, h.members[0], { type: 'skipReveal', roundId: h.round.id }, 4400),
+    ).toThrow('Only the host');
+    const deadline = h.game.public.deadline!;
+    expect(() =>
+      command(h.game, h.members[1], { type: 'skipReveal', roundId: h.round.id }, deadline),
+    ).toThrow('reveal has ended');
+    command(h.game, h.members[1], { type: 'skipReveal', roundId: h.round.id }, 4400);
+    expect(h.game.public.phase).toBe('countdown');
+    expect(h.game.public.history[0].points).toBe(100);
+  });
+});
+
 describe('forfeit authority and round standings', () => {
   it('tracks one common clock, isolated grids and no legacy flags', () => {
     const h = playing();
@@ -75,7 +177,7 @@ describe('forfeit authority and round standings', () => {
     expect(h.round.endReason).toBe('crafted');
     expect(h.round.standings.map((s) => s.status)).toEqual(['forfeited', 'crafted']);
   });
-  it('all forfeits reveal once immediately, then keep the shared eight-second interval', () => {
+  it('all forfeits reveal once immediately, then keep the shared five-second interval', () => {
     const h = playing();
     h.forfeit(0);
     h.forfeit(1, 4200);

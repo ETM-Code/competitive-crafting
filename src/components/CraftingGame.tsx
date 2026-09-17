@@ -23,8 +23,14 @@ interface CraftingGameProps {
 }
 
 export function CraftingGame(props: CraftingGameProps) {
-  const { room, session, now, onOpenMenu } = props;
-  if (room.phase === 'reveal') return <RoundSummary {...{ room, session, now, onOpenMenu }} />;
+  const { room, session, now, connected, send, onOpenMenu } = props;
+  if (room.phase === 'reveal')
+    return (
+      <RoundSummary
+        {...{ room, session, now, connected, onOpenMenu }}
+        onSkipReveal={() => !!room.round && send({ type: 'skipReveal', roundId: room.round.id })}
+      />
+    );
   if (!room.round || room.phase === 'countdown') {
     const seconds = Math.max(0, Math.ceil(((room.deadline ?? now) - now) / 1000));
     return (

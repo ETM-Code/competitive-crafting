@@ -2,7 +2,7 @@ import { targets } from './catalogue';
 import { solutionFor, shuffle } from './recipes';
 import type { Player, Preset, Settings, Target } from './types';
 
-export const REVEAL_MS = 8000;
+export const REVEAL_MS = 5000;
 export const COUNTDOWN_MS = 3000;
 
 export const DEFAULT_SETTINGS: Settings = {
