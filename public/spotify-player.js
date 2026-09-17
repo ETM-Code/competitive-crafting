@@ -49,6 +49,8 @@
                 send('playback', {
                   isPaused: event.data.isPaused,
                   isBuffering: event.data.isBuffering,
+                  position: Number.isFinite(event.data.position) ? event.data.position : undefined,
+                  duration: Number.isFinite(event.data.duration) ? event.data.duration : undefined,
                   playingURI:
                     typeof event.data.playingURI === 'string' ? event.data.playingURI : undefined,
                 });
@@ -69,6 +71,8 @@
       if (!enabled) controller?.pause();
     } else if (message.type === 'play' && enabled) {
       controller?.play();
+    } else if (message.type === 'resume' && enabled) {
+      controller?.resume();
     } else if (message.type === 'pause') {
       controller?.pause();
     } else if (message.type === 'load' && validURI(message.uri)) {

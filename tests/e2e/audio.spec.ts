@@ -12,6 +12,7 @@ const mockAPI = `(() => {
     const controller = {
       play() { window.__spotifyCalls.push(['play']); listeners.playback_update?.({data:{isPaused:false,isBuffering:false}}); },
       pause() { window.__spotifyCalls.push(['pause']); },
+      resume() { window.__spotifyCalls.push(['resume']); listeners.playback_update?.({data:{isPaused:false,isBuffering:false}}); },
       loadUri(uri) { window.__spotifyCalls.push(['load', uri]); },
       destroy() { window.__spotifyCalls.push(['destroy']); },
       addListener(name, fn) { listeners[name] = fn; if(name === 'ready') setTimeout(() => fn({data:{}}), 0); }
@@ -217,7 +218,182 @@ test('mobile play hides controls without replacing or pausing the music player',
   expect(errors).toEqual([]);
 });
 
-test('native button click sample decodes in the browser and is emitted once', async ({ page }) => {
+test('sound effects recover hidden music interruptions without overriding provider pause or completion', async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: mockAPI }),
+  );
+  await page.goto('/');
+  await page.getByTestId('jukebox-toggle').click();
+  const panel = page.getByRole('region', { name: 'Spotify jukebox', includeHidden: true });
+  const host = page.frameLocator('.spotify-host').locator('body');
+  const calls = (type: string) =>
+    host.evaluate(
+      (_element, wanted) =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([name]) => name === wanted,
+        ).length,
+      type,
+    );
+  const pause = (position = 5000, duration = 30000) =>
+    host.evaluate(
+      (_element, { position, duration }) =>
+        (
+          window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }
+        ).__spotifyEmit('playback_update', {
+          isPaused: true,
+          isBuffering: false,
+          position,
+          duration,
+        }),
+      { position, duration },
+    );
+  await expect(panel).toContainText('Playing');
+  await page.getByTestId('jukebox-toggle').click();
+  await pause();
+  await expect.poll(() => calls('resume')).toBe(1);
+  await expect(panel).toContainText('Playing');
+  // A second pause from the same effect cannot create a resume loop.
+  await pause();
+  await expect(panel).toContainText('Music paused or interrupted');
+  expect(await calls('resume')).toBe(1);
+  await page.getByTestId('jukebox-toggle').click();
+  await expect(panel).toContainText('Playing');
+  await pause();
+  await expect(panel).toContainText('Music paused or interrupted');
+  expect(await calls('resume')).toBe(1);
+  // An explicit resume then a completed preview stays stopped, even near a click sound.
+  await panel.getByRole('button', { name: 'Next', exact: true }).click();
+  await expect(panel).toContainText('Playing');
+  await page.getByTestId('jukebox-toggle').click();
+  await pause(30000, 30000);
+  await expect(panel).toContainText('track or preview finished');
+  expect(await calls('resume')).toBe(1);
+});
+
+test('buffering does not resend play and rejected interruption recovery stays bounded', async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({
+      contentType: 'text/javascript',
+      body: mockAPI.replace(
+        "resume() { window.__spotifyCalls.push(['resume']); listeners.playback_update?.({data:{isPaused:false,isBuffering:false}}); }",
+        "resume() { window.__spotifyCalls.push(['resume']); }",
+      ),
+    }),
+  );
+  await page.goto('/');
+  await page.getByTestId('jukebox-toggle').click();
+  const panel = page.getByRole('region', { name: 'Spotify jukebox', includeHidden: true });
+  const host = page.frameLocator('.spotify-host').locator('body');
+  await expect(panel).toContainText('Playing');
+  await host.evaluate(() =>
+    (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
+      'playback_update',
+      { isPaused: false, isBuffering: true },
+    ),
+  );
+  await expect(panel).toContainText('buffering');
+  const plays = await host.evaluate(
+    () =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([name]) => name === 'play',
+      ).length,
+  );
+  await page.getByTestId('jukebox-toggle').click();
+  expect(
+    await host.evaluate(
+      () =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([name]) => name === 'play',
+        ).length,
+    ),
+  ).toBe(plays);
+  await host.evaluate(() =>
+    (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
+      'playback_update',
+      { isPaused: false, isBuffering: false },
+    ),
+  );
+  await expect(panel).toContainText('Playing');
+  await host.evaluate(() =>
+    (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
+      'playback_update',
+      { isPaused: true, isBuffering: false, position: 5000, duration: 30000 },
+    ),
+  );
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([name]) => name === 'resume',
+          ).length,
+      ),
+    )
+    .toBe(1);
+  await page.clock.fastForward(5000);
+  await expect(panel).toContainText('Browser blocked music?');
+  await page.getByTestId('player-name').click();
+  await page.clock.fastForward(5000);
+  expect(
+    await host.evaluate(
+      () =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([name]) => name === 'resume',
+        ).length,
+    ),
+  ).toBe(1);
+});
+
+test('a pause or completed preview after buffering stays stopped on ordinary game actions', async ({
+  page,
+}) => {
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: mockAPI }),
+  );
+  await page.goto('/');
+  await page.getByTestId('jukebox-toggle').click();
+  const panel = page.getByRole('region', { name: 'Spotify jukebox', includeHidden: true });
+  const host = page.frameLocator('.spotify-host').locator('body');
+  const emit = (data: unknown) =>
+    host.evaluate((_element, value) => {
+      (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
+        'playback_update',
+        value,
+      );
+    }, data);
+  const starts = () =>
+    host.evaluate(
+      () =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([name]) => name === 'play' || name === 'resume',
+        ).length,
+    );
+  await expect(panel).toContainText('Playing');
+  for (const position of [5000, 30000]) {
+    await emit({ isPaused: false, isBuffering: true });
+    await expect(panel).toContainText('buffering');
+    await emit({ isPaused: true, isBuffering: false, position, duration: 30000 });
+    await expect(panel).toContainText(
+      position === 30000 ? 'track or preview finished' : 'Music paused or interrupted',
+    );
+    const before = await starts();
+    await page.getByTestId('jukebox-toggle').click();
+    await page.getByTestId('player-name').click();
+    await expect.poll(starts).toBe(before);
+    await page.getByTestId('jukebox-toggle').click();
+    await expect(panel).toContainText('Playing');
+  }
+});
+
+test('all native Minecraft samples decode and each interaction emits one sound', async ({
+  page,
+}) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await page.goto('/offline.html');
@@ -238,21 +414,27 @@ test('native button click sample decodes in the browser and is emitted once', as
       return start.apply(this, args);
     };
     audio.prepareSounds();
-    const button = document.createElement('button');
-    button.textContent = 'Test native click';
-    button.onclick = () => audio.playSound('click', true);
-    document.body.appendChild(button);
+    for (const kind of ['click', 'place', 'collect']) {
+      const button = document.createElement('button');
+      button.textContent = `Test native ${kind}`;
+      button.onclick = () => audio.playSound(kind, true);
+      document.body.appendChild(button);
+    }
   });
   await page.waitForTimeout(300);
-  await page.getByRole('button', { name: 'Test native click' }).click();
-  await expect
-    .poll(() =>
-      page.evaluate(() => (window as unknown as { nativeClicks: number[] }).nativeClicks.length),
-    )
-    .toBe(1);
-  expect(
-    await page.evaluate(() => (window as unknown as { nativeClicks: number[] }).nativeClicks[0]),
-  ).toBeGreaterThan(0.05);
+  for (const [index, kind] of ['click', 'place', 'collect'].entries()) {
+    await page.getByRole('button', { name: `Test native ${kind}` }).click();
+    await expect
+      .poll(() =>
+        page.evaluate(() => (window as unknown as { nativeClicks: number[] }).nativeClicks.length),
+      )
+      .toBe(index + 1);
+  }
+  const durations = await page.evaluate(
+    () => (window as unknown as { nativeClicks: number[] }).nativeClicks,
+  );
+  expect(durations.every((duration) => duration > 0.05)).toBe(true);
+  expect(new Set(durations).size).toBe(3);
   expect(errors).toEqual([]);
 });
 

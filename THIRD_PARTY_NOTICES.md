@@ -19,7 +19,15 @@ The twelve player portraits reuse pinned Minecraft entity textures through `scri
 
 ## Interface sound
 
-The native Minecraft 26.3 `ui.button.click` sample (`minecraft/sounds/random/click_stereo.ogg`) is retrieved from Mojang's content-addressed asset service and verified against SHA-1 `f0ca66561f832bf2f60b393837297c2692367cd5` (asset-index SHA-1 `d8492bc61d32a4874c77daa03c0cba9201e9b83b`). `scripts/sync-sounds.mjs` converts it to a cached PCM WAV for browser compatibility; the source and conversion metadata remain under ignored asset/build directories. This is Minecraft artwork/audio, not permissively licensed application code, and retains its original rights. Placement and collection tones remain original synthesized effects. No Spotify audio is downloaded.
+`scripts/sync-sounds.mjs` retrieves three native Minecraft 26.3 samples from Mojang's content-addressed asset service. It verifies each source's size and SHA-1 against the pinned entries below (asset-index SHA-1 `d8492bc61d32a4874c77daa03c0cba9201e9b83b`). Source paths are relative to `minecraft/sounds/`.
+
+| Application use / output           | Minecraft event / source                          | Source SHA-1                               |
+| ---------------------------------- | ------------------------------------------------- | ------------------------------------------ |
+| Button click / `button-click.wav`  | `ui.button.click` / `random/click_stereo.ogg`     | `f0ca66561f832bf2f60b393837297c2692367cd5` |
+| Grid placement / `item-pickup.wav` | `entity.item.pickup` / `random/pop.ogg`           | `d6ae1c04d0a7376a33d1df12e1b8057cfbab6bc2` |
+| Collection / `experience-orb.wav`  | `entity.experience_orb.pickup` / `random/orb.ogg` | `8a04a60d5c28fc60df472a877ca57f37eabc78d7` |
+
+FFmpeg converts each sample to stereo 44.1 kHz PCM WAV for browser compatibility. Conversion caches are keyed by source hash, FFmpeg version and conversion settings; source/conversion metadata remains under ignored asset/build directories. `src/lib/audio.ts` reuses decoded samples, with no oscillator or synthesized fallback. These samples retain their original Minecraft audio rights: source provenance and integrity verification do not grant a redistribution licence. No Spotify audio is downloaded.
 
 ## Typography
 
@@ -33,8 +41,12 @@ React, React DOM, Vite, TypeScript, Zod, qrcode, jsQR, Playwright, Vitest and Pr
 
 ## Music
 
-Music is played through Spotify's official embedded player, with Spotify attribution and controls intact. Audio is not downloaded, cached, or rebroadcast by this application. Track selections come from the supplied Minecraft Creator-Safe playlist:
+Music is played through Spotify's official embedded player, with Spotify attribution and controls intact. Music audio is not downloaded, cached, or rebroadcast by this application. Track selections come from the supplied playlist:
 
 https://open.spotify.com/playlist/5T4KWhz9Q8r98skQBimtlH
 
-Track availability and playback restrictions are controlled by Spotify. Minecraft's music guidance: https://www.minecraft.net/en-us/article/can-i-use-minecraft-music-
+Track availability and playback restrictions are controlled by Spotify. Playlist inclusion is not treated as permission to extract or rehost a recording.
+
+[Minecraft's music guidance](https://www.minecraft.net/en-us/article/can-i-use-minecraft-music-) permits approved Minecraft-owned tracks in any non-commercial Minecraft content and commercial content meeting the [Usage Guidelines](https://www.minecraft.net/en-us/usage-guidelines); its examples are not limited to videos. It separately says licensed music needs rightsholder permission that Mojang cannot grant. This is not a blanket licence for the complete C418/Lena Raine catalogue. [C418's Minecraft Volume Alpha](https://c418.bandcamp.com/album/minecraft-volume-alpha) is marked all rights reserved; an album purchase alone does not establish app redistribution rights.
+
+Authentic music remains on Spotify for this delivery. Any future app-hosted soundtrack needs a suitable licence and authorized audio source for each recording. See [music delivery decisions](docs/reuse.md#music-delivery); no replacement soundtrack has been imported.

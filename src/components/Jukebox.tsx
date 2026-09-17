@@ -2,6 +2,7 @@ import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 're
 import playlist from '../data/playlist.json';
 import { ItemImage } from './ItemSlot';
 import { createShuffleBag, type JukeboxTrack } from '../lib/jukebox';
+import { soundEffectTime } from '../lib/audio';
 
 export interface JukeboxHandle {
   requestPlayback(): void;
@@ -35,6 +36,11 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
   const wanted = useRef(false);
   const playing = useRef(false);
   const intentionallyPaused = useRef(false);
+  const buffering = useRef(false);
+  const recovering = useRef(false);
+  const recoveredEffect = useRef(-Infinity);
+  const openRef = useRef(open);
+  openRef.current = open;
   const playbackTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   enabled.current = sound;
 
@@ -45,14 +51,20 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
     );
   }
 
-  function attemptPlayback() {
-    if (!enabled.current || playing.current || playbackTimeout.current) return;
-    setStatus('Starting music…');
-    command('play');
+  function attemptPlayback(resume = false) {
+    if (!enabled.current || playing.current || buffering.current || playbackTimeout.current) return;
+    setStatus(resume ? 'Resuming music…' : 'Starting music…');
+    command(resume ? 'resume' : 'play');
     playbackTimeout.current = setTimeout(() => {
       playbackTimeout.current = undefined;
-      if (!playing.current && enabled.current)
+      if (!playing.current && enabled.current) {
+        if (recovering.current) {
+          recovering.current = false;
+          intentionallyPaused.current = true;
+          wanted.current = false;
+        }
         setStatus('Browser blocked music? Tap the Spotify player to start it.');
+      }
     }, 4000);
   }
   function requestPlayback(explicit = false) {
@@ -72,6 +84,8 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
     if (!sound) {
       wanted.current = false;
       playing.current = false;
+      buffering.current = false;
+      recovering.current = false;
       clearTimeout(playbackTimeout.current);
       playbackTimeout.current = undefined;
       setStatus('Sound is off.');
@@ -84,6 +98,8 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
     setReady(false);
     setFailed(false);
     playing.current = false;
+    buffering.current = false;
+    recovering.current = false;
     clearTimeout(playbackTimeout.current);
     playbackTimeout.current = undefined;
     setStatus('Loading Spotify…');
@@ -113,22 +129,56 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
         if (typeof event.data.isPaused !== 'boolean') return;
         if (event.data.playingURI && event.data.playingURI !== currentTrack.current.uri) return;
         const wasPlaying = playing.current;
-        playing.current = !event.data.isPaused && event.data.isBuffering !== true;
+        const wasBuffering = buffering.current;
+        buffering.current = event.data.isBuffering === true;
+        playing.current = !event.data.isPaused && !buffering.current;
         if (playing.current) {
+          recovering.current = false;
           clearTimeout(playbackTimeout.current);
           playbackTimeout.current = undefined;
           setStatus('Playing · Spotify may offer previews.');
-        } else if (event.data.isBuffering === true) {
+        } else if (buffering.current) {
           setStatus('Spotify is buffering…');
         } else if (intentionallyPaused.current) {
           setStatus('Music paused. Open the jukebox or choose Next to resume.');
-        } else if (wasPlaying) {
-          // Spotify gives no distinct completion event; do not interpret pause as track end.
-          intentionallyPaused.current = true;
-          wanted.current = false;
-          clearTimeout(playbackTimeout.current);
-          playbackTimeout.current = undefined;
-          setStatus('Music paused or finished. Choose Next for another favourite.');
+        } else if (wasPlaying || wasBuffering) {
+          const effectAt = soundEffectTime();
+          const sinceEffect = performance.now() - effectAt;
+          const atEnd =
+            Number.isFinite(event.data.duration) &&
+            event.data.duration > 0 &&
+            Number.isFinite(event.data.position) &&
+            event.data.position >= event.data.duration - 1000;
+          // Only recover an interruption tied to our effects while provider controls are hidden.
+          // Visible provider pauses and completed previews must never be overridden.
+          if (
+            wasPlaying &&
+            enabled.current &&
+            !openRef.current &&
+            document.visibilityState === 'visible' &&
+            !atEnd &&
+            sinceEffect >= 0 &&
+            sinceEffect < 1200 &&
+            effectAt > recoveredEffect.current
+          ) {
+            recoveredEffect.current = effectAt;
+            recovering.current = true;
+            clearTimeout(playbackTimeout.current);
+            playbackTimeout.current = undefined;
+            attemptPlayback(true);
+          } else {
+            intentionallyPaused.current = true;
+            wanted.current = false;
+            clearTimeout(playbackTimeout.current);
+            playbackTimeout.current = undefined;
+            setStatus(
+              atEnd
+                ? 'This Spotify track or preview finished. Choose Next for another favourite.'
+                : 'Music paused or interrupted. Open the jukebox to resume.',
+            );
+          }
+        } else if (recovering.current && !playbackTimeout.current) {
+          setStatus('Music was interrupted. Open the jukebox to resume.');
         }
       } else if (event.data.type === 'error') {
         clearTimeout(timeout);
@@ -151,6 +201,8 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
     currentTrack.current = next;
     setTrack(next);
     playing.current = false;
+    buffering.current = false;
+    recovering.current = false;
     intentionallyPaused.current = false;
     wanted.current = enabled.current;
     clearTimeout(playbackTimeout.current);
@@ -249,6 +301,8 @@ export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
                 intentionallyPaused.current = true;
                 wanted.current = false;
                 playing.current = false;
+                buffering.current = false;
+                recovering.current = false;
                 clearTimeout(playbackTimeout.current);
                 playbackTimeout.current = undefined;
                 command('pause');
