@@ -9,7 +9,6 @@ import {
   createGame,
   disconnect,
   expired,
-  GRACE,
   IDLE_TTL,
   MAX_AGE,
   nextAlarm,
@@ -78,10 +77,10 @@ describe('authoritative game', () => {
     expect(() => command(game, members[0], claim, 4201)).toThrow();
     expect(game.public.history).toHaveLength(1);
     expect(snapshot(game, 4201).round?.solution).toBeDefined();
-    advance(game, 9200);
-    expect(game.public.round).toBeNull();
     advance(game, 12200);
-    expect(() => command(game, members[1], claim, 12201)).toThrow();
+    expect(game.public.round).toBeNull();
+    advance(game, 15200);
+    expect(() => command(game, members[1], claim, 15201)).toThrow();
   });
   it('scores all finishers, floors placement at 20%, and rejects repeat collect', () => {
     const { game, members } = playing(12, {
@@ -159,16 +158,16 @@ describe('authoritative game', () => {
       game.members.every((m) => !m.player.spectator && m.player.score === 0 && !m.player.ready),
     ).toBe(true);
   });
-  it('transfers host on disconnect and removes disconnected sessions after grace', () => {
+  it('transfers host immediately and retains disconnected lobby identities until room expiry', () => {
     const { game, members } = lobby();
     disconnect(game, members[0], 2000);
     expect(game.public.hostId).toBe(members[1].player.id);
-    expect(nextAlarm(game)).toBe(2000 + GRACE);
-    advance(game, 2000 + GRACE);
-    expect(game.members).toHaveLength(1);
+    expect(nextAlarm(game)).toBe(game.activeAt + IDLE_TTL);
+    advance(game, 62000);
+    expect(game.members).toHaveLength(2);
     expect(expired(game, game.activeAt + IDLE_TTL)).toBe(true);
   });
-  it('all-finish retains disconnected racers during grace then ends on removal', () => {
+  it('all-finish ends alone on departure without altering earned score', () => {
     const { game, members } = playing(2, {
       ...DEFAULT_SETTINGS,
       scoring: 'all-finish',
@@ -178,8 +177,9 @@ describe('authoritative game', () => {
     command(game, members[0], collect(game.public.round!.id), 4100);
     disconnect(game, members[1], 4200);
     advance(game, 4200);
-    expect(game.public.phase).toBe('playing');
-    advance(game, 4200 + GRACE);
-    expect(game.public.phase).toBe('reveal');
+    expect(game.public.phase).toBe('finished');
+    expect(game.public.endReason).toBe('alone');
+    expect(members[0].player.score).toBe(100);
+    expect(members[1].player.score).toBe(0);
   });
 });

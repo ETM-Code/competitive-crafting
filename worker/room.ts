@@ -9,7 +9,9 @@ import {
   expired,
   GameError,
   nextAlarm,
+  requireCapacity,
   snapshot,
+  settleDeparture,
   upgradeGame,
   type Game,
 } from './game';
@@ -33,6 +35,7 @@ export class GameRoom {
       // can leave persisted membership without a surviving transport.
       const attachments = ctx.getWebSockets().map((socket) => this.attachment(socket));
       let changed = upgradeGame(this.game);
+      let departed = false;
       for (const member of this.game.members) {
         if (
           member.player.connected &&
@@ -40,10 +43,14 @@ export class GameRoom {
             (a) => a?.playerId === member.player.id && a.connection === member.connection,
           )
         ) {
-          disconnect(this.game, member, Date.now());
+          disconnect(this.game, member, Date.now(), false);
+          departed = true;
           changed = true;
         }
       }
+      // Reconcile the whole transport set before counting survivors. Pending HTTP
+      // joins have never had a transport and must not trigger a departure.
+      if (departed) settleDeparture(this.game, Date.now());
       if (changed) await this.save();
     });
   }
@@ -154,12 +161,14 @@ export class GameRoom {
         if (!id || !token || token.length > 128) throw new GameError('Invalid session', 401);
         const member = this.game.members.find((m) => m.player.id === id && m.token === token);
         if (!member) throw new GameError('Invalid or expired session', 401);
+        requireCapacity(this.game, now, member);
         const previous = member.connection;
         const connection = crypto.randomUUID();
         const pair = new WebSocketPair();
         member.connection = connection;
         member.player.connected = true;
         member.disconnectedAt = null;
+        member.reservedUntil = null;
         this.game.activeAt = now;
         // A disconnected original host transfers to the first live member.
         if (

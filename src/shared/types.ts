@@ -47,11 +47,28 @@ export interface Player {
 }
 export type Phase = 'lobby' | 'countdown' | 'playing' | 'reveal' | 'finished';
 export interface RoundPlayer {
-  engaged: boolean;
-  overclocked: boolean;
-  deadline: number;
+  forfeited: boolean;
   expired: boolean;
   grid: Grid;
+}
+export type RoundEndReason = 'crafted' | 'timeout' | 'forfeit';
+export interface RoundStanding {
+  playerId: string;
+  name: string;
+  avatar: string;
+  scoreBefore: number;
+  scoreAfter: number;
+  points: number;
+  rankBefore: number;
+  rankAfter: number;
+  status: 'crafted' | 'forfeited' | 'timeout' | 'spectator';
+}
+export interface RoundHistory {
+  target: ItemId;
+  winnerId: string | null;
+  points: number;
+  endReason: RoundEndReason;
+  standings: RoundStanding[];
 }
 export interface Round {
   id: string;
@@ -64,6 +81,8 @@ export interface Round {
   endsAt: number;
   finishers: { playerId: string; points: number; elapsed: number }[];
   playerStates: Record<string, RoundPlayer>;
+  endReason: RoundEndReason | null;
+  standings: RoundStanding[];
   solution?: Grid;
 }
 export interface RoomSnapshot {
@@ -77,7 +96,8 @@ export interface RoomSnapshot {
   serverNow: number;
   revision: number;
   practice: boolean;
-  history: { target: ItemId; winnerId: string | null; points: number }[];
+  history: RoundHistory[];
+  endReason?: 'alone' | 'abandoned' | null;
 }
 export interface Session {
   code: string;
@@ -88,9 +108,8 @@ export type ClientMessage =
   | { type: 'ready'; ready: boolean }
   | { type: 'settings'; settings: Settings }
   | { type: 'start' }
-  | { type: 'engage'; roundId: string }
   | { type: 'grid'; roundId: string; grid: Grid }
-  | { type: 'overclock'; roundId: string }
+  | { type: 'forfeit'; roundId: string }
   | { type: 'collect'; roundId: string; grid: Grid }
   | { type: 'rematch' }
   | { type: 'ping'; sentAt: number }

@@ -7,7 +7,14 @@ import { recipes } from '../../src/shared/catalogue';
 import type { Grid, Recipe } from '../../src/shared/types';
 
 function transformedGrids(recipe: Recipe): Grid[] {
-  const pattern = recipe.pattern!;
+  // Independent oracle: discard empty borders without calling runtime normalization.
+  const pattern = recipe.pattern!.map((row) => [...row]);
+  while (pattern.length && pattern[0].every((cell) => cell === null)) pattern.shift();
+  while (pattern.length && pattern.at(-1)!.every((cell) => cell === null)) pattern.pop();
+  while (pattern.length && pattern.every((row) => row[0] === null))
+    pattern.forEach((row) => row.shift());
+  while (pattern.length && pattern.every((row) => row.at(-1) === null))
+    pattern.forEach((row) => row.pop());
   const grids = new Map<string, Grid>();
   for (let y = 0; y <= 3 - pattern.length; y++) {
     for (let x = 0; x <= 3 - pattern[0].length; x++) {
@@ -51,11 +58,11 @@ describe('server integration with generated catalogue and shared APIs', () => {
         startsAt: 1000,
         endsAt: 31000,
         finishers: [],
+        endReason: null,
+        standings: [],
         playerStates: {
           [player.player.id]: {
-            engaged: false,
-            overclocked: false,
-            deadline: 31000,
+            forfeited: false,
             expired: false,
             grid: Array(9).fill(null),
           },

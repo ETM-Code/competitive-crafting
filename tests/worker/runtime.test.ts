@@ -136,81 +136,78 @@ it('real runtime: create, normalize join code, upgrade, alarm-driven countdown, 
   fresh.socket.close();
   b.socket.close();
 }, 20_000);
-it('real runtime: personal alarms, private grid resync and all-finish Overclock points', async () => {
-  const response = await post('/api/rooms', {
-    name: 'Creeper',
+it('real runtime: forfeit survives replacement, everyone forfeiting reveals, and departure ends alone', async () => {
+  const created = await post('/api/rooms', {
+    name: 'One',
     avatar: 'creeper',
-    settings: { ...DEFAULT_SETTINGS, seconds: 15, scoring: 'all-finish', preset: 'all-finish' },
+    settings: { ...DEFAULT_SETTINGS, scoring: 'all-finish' },
   });
-  const one = (await response.json()) as Session;
-  const joined = await post(`/api/rooms/${one.code}/join`, { name: 'Pig', avatar: 'pig' });
-  const two = (await joined.json()) as Session;
+  const one = (await created.json()) as Session;
+  const two = (await (
+    await post(`/api/rooms/${one.code}/join`, { name: 'Two', avatar: 'pig' })
+  ).json()) as Session;
   const a = await connect(one);
   const b = await connect(two);
   a.send({ type: 'ready', ready: true });
   b.send({ type: 'ready', ready: true });
-  await a.waitState((state) => state.players.length === 2 && state.players.every((p) => p.ready));
+  await a.waitState((s) => s.players.length === 2 && s.players.every((p) => p.ready));
   a.send({ type: 'start' });
-  const playing = await a.waitState((state) => state.phase === 'playing');
+  const playing = await a.waitState((s) => s.phase === 'playing');
   const roundId = playing.round!.id;
-  a.send({ type: 'overclock', roundId });
-  a.send({ type: 'grid', roundId, grid: solutionFor('target0') });
-  const accepted = await a.waitState((state) => !!state.round?.playerStates[one.playerId].engaged);
-  expect(accepted.round!.playerStates[one.playerId].deadline).toBe(playing.round!.startsAt + 7500);
-  const peer = await b.waitState((state) => state.revision >= accepted.revision);
-  expect(peer.round!.playerStates[one.playerId].grid).toEqual(Array(9).fill(null));
+  a.send({ type: 'forfeit', roundId });
+  await a.waitState((s) => !!s.round?.playerStates[one.playerId].forfeited);
   const fresh = await connect(one);
-  const restored = await fresh.waitState(
-    (state) => !!state.round?.playerStates[one.playerId].engaged,
-  );
-  expect(restored.round!.playerStates[one.playerId]).toEqual(
-    accepted.round!.playerStates[one.playerId],
-  );
-  fresh.send({ type: 'collect', roundId, grid: solutionFor('target0') });
-  const first = await b.waitState((state) => state.round?.finishers.length === 1);
-  expect(first.phase).toBe('playing');
-  expect(first.players.find((p) => p.id === one.playerId)?.score).toBe(150);
-  b.send({ type: 'grid', roundId, grid: solutionFor('target0') });
-  b.send({ type: 'collect', roundId, grid: solutionFor('target0') });
-  const result = await fresh.waitState((state) => state.phase === 'reveal');
-  expect(result.round!.finishers.map((p) => p.points)).toEqual([150, 75]);
-  fresh.socket.close();
+  const restored = await fresh.waitState((s) => !!s.round?.playerStates[one.playerId].forfeited);
+  expect(restored.phase).toBe('playing');
+  expect(restored.round!.endsAt).toBe(playing.round!.endsAt);
+  b.send({ type: 'forfeit', roundId });
+  const result = await fresh.waitState((s) => s.phase === 'reveal');
+  expect(result.round!.endReason).toBe('forfeit');
+  expect(result.round!.standings.every((s) => s.points === 0)).toBe(true);
   b.socket.close();
-}, 20_000);
+  const alone = await fresh.waitState((s) => s.phase === 'finished');
+  expect(alone.endReason).toBe('alone');
+  const returned = await connect(two);
+  expect((await returned.waitState((s) => s.phase === 'finished')).players).toHaveLength(2);
+  fresh.socket.close();
+  returned.socket.close();
+}, 20000);
 
-it('real runtime: an Overclock alarm expires only its player while the peer can still collect', async () => {
-  const response = await post('/api/rooms', {
-    name: 'Creeper',
-    avatar: 'creeper',
-    settings: { ...DEFAULT_SETTINGS, seconds: 15 },
-  });
-  const one = (await response.json()) as Session;
-  const joined = await post(`/api/rooms/${one.code}/join`, { name: 'Pig', avatar: 'pig' });
-  const two = (await joined.json()) as Session;
+it('real runtime: all-finish keeps placement points with immutable before/after standings', async () => {
+  const one = (await (
+    await post('/api/rooms', {
+      name: 'One',
+      avatar: 'creeper',
+      settings: { ...DEFAULT_SETTINGS, scoring: 'all-finish' },
+    })
+  ).json()) as Session;
+  const two = (await (
+    await post(`/api/rooms/${one.code}/join`, { name: 'Two', avatar: 'pig' })
+  ).json()) as Session;
   const a = await connect(one);
   const b = await connect(two);
   a.send({ type: 'ready', ready: true });
   b.send({ type: 'ready', ready: true });
-  await a.waitState((state) => state.players.length === 2 && state.players.every((p) => p.ready));
+  await a.waitState((s) => s.players.length === 2 && s.players.every((p) => p.ready));
   a.send({ type: 'start' });
-  const playing = await a.waitState((state) => state.phase === 'playing');
+  const playing = await a.waitState((s) => s.phase === 'playing');
   const roundId = playing.round!.id;
-  a.send({ type: 'overclock', roundId });
-  const expired = await a.waitState((state) => !!state.round?.playerStates[one.playerId].expired);
-  expect(expired.phase).toBe('playing');
-  expect(expired.round!.playerStates[two.playerId].expired).toBe(false);
-  expect(expired.deadline).toBe(playing.round!.endsAt);
   a.send({ type: 'grid', roundId, grid: solutionFor('target0') });
   a.send({ type: 'collect', roundId, grid: solutionFor('target0') });
+  await b.waitState((s) => s.round?.finishers.length === 1);
   b.send({ type: 'grid', roundId, grid: solutionFor('target0') });
   b.send({ type: 'collect', roundId, grid: solutionFor('target0') });
-  const result = await b.waitState((state) => state.phase === 'reveal');
-  expect(result.round!.finishers.map((p) => p.playerId)).toEqual([two.playerId]);
-  expect(result.players.find((p) => p.id === one.playerId)?.score).toBe(0);
-  expect(result.players.find((p) => p.id === two.playerId)?.score).toBe(100);
+  const result = await a.waitState((s) => s.phase === 'reveal');
+  expect(result.round!.finishers.map((f) => f.points)).toEqual([100, 75]);
+  expect(
+    result.round!.standings.map((s) => [s.scoreBefore, s.scoreAfter, s.rankBefore, s.rankAfter]),
+  ).toEqual([
+    [0, 100, 1, 1],
+    [0, 75, 1, 2],
+  ]);
   a.socket.close();
   b.socket.close();
-}, 25_000);
+}, 20000);
 
 it('real runtime: rejects credential/origin forgery and serves assets through security headers', async () => {
   const created = await post('/api/rooms', { name: 'Solo', avatar: 'steve', practice: true });

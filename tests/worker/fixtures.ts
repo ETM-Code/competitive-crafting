@@ -1,5 +1,18 @@
 import type { Grid, Item, Recipe, Settings, Target } from '../../src/shared/types';
 export const VERSION = 'test';
+export const REVEAL_MS = 8000;
+export const COUNTDOWN_MS = 3000;
+export function rankPlayers<
+  T extends { score: number; wins: number; winningTime: number; name: string },
+>(players: T[]): T[] {
+  return [...players].sort(
+    (a, b) =>
+      b.score - a.score ||
+      b.wins - a.wins ||
+      a.winningTime - b.winningTime ||
+      a.name.localeCompare(b.name),
+  );
+}
 export const itemById: Record<string, Item> = Object.fromEntries(
   ['wood', 'stone', ...Array.from({ length: 120 }, (_, i) => 'target' + i)].map((id) => [
     id,
