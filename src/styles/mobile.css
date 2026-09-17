@@ -925,6 +925,91 @@
     max-width: none;
   }
 }
+/* Short desktop windows keep every workbench control inside the stone panel. */
+@media (min-width: 1101px) and (max-height: 800px) {
+  .active-play > .site-header {
+    height: 64px;
+    min-height: 64px;
+    flex-shrink: 0;
+  }
+  .active-play > .site-footer {
+    min-height: 64px;
+    height: 64px;
+    flex-shrink: 0;
+    margin-top: 0;
+    padding: 4px 0;
+    align-items: center;
+  }
+  .active-play > main {
+    padding: 4px 0 8px;
+  }
+  .active-play .crafting-window {
+    grid-template-rows: auto 6px 76px 60px minmax(0, 1fr);
+    gap: 6px 20px;
+    padding: 12px;
+  }
+  .active-play .target-art,
+  .active-play .target-art > .item-image {
+    width: 76px;
+    height: 76px;
+  }
+  .active-play .target h1 {
+    font-size: 20px;
+    margin: 2px 0 4px;
+  }
+  .active-play .target-instruction {
+    display: none;
+  }
+  .active-play .overclock,
+  .active-play .overclock-standard,
+  .active-play .overclock-active,
+  .active-play .personal-expiry {
+    height: 60px;
+    min-height: 60px;
+    padding: 4px;
+  }
+  .active-play .overclock-lever {
+    height: 48px;
+    min-height: 48px;
+  }
+  .active-play .craft-area {
+    padding: 0 0 6px;
+  }
+  .active-play .selection-line {
+    min-height: 52px;
+    padding: 2px 0;
+  }
+  .active-play .collect-zone {
+    min-height: 32px;
+    padding: 7px 6px;
+    margin-bottom: 0;
+  }
+  .active-play .inventory {
+    padding-top: 4px;
+  }
+  .active-play .inventory-help {
+    display: none;
+  }
+  .active-play[data-phase='reveal'] .crafting-window {
+    grid-template-rows: auto 6px 76px minmax(0, 1fr);
+  }
+}
+@media (min-width: 1101px) and (max-height: 680px) {
+  .active-play .crafting-window {
+    grid-template-rows: auto 6px 60px 60px minmax(0, 1fr);
+  }
+  .active-play .target-art,
+  .active-play .target-art > .item-image {
+    width: 60px;
+    height: 60px;
+  }
+  .active-play .target .eyebrow {
+    display: none;
+  }
+  .active-play[data-phase='reveal'] .crafting-window {
+    grid-template-rows: auto 6px 60px minmax(0, 1fr);
+  }
+}
 /* The keyboard temporarily gets a compact search view; picking an item dismisses it. */
 @media (max-height: 620px) and (max-width: 650px) {
   .active-play:has(.inventory-search:focus),

@@ -47,11 +47,15 @@ Vite development does not register the production service worker. Build first an
 
 The Spotify SDK requires string evaluation. Only the dedicated same-origin `/spotify-player` wrapper has a scoped `unsafe-eval` CSP exception; the main app does not. The wrapper checks parent origin and message source and accepts fixed commands. This is a scoped provider policy, not a cross-origin security sandbox.
 
+The jukebox chooses from 22 tracks verified in the approved playlist: 12 nostalgic classics, six standard discs and four upbeat remixes. Shuffle tests cover every track once per bag, no immediate cycle-boundary repeat, and manual selection. Browser tests cover initial random selection, Next, title changes and mute enforcement. Spotify exposes no documented continuous shuffled queue or reliable completion event here: use Next when a track ends. Full authenticated playback remains provider-dependent and was not tested.
+
 The service worker caches only the honest offline page, not API responses or an offline game. Multiplayer and practice require a connection. Offline retry preserves an invitation path. No `skipWaiting` interrupts an active match.
 
 ## Local concurrency guardrails
 
 The load command requires `--local`, rejects non-loopback origins, bounds rooms and players, expires after 20 seconds and closes/leaves connections. It is not a production load generator. Use ordinary isolated browser sessions for live deployment smoke tests.
+
+`npm run test:live` runs a bounded two-player ordinary gameplay smoke against the requested deployment. Pass `-- http://127.0.0.1:8787` to test the production build locally. It creates one room, verifies an invite join on mobile, fills and explicitly collects one recipe, checks the shared score, reloads, and closes both clients. It writes token-redacted diagnostics and screenshots to `ui-progress/`.
 
 ## Known external prerequisites
 

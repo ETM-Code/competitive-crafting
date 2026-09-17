@@ -11,7 +11,7 @@
     send('error');
   };
   const validURI = (value) =>
-    typeof value === 'string' && /^spotify:(track|playlist):[A-Za-z0-9]{22}$/.test(value);
+    typeof value === 'string' && /^spotify:track:[A-Za-z0-9]{22}$/.test(value);
 
   window.addEventListener('message', (event) => {
     if (

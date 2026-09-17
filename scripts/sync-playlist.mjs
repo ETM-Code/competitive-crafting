@@ -18,30 +18,41 @@ try {
 const match = html.match(/<script id="__NEXT_DATA__"[^>]*>(.*?)<\/script>/s);
 if (!match) throw new Error('Spotify embed metadata changed; no tracks written');
 const entity = JSON.parse(match[1]).props.pageProps.state.data.entity;
-const selected = [
-  'Sweden',
-  'Minecraft',
-  'Mice on Venus',
-  'Aria Math',
-  'Subwoofer Lullaby',
-  'Wet Hands',
-  'Pigstep - Stereo Mix',
-  'otherside',
-  'Creator',
-  'otherside (Turbo Remix)',
-  "Arch-Illager's Pigstep",
-  'Comforting Memories (Synthion Remix)',
-];
-const tracks = selected.map((title) => {
-  const track = entity.trackList.find((t) => t.title === title);
-  if (!track) throw new Error(`Requested track no longer in approved playlist: ${title}`);
-  return {
-    title,
-    artist: track.subtitle.replaceAll(' ', ' '),
-    uri: track.uri,
-    mood: selected.indexOf(title) < 6 ? 'nostalgic' : 'hype',
-  };
-});
+const selections = {
+  nostalgic: [
+    'Sweden',
+    'Minecraft',
+    'Mice on Venus',
+    'Aria Math',
+    'Subwoofer Lullaby',
+    'Wet Hands',
+    'Dry Hands',
+    'Haggstrom',
+    'Living Mice',
+    'Moog City 2',
+    'Beginning 2',
+    'Taswell',
+  ],
+  disc: ['Pigstep - Stereo Mix', 'otherside', 'Creator', 'Relic', 'Precipice', 'Tears'],
+  hype: [
+    'otherside (Turbo Remix)',
+    "Arch-Illager's Pigstep",
+    'Comforting Memories (Synthion Remix)',
+    'Precipice (Hyper Potions Remix)',
+  ],
+};
+const tracks = Object.entries(selections).flatMap(([mood, titles]) =>
+  titles.map((title) => {
+    const track = entity.trackList.find((t) => t.title === title);
+    if (!track) throw new Error(`Requested track no longer in approved playlist: ${title}`);
+    return {
+      title,
+      artist: track.subtitle.replaceAll(' ', ' '),
+      uri: track.uri,
+      mood,
+    };
+  }),
+);
 await mkdir(resolve(root, 'src/data'), { recursive: true });
 await writeFile(
   resolve(root, 'src/data/playlist.json'),

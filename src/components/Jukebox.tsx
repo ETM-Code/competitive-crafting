@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import playlist from '../data/playlist.json';
 import { ItemImage } from './ItemSlot';
+import { createShuffleBag, type JukeboxTrack } from '../lib/jukebox';
 
 export function Jukebox({
   sound,
@@ -20,6 +21,13 @@ export function Jukebox({
   const [ready, setReady] = useState(false);
   const [failed, setFailed] = useState(false);
   const [attempt, setAttempt] = useState(0);
+  const [{ bag, initialTrack }] = useState(() => {
+    const bag = createShuffleBag(playlist.tracks);
+    return { bag, initialTrack: bag.next() };
+  });
+  const [track, setTrack] = useState<JukeboxTrack>(initialTrack);
+  const currentTrack = useRef(track);
+  currentTrack.current = track;
   const frame = useRef<HTMLIFrameElement>(null);
   const enabled = useRef(sound);
   enabled.current = sound;
@@ -58,7 +66,7 @@ export function Jukebox({
       )
         return;
       if (event.data.type === 'loaded') {
-        command('init', { uri: playlist.playlistUri, enabled: enabled.current });
+        command('init', { uri: currentTrack.current.uri, enabled: enabled.current });
       } else if (event.data.type === 'ready') {
         clearTimeout(timeout);
         setReady(true);
@@ -81,6 +89,12 @@ export function Jukebox({
     };
   }, [mounted, attempt]);
 
+  function choose(next: JukeboxTrack) {
+    bag.select(next.uri);
+    currentTrack.current = next;
+    setTrack(next);
+    command('load', { uri: next.uri });
+  }
   const playlistURL = `https://open.spotify.com/playlist/${playlist.playlistUri.split(':').pop()}`;
   return (
     <div className="jukebox">
@@ -129,13 +143,19 @@ export function Jukebox({
           hidden={!open}
           aria-label="Spotify jukebox"
         >
+          <p className="jukebox-current small" data-testid="jukebox-current">
+            <strong>{track.title}</strong> · {track.artist}
+          </p>
+          <p className="small">Shuffled favourites · Next chooses another track.</p>
           <iframe
             key={attempt}
             ref={frame}
             className="spotify-host"
             src="/spotify-player.html"
             title="Spotify music player"
-            onLoad={() => command('init', { uri: playlist.playlistUri, enabled: enabled.current })}
+            onLoad={() =>
+              command('init', { uri: currentTrack.current.uri, enabled: enabled.current })
+            }
             width="100%"
             height="152"
             style={{ border: 0 }}
@@ -160,6 +180,9 @@ export function Jukebox({
             <button className="button compact" disabled={!ready} onClick={() => command('pause')}>
               Pause
             </button>
+            <button className="button compact" disabled={!ready} onClick={() => choose(bag.next())}>
+              Next
+            </button>
             <a href={playlistURL} target="_blank" rel="noreferrer">
               Open Spotify ↗
             </a>
@@ -170,13 +193,15 @@ export function Jukebox({
             <select
               key={attempt}
               aria-label="Spotify track"
-              defaultValue=""
+              value={track.uri}
               disabled={!ready}
               onChange={(e) => {
-                if (e.target.value) command('load', { uri: e.target.value });
+                const selection = playlist.tracks.find(
+                  (candidate) => candidate.uri === e.target.value,
+                );
+                if (selection) choose(selection);
               }}
             >
-              <option value="">Playlist selection</option>
               {playlist.tracks.map((track) => (
                 <option key={track.uri} value={track.uri}>
                   {track.title} — {track.artist}
@@ -184,6 +209,7 @@ export function Jukebox({
               ))}
             </select>
           </label>
+          <p className="small">Spotify may offer previews; use Next when a track ends.</p>
         </section>
       )}
     </div>

@@ -1,4 +1,5 @@
 import { test, expect } from '@playwright/test';
+import playlist from '../../src/data/playlist.json' with { type: 'json' };
 
 const spotifyAPI = '**/open.spotify.com/embed/iframe-api/v1';
 const mockAPI = `(() => {
@@ -103,6 +104,39 @@ test('music loads only on request, obeys explicit play and sound-off pauses play
       ),
   ).toHaveLength(2);
   expect(errors).toEqual([]);
+});
+
+test('curated shuffle starts on a verified track, never repeats a bag, and keeps manual selection', async ({
+  page,
+}) => {
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: mockAPI }),
+  );
+  await page.goto('/');
+  await page.getByTestId('jukebox-toggle').click();
+  const panel = page.getByRole('region', { name: 'Spotify jukebox' });
+  const selector = panel.getByRole('combobox', { name: 'Spotify track' });
+  await expect(selector).toBeEnabled();
+  const seen = [await selector.inputValue()];
+  expect(playlist.tracks.some((track) => track.uri === seen[0])).toBe(true);
+  const initial = await page
+    .frameLocator('.spotify-host')
+    .locator('body')
+    .evaluate(() => (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls[0]);
+  expect(initial).toEqual(['create', seen[0]]);
+  for (let index = 1; index < playlist.tracks.length; index++) {
+    await panel.getByRole('button', { name: 'Next', exact: true }).click();
+    seen.push(await selector.inputValue());
+  }
+  expect(new Set(seen).size).toBe(playlist.tracks.length);
+  await panel.getByRole('button', { name: 'Next', exact: true }).click();
+  expect(await selector.inputValue()).not.toBe(seen.at(-1));
+  const manual = playlist.tracks.find((track) => track.title === 'Pigstep - Stereo Mix')!;
+  await selector.selectOption(manual.uri);
+  await expect(page.getByTestId('jukebox-current')).toContainText(manual.title);
+  await page.getByTestId('jukebox-toggle').click();
+  await page.getByTestId('jukebox-toggle').click();
+  await expect(selector).toHaveValue(manual.uri);
 });
 
 test('blocked Spotify gives a playable fallback and a working retry', async ({ page }) => {

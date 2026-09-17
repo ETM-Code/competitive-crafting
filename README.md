@@ -2,7 +2,7 @@
 
 An independent Minecraft recipe-racing game. Create a room, share a link/code/QR, and race friends to arrange the correct ingredients and collect the output.
 
-**Local implementation available:** multiplayer, responsive game screens, moving panorama, installation support and testing tools are implemented. Final verification status is recorded below. Public deployment is blocked on Cloudflare account authentication; the requested domain is not yet live.
+**Local implementation available:** multiplayer, responsive game screens, moving panorama, installation support and testing tools are implemented. Final verification status is recorded below. Cloudflare authentication is verified; deployment preflight is underway. The requested domain is not yet claimed live.
 
 ## Current game design
 
@@ -14,7 +14,7 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 - Hundreds of classified recipe targets with family-balanced selection and a recent, full-grid finale.
 - Native 256×256 item renders, six mob-face avatars, and a moving Minecraft title panorama.
 - Fixed game screens with internal inventory/settings scrolling; desktop drag/keyboard and mobile tap/place controls.
-- Spotify official jukebox, add-to-home-screen guidance, and an honest offline/reconnect screen.
+- Spotify jukebox with 22 curated nostalgic/disc favourites and a no-repeat Next shuffle, add-to-home-screen guidance, and an honest offline/reconnect screen.
 
 See [acceptance criteria](docs/acceptance.md) for the current requirements and verification status.
 
@@ -57,7 +57,7 @@ wrangler login
 npm run deploy
 ```
 
-Authenticate to the account that manages the domain; inspect existing routes before deploying. Never commit tokens, `.dev.vars`, or local credentials.
+Authenticate to the account that manages the domain; inspect existing routes before deploying. Never commit tokens, `.dev.vars`, or local credentials. See [deployment and recovery](docs/deployment.md) for release gates, live checks and rollback boundaries.
 
 ## Rights and attribution
 

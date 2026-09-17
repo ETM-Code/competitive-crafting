@@ -39,22 +39,76 @@
       "mood": "nostalgic"
     },
     {
+      "title": "Dry Hands",
+      "artist": "C418",
+      "uri": "spotify:track:1gNcPHAiVIQZmqJFJdt3ti",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Haggstrom",
+      "artist": "C418",
+      "uri": "spotify:track:4RROfcxQXFIwW0ugcZfdC4",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Living Mice",
+      "artist": "C418",
+      "uri": "spotify:track:4x79cjezqX3yd15rSrAVFF",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Moog City 2",
+      "artist": "C418",
+      "uri": "spotify:track:1kKaRzjW8OiGLriIdpXHT1",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Beginning 2",
+      "artist": "C418",
+      "uri": "spotify:track:4JusUA5PJZAYOurOAlm0FG",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Taswell",
+      "artist": "C418",
+      "uri": "spotify:track:6PwVnlNwVKGD18lWNCh1It",
+      "mood": "nostalgic"
+    },
+    {
       "title": "Pigstep - Stereo Mix",
       "artist": "Lena Raine, Minecraft",
       "uri": "spotify:track:2TmUt0ofWMa02MdYkKhK4C",
-      "mood": "hype"
+      "mood": "disc"
     },
     {
       "title": "otherside",
       "artist": "Lena Raine, Minecraft",
       "uri": "spotify:track:4PtJNlcpEGyNAkYy44m5fI",
-      "mood": "hype"
+      "mood": "disc"
     },
     {
       "title": "Creator",
       "artist": "Lena Raine, Minecraft",
       "uri": "spotify:track:1mbLvyFNIifliPtmMmRQN9",
-      "mood": "hype"
+      "mood": "disc"
+    },
+    {
+      "title": "Relic",
+      "artist": "Aaron Cherof, Minecraft",
+      "uri": "spotify:track:2p7THMcCrDvFLiSfBRyXav",
+      "mood": "disc"
+    },
+    {
+      "title": "Precipice",
+      "artist": "Aaron Cherof, Minecraft",
+      "uri": "spotify:track:2I3SfDBpiBZjAqYm547JF3",
+      "mood": "disc"
+    },
+    {
+      "title": "Tears",
+      "artist": "Minecraft, Amos Roddy",
+      "uri": "spotify:track:37Bx2hUjIOvcNwHRpQhquo",
+      "mood": "disc"
     },
     {
       "title": "otherside (Turbo Remix)",
@@ -72,6 +126,12 @@
       "title": "Comforting Memories (Synthion Remix)",
       "artist": "Minecraft, Synthion",
       "uri": "spotify:track:574J1JkXMi5B88GPkroRLv",
+      "mood": "hype"
+    },
+    {
+      "title": "Precipice (Hyper Potions Remix)",
+      "artist": "Minecraft, Hyper Potions",
+      "uri": "spotify:track:5YugJI5LNGyWfp72ezwLUY",
       "mood": "hype"
     }
   ]

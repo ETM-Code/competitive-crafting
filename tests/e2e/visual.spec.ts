@@ -158,6 +158,31 @@ test('live mobile play keeps essentials fixed and moves secondary controls into 
   expect(errors).toEqual([]);
 });
 
+test('short desktop window contains the full workbench and inventory panel', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 720 });
+  await page.goto('/');
+  await page.getByTestId('player-name').fill('ShortDesktop');
+  await page.getByTestId('practice-button').click();
+  await page.getByTestId('ready-button').click();
+  await page.getByTestId('start-button').click();
+  await expect(page.getByTestId('target-name')).toBeVisible();
+  const panel = await page.locator('.crafting-window').boundingBox();
+  for (const control of [
+    page.getByTestId('crafting-grid'),
+    page.getByTestId('collect-output'),
+    page.getByTestId('erase-tool'),
+    page.getByTestId('collection-zone'),
+    page.locator('.inventory-content'),
+  ]) {
+    await withinViewport(page, control);
+    const bounds = (await control.boundingBox())!;
+    expect(bounds.y + bounds.height).toBeLessThanOrEqual(panel!.y + panel!.height - 6);
+  }
+  await expect(page.getByTestId('game-menu-toggle')).toBeHidden();
+  await expect(page.locator('.game-sidebar')).toBeVisible();
+  await mainScreenIsFixed(page);
+});
+
 test('menus are exclusive and touch-only controls stay off desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');
