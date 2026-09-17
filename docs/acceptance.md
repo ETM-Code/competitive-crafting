@@ -2,7 +2,7 @@
 
 ## Gameplay overhaul — 2026-09-17
 
-These requirements supersede the launch release's Overclock and reconnect-grace design. The overhaul has passed local application acceptance and is ready for deployment; live verification is tracked below.
+These requirements supersede the launch release's Overclock and reconnect-grace design. The overhaul is deployed as `5a54440d-c0f1-4277-adf5-f75e2adf1d8e` on the existing custom domain; live verification is tracked below.
 
 ### Rules and room lifecycle
 
@@ -35,14 +35,16 @@ These requirements supersede the launch release's Overclock and reconnect-grace 
 - [x] Format, TypeScript, ESLint and 46 shared/unit tests pass; production build succeeds.
 - [x] Worker and native runtime suites: 61 deterministic tests and four native runtime tests pass, including schema-4 migration, padded recipe corpus, simultaneous collect/forfeit, tab departure, host transfer, capacity reservations and expiry.
 - [x] Full Chromium/Firefox/WebKit/mobile browser matrix: **119 passed, 21 intentional skips, zero failures** in 6.5 minutes. Eighteen skips avoid repeating specialized Chromium lifecycle cases, two skip unsupported service-worker lifecycle checks, and one excludes mouse-only painting from touch emulation.
-- [ ] Final screenshot/recording refresh and inspection: home/lobby/QR/playing/search keyboard/round leaderboard/podium, phone/tablet/landscape/short desktop.
-- [ ] Final commit and push with configured Git identity only; no generated assets, credentials or recordings tracked.
-- [ ] Deploy to the existing custom domain, then repeat ordinary-DNS live multiplayer/PWA/provider checks.
+- [x] Final screenshot/recording refresh and inspection: home/lobby/QR/playing/search keyboard/round leaderboard/podium, phone/tablet/landscape/short desktop. Chromium desktop/mobile and WebKit mobile recordings are in ignored `ui-progress/`; capture reported zero console errors and no document overflow.
+- [x] Commit and push to `development` with configured Git identity only; no generated assets, credentials or recordings tracked.
+- [x] Deploy to the existing custom domain and repeat ordinary-DNS live multiplayer/PWA checks; both pass. The real-provider check passes Chromium but does not confirm WebKit automatic playback, as detailed below.
 
 ## Verification boundaries
 
 The overhaul's full 140-case matrix passes all 119 applicable cases across four browser projects. Earlier failures exposed and corrected Safari menu restoration, avatar keyboard navigation and round-standings keyboard access. The audio test now waits for asynchronous provider messages, and keyboard-scrolling checks wait for native movement rather than coalescing rapid key presses. Avatar geometry tests use reduced motion to isolate them from the separately tested animated panorama. Local simulated HTTP clients have independent rate-limit buckets; production limits are unchanged. These results supersede the launch release's smaller suite.
 
-The local production-build multiplayer smoke passed with ordinary clients and no test headers. Real Spotify automatic playback was provider-confirmed in Chromium, including hidden-player retention and mute. WebKit reported buffering but did not confirm playback within 20 seconds; its fallback appeared with no console/page errors. This external-provider result is not recorded as a playback pass. Full authenticated music playback was not tested.
+The local production-build and deployed HTTPS multiplayer smokes passed with ordinary clients and no test headers. Deployed PWA first-visit control and offline invitation recovery pass. The first immediate post-deploy multiplayer run timed out at lobby readiness; the diagnostic rerun passed without application changes, and that first failure's underlying cause was not established.
+
+Real Spotify automatic playback was provider-confirmed in Chromium both locally and on deployed HTTPS, including hidden-player retention and mute. WebKit did not confirm playback within 20 seconds on either origin; its fallback appeared with no console/page errors. The live real-provider command therefore exits nonzero: **WebKit automatic playback remains unverified**, and Safari users may need to open the jukebox and tap the provider player. This result is not recorded as a playback pass. Full authenticated music playback was not tested.
 
 Unexpected network loss can only be handled when the server observes transport failure; mobile operating systems may suspend or kill a tab without delivering `pagehide`. Provider preview/authentication/autoplay restrictions remain outside the game's control. Browser emulation and WebKit tests do not establish behavior on every physical phone or keyboard.

@@ -4,7 +4,7 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 
 **Play:** [competitive-crafting.eoghancollins.com](https://competitive-crafting.eoghancollins.com)
 
-The launch release is live on Cloudflare Workers. The gameplay overhaul below is being verified locally before deployment; see the [acceptance status](docs/acceptance.md) for release evidence. Full authenticated Spotify playback remains provider-dependent.
+The gameplay overhaul is live on Cloudflare Workers. The full browser matrix passes 119 cases across Chromium, mobile Chromium, WebKit and Firefox, with 21 intentional skips; see the [acceptance status](docs/acceptance.md) for release evidence. Full authenticated Spotify playback and automatic startup remain provider/browser-dependent.
 
 ## Current game design
 

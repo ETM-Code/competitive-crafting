@@ -16,6 +16,7 @@ const output = resolve(root, 'ui-progress');
 await mkdir(output, { recursive: true });
 const browser = await chromium.launch();
 const errors = [];
+const states = [];
 const contexts = [];
 const redact = (message) => message.replace(/([?&]token=)[^\s&"']+/gi, '$1[redacted]');
 try {
@@ -30,6 +31,30 @@ try {
   const guest = await guestContext.newPage();
   for (const page of [host, guest]) {
     page.setDefaultTimeout(15000);
+    page.on('websocket', (socket) => {
+      socket.on('framereceived', ({ payload }) => {
+        try {
+          const message = JSON.parse(String(payload));
+          if (message.type === 'state')
+            states.push({
+              viewer: page === host ? 'host' : 'guest',
+              phase: message.state.phase,
+              revision: message.state.revision,
+              players: message.state.players.map(({ name, connected, ready }) => ({
+                name,
+                connected,
+                ready,
+              })),
+            });
+          else if (message.type === 'error') errors.push(redact(message.message));
+        } catch {
+          errors.push('Unreadable server message');
+        }
+      });
+      socket.on('close', () =>
+        states.push({ viewer: page === host ? 'host' : 'guest', closed: true }),
+      );
+    });
     await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
     page.on('pageerror', (error) => errors.push(redact(error.message)));
     page.on('console', (message) => {
@@ -117,7 +142,15 @@ try {
   console.log(
     `Live smoke passed (${url.protocol}): assets, two players, mobile invite join, valid grid without premature points, collection, broadcast and score resync.`,
   );
+} catch (error) {
+  for (const [index, context] of contexts.entries()) {
+    const page = context.pages()[0];
+    if (page && !page.isClosed())
+      await page.screenshot({ path: resolve(output, `live-failure-${index}.png`), scale: 'css' });
+  }
+  throw error;
 } finally {
+  await writeFile(resolve(output, 'live-smoke-states.json'), JSON.stringify(states, null, 2));
   await Promise.all(contexts.map((context) => context.close()));
   await browser.close();
   await writeFile(resolve(output, 'live-smoke-errors.json'), JSON.stringify(errors, null, 2));

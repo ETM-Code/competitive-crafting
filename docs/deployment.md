@@ -52,6 +52,16 @@ Live HTTPS gameplay, mobile invitation joining, explicit collection, score persi
 
 The default recursive resolver subsequently returned the correct A records, system lookup succeeded and ordinary HTTPS returned 200. Both `npm run test:live` and the deployed PWA test then passed **without any DNS override**, including two-player scoring/reload and offline invitation recovery. This closes the observed resolver blocker; the originally estimated six-minute expiry did not by itself predict when that resolver recovered.
 
+## Gameplay overhaul release — 2026-09-17
+
+Deployed version: `5a54440d-c0f1-4277-adf5-f75e2adf1d8e`, from the verified gameplay overhaul on `development`. The normal deployment updated the existing Worker/custom-domain route without force or unrelated DNS changes. Application code and assets are the same as the production build used for acceptance.
+
+Pre-deployment gates passed: formatting, TypeScript, ESLint, 46 unit/shared tests, 61 Worker tests, four native runtime tests, 119 browser tests with 21 intentional skips, production build and bounded local concurrency smoke. The independent matcher oracle covers 2,055 valid translated/mirrored layouts, and the cached recipe-variety audit covers 30,000 rounds. Desktop/mobile screenshots and Chromium/WebKit recordings were refreshed and inspected; generated media remains untracked.
+
+Ordinary-DNS live HTTPS multiplayer passed: desktop host/mobile invitation join, tracked recipe grid without premature points, explicit collection, shared score, tab-departure ending and preserved score on rejoin. The first immediate post-deploy smoke timed out waiting on lobby readiness; a second run with token-free state diagnostics passed without application changes. The initial failure had no console errors, and its underlying cause was not established. Live PWA first-visit control and offline invitation recovery also passed. Main and provider-wrapper CSP headers were checked on the deployed origin; the main app still excludes `unsafe-eval`.
+
+Provider playback outcomes and remaining physical-device boundaries are recorded in [acceptance](acceptance.md); no full authenticated Spotify entitlement is claimed.
+
 ## Recovery
 
 Inspect deployment history and choose an explicitly known-good version:
