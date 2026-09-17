@@ -62,6 +62,14 @@ Ordinary-DNS live HTTPS multiplayer passed: desktop host/mobile invitation join,
 
 Provider playback outcomes and remaining physical-device boundaries are recorded in [acceptance](acceptance.md); no full authenticated Spotify entitlement is claimed.
 
+## Intermission and audio release — 2026-09-17
+
+Deployed version: `c7320a11-da86-4ffc-b198-019198895f8d`, source milestone `6ebfc8d` on `development`. Normal deployment updated only the existing Worker/custom-domain route; no force or DNS changes. Five-second reveals, round-bound host skip, three native effect samples and bounded Spotify interruption handling are live.
+
+Release gates passed: TypeScript/ESLint/Prettier, 50 unit/shared tests, 68 Worker tests, four native runtime tests, production build and the full 160-case browser matrix (136 passed, 24 intentional skips). Phone/landscape/desktop screenshots were inspected. The local production multiplayer smoke and deployed ordinary-DNS multiplayer smoke both passed with host-only skip and synchronized countdown; live PWA recovery passed. Curl verified deployed CSP separation and exact native WAV hashes; Python's HTTP client returned 403 initially, without any policy change being made.
+
+The live real-provider command with `--allow-manual` passed both engines: Chromium automatic startup and WebKit explicit-jukebox startup, progressing playback through native placement/collection, retained hidden iframe, explicit Pause and mute, zero console/page errors. WebKit automatic startup remains unverified and would fail the default stricter command. Full authenticated music playback and the originally reported physical-device interruption remain unverified. Detailed evidence and incomplete local probe boundaries are in [acceptance](acceptance.md#intermission-and-audio-follow-up--2026-09-17).
+
 ## Recovery
 
 Inspect deployment history and choose an explicitly known-good version:

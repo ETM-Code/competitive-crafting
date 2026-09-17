@@ -2,7 +2,7 @@
 
 ## Intermission and audio follow-up — 2026-09-17
 
-This follow-up supersedes the eight-second reveal and synthesized placement/collection effects described in the historical overhaul evidence below. Deployment is pending the final real-provider check; full browser and local production multiplayer verification have passed.
+This follow-up supersedes the eight-second reveal and synthesized placement/collection effects described in the historical overhaul evidence below. Deployed as `c7320a11-da86-4ffc-b198-019198895f8d` on the existing custom domain. Full browser, local production multiplayer and live multiplayer/PWA verification have passed.
 
 - [x] Five-second reveal. Only the connected current host sees **Next round**, or **Show results** after the final round. Next round preserves the three-second countdown.
 - [x] Skip commands are host-authorized and bound to the current round; stale/repeated commands, disconnected clients and alarm/persistence races cannot erase scores or skip later rounds.
@@ -12,7 +12,10 @@ This follow-up supersedes the eight-second reveal and synthesized placement/coll
 - [x] TypeScript, ESLint, formatting, production build, 50 unit/shared tests, 68 Worker tests and four native runtime tests pass.
 - [x] Full 160-case matrix: **136 passed, 24 intentional skips, zero failures** in 9.7 minutes. Twenty-one skips avoid duplicate Chromium lifecycle/authority cases, two skip unsupported service-worker lifecycle checks, and one excludes mouse painting on touch emulation. All 44 audio cases pass across Chromium, mobile Chromium, WebKit and Firefox. Phone/landscape/desktop skip-button screenshots were refreshed and inspected.
 - [x] Local production multiplayer smoke: normal desktop/mobile clients, invitation, explicit collection, shared score, host-only skip and preserved score after departure/rejoin. Static CSP and all three WAV responses checked.
-- [ ] Live deployment and final real-provider results.
+- [x] Normal deployment, ordinary-DNS live multiplayer with host skip, and PWA offline recovery pass. Live main/provider CSP separation and exact native WAV byte hashes verified. Python's HTTP client initially received 403; ordinary browser checks and curl succeeded without policy changes.
+- [x] Live real-provider continuity check passes with `--allow-manual`: Chromium starts automatically; WebKit requires an explicit jukebox interaction and is **not** counted as an automatic-start pass. Provider position advances across native placement/collection (Chromium 6.338 → 9.529 → 11.655 seconds; WebKit 3.961 → 5.971 → 8.223 seconds), iframe identity is retained, Pause/mute are respected, and both report zero console/page errors. These are provider previews, not full authenticated playback.
+
+The live result supersedes incomplete local real-provider runs: one hit a stale Play button beneath Spotify's upsell after music had already resumed, one exceeded a too-short countdown assertion, and one lost its local WebSocket (the cause was not established). The verification script now observes resumed playback before clicking Play and allows the normal gameplay timeout. No provider UI was removed or bypassed. The reported physical-device interruption was not reproduced; ambient mixing and bounded recovery remain best-effort mitigation, not a guarantee.
 
 ## Gameplay overhaul — 2026-09-17
 
