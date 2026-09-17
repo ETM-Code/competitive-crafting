@@ -1,0 +1,182 @@
+{
+  "version": "26.3",
+  "featureFlags": "VANILLA_SET",
+  "operatorPermissions": false,
+  "nativeSearchStacks": 2000,
+  "supportedSearchItems": 1617,
+  "excludedComponentStacks": 383,
+  "excludedComponentVariants": {
+    "painting": 47,
+    "white_banner": 1,
+    "firework_rocket": 2,
+    "goat_horn": 7,
+    "tipped_arrow": 46,
+    "suspicious_stew": 10,
+    "ominous_bottle": 4,
+    "potion": 46,
+    "splash_potion": 46,
+    "lingering_potion": 46,
+    "enchanted_book": 128
+  },
+  "excludedTabs": ["hotbar", "op_blocks", "inventory"],
+  "catalogueItemsOutsideSupportedSearch": [
+    "abandoned_camp_map",
+    "barrier",
+    "buried_ancient_city_map",
+    "buried_mineshaft_map",
+    "buried_treasure_map",
+    "buried_trial_chambers_map",
+    "chain_command_block",
+    "command_block",
+    "command_block_minecart",
+    "debug_stick",
+    "desert_pyramid_map",
+    "desert_village_map",
+    "enchanted_book",
+    "ender_dragon_spawn_egg",
+    "filled_map",
+    "jigsaw",
+    "jungle_pyramid_map",
+    "knowledge_book",
+    "light",
+    "lingering_potion",
+    "ocean_monument_map",
+    "petrified_oak_slab",
+    "plains_village_map",
+    "potion",
+    "repeating_command_block",
+    "savanna_village_map",
+    "snowy_village_map",
+    "splash_potion",
+    "structure_block",
+    "structure_void",
+    "suspicious_stew",
+    "swamp_hut_map",
+    "taiga_village_map",
+    "test_block",
+    "test_instance_block",
+    "tipped_arrow",
+    "warm_ocean_ruins_map",
+    "wither_spawn_egg",
+    "woodland_mansion_map",
+    "written_book"
+  ],
+  "missingRecipeItems": [],
+  "missingNativeRenders": [],
+  "overlappingItems": 200,
+  "tabs": [
+    {
+      "id": "building_blocks",
+      "row": "TOP",
+      "column": 0,
+      "nativeDisplayStacks": 475,
+      "supportedItems": 475,
+      "excludedComponentStacks": 0,
+      "nativeSearchStacks": 475
+    },
+    {
+      "id": "colored_blocks",
+      "row": "TOP",
+      "column": 1,
+      "nativeDisplayStacks": 278,
+      "supportedItems": 278,
+      "excludedComponentStacks": 0,
+      "nativeSearchStacks": 278
+    },
+    {
+      "id": "natural_blocks",
+      "row": "TOP",
+      "column": 2,
+      "nativeDisplayStacks": 254,
+      "supportedItems": 254,
+      "excludedComponentStacks": 0,
+      "nativeSearchStacks": 254
+    },
+    {
+      "id": "functional_blocks",
+      "row": "TOP",
+      "column": 3,
+      "nativeDisplayStacks": 284,
+      "supportedItems": 236,
+      "excludedComponentStacks": 48,
+      "nativeSearchStacks": 284
+    },
+    {
+      "id": "redstone_blocks",
+      "row": "TOP",
+      "column": 4,
+      "nativeDisplayStacks": 70,
+      "supportedItems": 70,
+      "excludedComponentStacks": 0,
+      "nativeSearchStacks": 70
+    },
+    {
+      "id": "tools_and_utilities",
+      "row": "BOTTOM",
+      "column": 0,
+      "nativeDisplayStacks": 158,
+      "supportedItems": 149,
+      "excludedComponentStacks": 9,
+      "nativeSearchStacks": 158
+    },
+    {
+      "id": "combat",
+      "row": "BOTTOM",
+      "column": 1,
+      "nativeDisplayStacks": 126,
+      "supportedItems": 78,
+      "excludedComponentStacks": 48,
+      "nativeSearchStacks": 126
+    },
+    {
+      "id": "food_and_drinks",
+      "row": "BOTTOM",
+      "column": 2,
+      "nativeDisplayStacks": 195,
+      "supportedItems": 43,
+      "excludedComponentStacks": 152,
+      "nativeSearchStacks": 195
+    },
+    {
+      "id": "ingredients",
+      "row": "BOTTOM",
+      "column": 3,
+      "nativeDisplayStacks": 194,
+      "supportedItems": 151,
+      "excludedComponentStacks": 43,
+      "nativeSearchStacks": 279
+    },
+    {
+      "id": "spawn_eggs",
+      "row": "BOTTOM",
+      "column": 4,
+      "nativeDisplayStacks": 89,
+      "supportedItems": 89,
+      "excludedComponentStacks": 0,
+      "nativeSearchStacks": 89
+    }
+  ],
+  "sources": {
+    "version": "26.3",
+    "versionMetadata": {
+      "url": "https://piston-meta.mojang.com/v1/packages/96c00d95a31328714d3811cfade2804bb050e455/26.3.json",
+      "sha1": "96c00d95a31328714d3811cfade2804bb050e455"
+    },
+    "client": {
+      "url": "https://piston-data.mojang.com/v1/objects/e877b6a07acd633fb3bb475002175cec036e7b87/client.jar",
+      "sha1": "e877b6a07acd633fb3bb475002175cec036e7b87"
+    },
+    "javaMajor": 25,
+    "isolatedJdk": {
+      "darwin-arm64": {
+        "version": "25.0.4.1+1",
+        "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_aarch64_mac_hotspot_25.0.4.1_1.tar.gz",
+        "sha256": "61979887f7506a24a57439ff99adb8b3a7fc89977d9cfe3b8984f58a981b7b9d",
+        "home": "Contents/Home"
+      }
+    }
+  },
+  "exporterSha256": "9f816faa5e5bbd12f2add54588b7192e7a473728e41ab0ce5bccfb10ef57630e",
+  "nativeMetadataSha256": "ecd0b2f30b12e32ae553d9fabd70f9bbbc51d7e8ca0e7916906df08f029a1792",
+  "creativeTabsSha256": "7c97b953b51ddedeba17d0d537707c006799ee503a2b81f4e2de7fd5aa784a2a"
+}

@@ -10,11 +10,11 @@
   "items": 1657,
   "recipes": 1185,
   "outputs": 1009,
-  "catalogueSha256": "35af697983b95d8a5d0d2459bf8981882d98be46f412f778229b75a62e7e0e6f",
+  "catalogueSha256": "c2c81fe641300da625992301bf5c9ea962ddb0deda6deadaf100ac09383f49eb",
   "invalidRenders": [],
   "excluded": [
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_blue_orchid.json",
+      "path": "data/minecraft/recipe/suspicious_stew_from_allium.json",
       "reason": "component-dependent output"
     },
     {
@@ -22,7 +22,15 @@
       "reason": "component-dependent output"
     },
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_allium.json",
+      "path": "data/minecraft/recipe/suspicious_stew_from_blue_orchid.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_closed_eyeblossom.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_cornflower.json",
       "reason": "component-dependent output"
     },
     {
@@ -34,19 +42,7 @@
       "reason": "component-dependent output"
     },
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_cornflower.json",
-      "reason": "component-dependent output"
-    },
-    {
       "path": "data/minecraft/recipe/suspicious_stew_from_lily_of_the_valley.json",
-      "reason": "component-dependent output"
-    },
-    {
-      "path": "data/minecraft/recipe/suspicious_stew_from_closed_eyeblossom.json",
-      "reason": "component-dependent output"
-    },
-    {
-      "path": "data/minecraft/recipe/suspicious_stew_from_orange_tulip.json",
       "reason": "component-dependent output"
     },
     {
@@ -54,7 +50,7 @@
       "reason": "component-dependent output"
     },
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_pink_tulip.json",
+      "path": "data/minecraft/recipe/suspicious_stew_from_orange_tulip.json",
       "reason": "component-dependent output"
     },
     {
@@ -62,7 +58,7 @@
       "reason": "component-dependent output"
     },
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_red_tulip.json",
+      "path": "data/minecraft/recipe/suspicious_stew_from_pink_tulip.json",
       "reason": "component-dependent output"
     },
     {
@@ -70,7 +66,7 @@
       "reason": "component-dependent output"
     },
     {
-      "path": "data/minecraft/recipe/suspicious_stew_from_wither_rose.json",
+      "path": "data/minecraft/recipe/suspicious_stew_from_red_tulip.json",
       "reason": "component-dependent output"
     },
     {
@@ -79,6 +75,10 @@
     },
     {
       "path": "data/minecraft/recipe/suspicious_stew_from_white_tulip.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_wither_rose.json",
       "reason": "component-dependent output"
     }
   ]

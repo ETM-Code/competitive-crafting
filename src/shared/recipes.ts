@@ -1,6 +1,27 @@
 import { itemById, recipes, recipesByOutput } from './catalogue';
 import type { Grid, Recipe } from './types';
 
+export function trimmedPattern(
+  pattern: NonNullable<Recipe['pattern']>,
+): NonNullable<Recipe['pattern']> {
+  const occupied = pattern.flatMap((row, y) => row.flatMap((cell, x) => (cell ? [{ x, y }] : [])));
+  if (!occupied.length) return [];
+  const left = Math.min(...occupied.map(({ x }) => x));
+  const right = Math.max(...occupied.map(({ x }) => x));
+  const top = Math.min(...occupied.map(({ y }) => y));
+  const bottom = Math.max(...occupied.map(({ y }) => y));
+  return pattern.slice(top, bottom + 1).map((row) => row.slice(left, right + 1));
+}
+const patterns = new WeakMap<Recipe, NonNullable<Recipe['pattern']>>();
+function patternFor(recipe: Recipe) {
+  let pattern = patterns.get(recipe);
+  if (!pattern) {
+    pattern = trimmedPattern(recipe.pattern ?? []);
+    patterns.set(recipe, pattern);
+  }
+  return pattern;
+}
+
 export function matches(grid: Grid, recipe: Recipe): boolean {
   if (grid.length !== 9 || grid.some((id) => id !== null && !itemById[id])) return false;
   if (recipe.kind === 'shapeless') {
@@ -19,7 +40,7 @@ export function matches(grid: Grid, recipe: Recipe): boolean {
     }
     return assign(0, 0);
   }
-  const pattern = recipe.pattern ?? [];
+  const pattern = patternFor(recipe);
   const height = pattern.length;
   const width = Math.max(0, ...pattern.map((row) => row.length));
   if (!width || !height || width > 3 || height > 3) return false;
@@ -64,7 +85,7 @@ function preferred(set: string[]): string {
 export function recipeGrid(recipe: Recipe, choose = preferred): Grid {
   const grid: Grid = Array(9).fill(null);
   if (recipe.kind === 'shaped')
-    recipe.pattern?.forEach((row, y) =>
+    patternFor(recipe).forEach((row, y) =>
       row.forEach((set, x) => {
         if (set) grid[y * 3 + x] = choose(set);
       }),

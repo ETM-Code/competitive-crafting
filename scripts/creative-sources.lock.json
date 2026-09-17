@@ -1,0 +1,20 @@
+{
+  "version": "26.3",
+  "versionMetadata": {
+    "url": "https://piston-meta.mojang.com/v1/packages/96c00d95a31328714d3811cfade2804bb050e455/26.3.json",
+    "sha1": "96c00d95a31328714d3811cfade2804bb050e455"
+  },
+  "client": {
+    "url": "https://piston-data.mojang.com/v1/objects/e877b6a07acd633fb3bb475002175cec036e7b87/client.jar",
+    "sha1": "e877b6a07acd633fb3bb475002175cec036e7b87"
+  },
+  "javaMajor": 25,
+  "isolatedJdk": {
+    "darwin-arm64": {
+      "version": "25.0.4.1+1",
+      "url": "https://github.com/adoptium/temurin25-binaries/releases/download/jdk-25.0.4.1%2B1/OpenJDK25U-jdk_aarch64_mac_hotspot_25.0.4.1_1.tar.gz",
+      "sha256": "61979887f7506a24a57439ff99adb8b3a7fc89977d9cfe3b8984f58a981b7b9d",
+      "home": "Contents/Home"
+    }
+  }
+}

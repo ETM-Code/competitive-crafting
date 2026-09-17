@@ -100,6 +100,61 @@ describe('canonical recipe corpus', () => {
     }
   });
 
+  it('trims padded recipe borders defensively and preserves internal blanks', () => {
+    const padded: Recipe = {
+      id: 'padded',
+      output: 'mace',
+      count: 1,
+      kind: 'shaped',
+      pattern: [
+        [null, null, null],
+        [null, ['heavy_core'], null],
+        [null, ['breeze_rod'], null],
+        [null, null, null],
+      ],
+    };
+    for (let row = 0; row < 2; row++)
+      for (let col = 0; col < 3; col++) {
+        const grid: Grid = Array(9).fill(null);
+        grid[row * 3 + col] = 'heavy_core';
+        grid[(row + 1) * 3 + col] = 'breeze_rod';
+        expect(matches(grid, padded)).toBe(true);
+        expect(matchRecipe(grid, 'mace')?.output).toBe('mace');
+      }
+    expect(
+      matches(['heavy_core', 'breeze_rod', null, null, null, null, null, null, null], padded),
+    ).toBe(false);
+    for (const target of ['spyglass', 'creaking_heart']) {
+      const recipe = recipesByOutput[target][0];
+      const ingredients = recipe
+        .pattern!.flat()
+        .filter((v): v is string[] => v !== null)
+        .map((v) => v[0]);
+      for (let col = 0; col < 3; col++) {
+        const grid: Grid = Array(9).fill(null);
+        ingredients.forEach((id, row) => (grid[row * 3 + col] = id));
+        expect(matchRecipe(grid, target)?.output).toBe(target);
+      }
+    }
+    const hole: Recipe = {
+      id: 'hole',
+      output: 'stick',
+      count: 1,
+      kind: 'shaped',
+      pattern: [
+        [null, ['oak_planks'], null],
+        [null, null, null],
+        [null, ['oak_planks'], null],
+      ],
+    };
+    expect(
+      matches(['oak_planks', null, null, null, null, null, 'oak_planks', null, null], hole),
+    ).toBe(true);
+    expect(
+      matches(['oak_planks', null, null, 'oak_planks', null, null, null, null, null], hole),
+    ).toBe(false);
+  });
+
   it('resolves overlapping shapeless tags rather than greedily consuming ingredients', () => {
     const recipe: Recipe = {
       id: 'overlap-fixture',

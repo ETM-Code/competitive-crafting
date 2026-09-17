@@ -121,7 +121,8 @@ for (const id of renderFiles.keys())
   if (language[`block.minecraft.${id}`] || language[`item.minecraft.${id}`]) itemIds.add(id);
 const recipes = [];
 const excluded = [];
-for (const [path, recipe] of source) {
+// Network/cache completion order must not change recipe order or catalogue hashes.
+for (const [path, recipe] of [...source].sort(([a], [b]) => a.localeCompare(b))) {
   if (!path.startsWith('data/minecraft/recipe/')) continue;
   if (!['minecraft:crafting_shaped', 'minecraft:crafting_shapeless'].includes(recipe.type))
     continue;
@@ -136,11 +137,19 @@ for (const [path, recipe] of source) {
     count: recipe.result.count ?? 1,
     kind: recipe.type.endsWith('shapeless') ? 'shapeless' : 'shaped',
   };
-  if (normalized.kind === 'shaped')
-    normalized.pattern = recipe.pattern.map((row) =>
+  if (normalized.kind === 'shaped') {
+    const rows = recipe.pattern.map((row) =>
       [...row].map((char) => (char === ' ' ? null : ingredient(recipe.key[char]))),
     );
-  else normalized.ingredients = recipe.ingredients.map(ingredient);
+    // Vanilla trims empty outer rows/columns before testing offsets and horizontal mirrors.
+    const occupied = rows.flatMap((row, y) => row.flatMap((cell, x) => (cell ? [{ x, y }] : [])));
+    if (!occupied.length) throw new Error(`Empty shaped recipe: ${path}`);
+    const left = Math.min(...occupied.map((cell) => cell.x));
+    const right = Math.max(...occupied.map((cell) => cell.x));
+    const top = Math.min(...occupied.map((cell) => cell.y));
+    const bottom = Math.max(...occupied.map((cell) => cell.y));
+    normalized.pattern = rows.slice(top, bottom + 1).map((row) => row.slice(left, right + 1));
+  } else normalized.ingredients = recipe.ingredients.map(ingredient);
   const ids = [
     output,
     ...(normalized.pattern?.flat().flatMap((x) => x ?? []) ?? normalized.ingredients.flat()),
