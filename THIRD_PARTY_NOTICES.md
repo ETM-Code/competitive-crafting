@@ -15,6 +15,12 @@ Minecraft names, recipes, textures and item artwork belong to their respective r
 
 Downloaded binary game assets live in ignored `public/assets/`. The repository includes the reproducible importer, not a claim to ownership of those assets. Review applicable usage terms before redistributing or commercializing a derivative deployment.
 
+The twelve player portraits reuse pinned Minecraft entity textures through `scripts/sync-avatars.mjs`, including separate front-facing snout/nose patches and the spider/Enderman emissive eye layers. Herobrine is a fan-made homage using the vanilla Steve face with white eyes, not an official Minecraft mob or a canonical Herobrine asset.
+
+## Interface sound
+
+The native Minecraft 26.3 `ui.button.click` sample (`minecraft/sounds/random/click_stereo.ogg`) is retrieved from Mojang's content-addressed asset service and verified against SHA-1 `f0ca66561f832bf2f60b393837297c2692367cd5` (asset-index SHA-1 `d8492bc61d32a4874c77daa03c0cba9201e9b83b`). `scripts/sync-sounds.mjs` converts it to a cached PCM WAV for browser compatibility; the source and conversion metadata remain under ignored asset/build directories. This is Minecraft artwork/audio, not permissively licensed application code, and retains its original rights. Placement and collection tones remain original synthesized effects. No Spotify audio is downloaded.
+
 ## Typography
 
 Monocraft: https://github.com/IdreesInc/Monocraft, licensed under the SIL Open Font License 1.1. The importer saves the upstream license alongside the downloaded font.

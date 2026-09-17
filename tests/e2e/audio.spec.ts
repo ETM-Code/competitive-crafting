@@ -6,10 +6,11 @@ const mockAPI = `(() => {
   window.__spotifyCalls = [];
   window.onSpotifyIframeApiReady({ createController(element, options, callback) {
     window.__spotifyCalls.push(['create', options.uri]);
+    const media = document.createElement('iframe'); media.loading = 'lazy'; media.title = 'Mock Spotify'; element.append(media);
     const listeners = {};
     window.__spotifyEmit = (name, data) => listeners[name]?.({data});
     const controller = {
-      play() { window.__spotifyCalls.push(['play']); },
+      play() { window.__spotifyCalls.push(['play']); listeners.playback_update?.({data:{isPaused:false,isBuffering:false}}); },
       pause() { window.__spotifyCalls.push(['pause']); },
       loadUri(uri) { window.__spotifyCalls.push(['load', uri]); },
       destroy() { window.__spotifyCalls.push(['destroy']); },
@@ -19,91 +20,266 @@ const mockAPI = `(() => {
   }});
 })();`;
 
-test('music loads only on request, obeys explicit play and sound-off pauses playback', async ({
+test('music preloads silently, starts with normal game gesture, and sound-off pauses playback', async ({
   page,
 }) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: mockAPI }),
+  );
+  await page.goto('/');
+  const host = page.frameLocator('.spotify-host').locator('body');
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () => (window as unknown as { __spotifyCalls?: string[][] }).__spotifyCalls?.length || 0,
+      ),
+    )
+    .toBeGreaterThan(0);
+  expect(
+    await host.evaluate(() =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([type]) => type === 'play',
+      ),
+    ),
+  ).toHaveLength(0);
+  await expect(page.frameLocator('.spotify-host').locator('iframe')).toHaveAttribute(
+    'loading',
+    'eager',
+  );
+  await page.getByTestId('player-name').fill('AutoMusic');
+  await page.getByTestId('create-room').click();
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'play',
+          ).length,
+      ),
+    )
+    .toBeGreaterThan(0);
+  await page.getByTestId('jukebox-toggle').click();
+  const panel = page.getByRole('region', { name: 'Spotify jukebox' });
+  await expect(panel.getByRole('button', { name: 'Play', exact: true })).toHaveCount(0);
+  await expect(panel).toContainText('Playing');
+  await page.getByTestId('sound-toggle').click();
+  await expect(panel).toContainText('Sound is off');
+  expect(await page.evaluate(() => localStorage.getItem('craft.sound'))).toBe('off');
+  const pauses = await host.evaluate(
+    () =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([type]) => type === 'pause',
+      ).length,
+  );
+  expect(pauses).toBeGreaterThan(0);
+  await host.evaluate(() =>
+    (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
+      'playback_update',
+      { isPaused: false },
+    ),
+  );
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'pause',
+          ).length,
+      ),
+    )
+    .toBe(pauses + 1);
+  const plays = await host.evaluate(
+    () =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([type]) => type === 'play',
+      ).length,
+  );
+  await panel.getByRole('combobox', { name: 'Spotify track' }).selectOption({ index: 1 });
+  expect(
+    await host.evaluate(
+      () =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([type]) => type === 'play',
+        ).length,
+    ),
+  ).toBe(plays);
+  await page.getByTestId('sound-toggle').click();
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'play',
+          ).length,
+      ),
+    )
+    .toBeGreaterThan(plays);
+  await expect(panel).toContainText('Playing');
+  await panel.getByRole('button', { name: 'Pause', exact: true }).click();
+  const stoppedAt = await host.evaluate(
+    () =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([type]) => type === 'play',
+      ).length,
+  );
+  await page.getByTestId('jukebox-toggle').click();
+  await page.getByTestId('leave-room').click();
+  expect(
+    await host.evaluate(
+      () =>
+        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+          ([type]) => type === 'play',
+        ).length,
+    ),
+  ).toBe(stoppedAt);
+  await page.getByRole('button', { name: 'Keep crafting' }).click();
+  expect(errors).toEqual([]);
+});
+
+test('mobile play hides controls without replacing or pausing the music player', async ({
+  page,
+}) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.setViewportSize({ width: 390, height: 664 });
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({ contentType: 'text/javascript', body: mockAPI }),
+  );
+  await page.goto('/');
+  const host = page.frameLocator('.spotify-host').locator('body');
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () => (window as unknown as { __spotifyCalls?: string[][] }).__spotifyCalls?.length ?? 0,
+      ),
+    )
+    .toBeGreaterThan(0);
+  await host.evaluate(() => {
+    (window as unknown as { retainedPlayer: boolean }).retainedPlayer = true;
+  });
+  await page.getByTestId('player-name').fill('MobileMusic');
+  await page.getByTestId('practice-button').click();
+  await expect(page.getByTestId('lobby')).toBeVisible();
+  await page.getByTestId('ready-button').click();
+  await page.getByTestId('start-button').click();
+  await expect(page.getByTestId('crafting-grid')).toBeVisible();
+  await expect(page.locator('.site-header')).toBeHidden();
+  await expect(page.getByTestId('jukebox-toggle')).toBeHidden();
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'play',
+          ).length,
+      ),
+    )
+    .toBeGreaterThan(0);
+  expect(
+    await host.evaluate(() => (window as unknown as { retainedPlayer: boolean }).retainedPlayer),
+  ).toBe(true);
+  await page.getByTestId('game-menu-toggle').click();
+  await page.getByTestId('jukebox-toggle').click();
+  await expect(page.getByRole('region', { name: 'Spotify jukebox' })).toContainText('Playing');
+  const pauses = await host.evaluate(
+    () =>
+      (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+        ([type]) => type === 'pause',
+      ).length,
+  );
+  await page.getByTestId('sound-toggle').click();
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'pause',
+          ).length,
+      ),
+    )
+    .toBeGreaterThan(pauses);
+  expect(
+    await host.evaluate(() => (window as unknown as { retainedPlayer: boolean }).retainedPlayer),
+  ).toBe(true);
+  expect(errors).toEqual([]);
+});
+
+test('native button click sample decodes in the browser and is emitted once', async ({ page }) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await page.goto('/offline.html');
+  await page.evaluate(async () => {
+    // The isolated development page avoids unrelated game effects in the sample count.
+    const source = '/src/lib/audio.ts';
+    const audio = (await import(source)) as {
+      prepareSounds(): void;
+      playSound(kind: string, enabled: boolean): void;
+    };
+    const state = window as unknown as { nativeClicks: number[] };
+    state.nativeClicks = [];
+    const start = AudioBufferSourceNode.prototype.start;
+    AudioBufferSourceNode.prototype.start = function (
+      ...args: Parameters<AudioBufferSourceNode['start']>
+    ) {
+      state.nativeClicks.push(this.buffer?.duration ?? 0);
+      return start.apply(this, args);
+    };
+    audio.prepareSounds();
+    const button = document.createElement('button');
+    button.textContent = 'Test native click';
+    button.onclick = () => audio.playSound('click', true);
+    document.body.appendChild(button);
+  });
+  await page.waitForTimeout(300);
+  await page.getByRole('button', { name: 'Test native click' }).click();
+  await expect
+    .poll(() =>
+      page.evaluate(() => (window as unknown as { nativeClicks: number[] }).nativeClicks.length),
+    )
+    .toBe(1);
+  expect(
+    await page.evaluate(() => (window as unknown as { nativeClicks: number[] }).nativeClicks[0]),
+  ).toBeGreaterThan(0.05);
+  expect(errors).toEqual([]);
+});
+
+test('remembered sound-off prevents music preload and automatic playback', async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
   let requests = 0;
   await page.route(spotifyAPI, async (route) => {
     requests++;
     await route.fulfill({ contentType: 'text/javascript', body: mockAPI });
   });
   await page.goto('/');
+  await page.getByTestId('player-name').fill('MutedMusic');
+  await page.getByTestId('create-room').click();
+  await expect(page.getByTestId('sound-toggle')).toHaveAttribute('aria-pressed', 'false');
   expect(requests).toBe(0);
+  await expect(page.locator('.spotify-host')).toHaveCount(0);
+});
+
+test('blocked automatic playback reports fallback instead of claiming music plays', async ({
+  page,
+}) => {
+  await page.clock.install();
+  await page.route(spotifyAPI, (route) =>
+    route.fulfill({
+      contentType: 'text/javascript',
+      body: mockAPI.replace(
+        'listeners.playback_update?.({data:{isPaused:false,isBuffering:false}});',
+        '',
+      ),
+    }),
+  );
+  await page.goto('/');
   await page.getByTestId('jukebox-toggle').click();
   const panel = page.getByRole('region', { name: 'Spotify jukebox' });
-  await expect(panel.getByRole('button', { name: 'Play', exact: true })).toBeEnabled();
-  expect(
-    await page
-      .frameLocator('.spotify-host')
-      .locator('body')
-      .evaluate(() =>
-        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
-          ([type]) => type === 'play',
-        ),
-      ),
-  ).toHaveLength(0);
-  await panel.getByRole('button', { name: 'Play', exact: true }).click();
-  await page.getByTestId('sound-toggle').click();
-  await expect(panel.getByRole('button', { name: 'Play', exact: true })).toBeDisabled();
-  await expect(panel).toContainText('Sound is off');
-  expect(await page.evaluate(() => localStorage.getItem('craft.sound'))).toBe('off');
-  const before = await page
-    .frameLocator('.spotify-host')
-    .locator('body')
-    .evaluate(
-      () =>
-        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
-          ([type]) => type === 'pause',
-        ).length,
-    );
-  expect(before).toBeGreaterThan(0);
-  await page
-    .frameLocator('.spotify-host')
-    .locator('body')
-    .evaluate(() =>
-      (window as unknown as { __spotifyEmit: (name: string, data: unknown) => void }).__spotifyEmit(
-        'playback_update',
-        { isPaused: false },
-      ),
-    );
-  expect(
-    await page
-      .frameLocator('.spotify-host')
-      .locator('body')
-      .evaluate(
-        () =>
-          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
-            ([type]) => type === 'pause',
-          ).length,
-      ),
-  ).toBe(before + 1);
-  await panel.getByRole('combobox', { name: 'Spotify track' }).selectOption({ index: 1 });
-  expect(
-    await page
-      .frameLocator('.spotify-host')
-      .locator('body')
-      .evaluate(() =>
-        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
-          ([type]) => type === 'play',
-        ),
-      ),
-  ).toHaveLength(1);
-  await page.getByTestId('sound-toggle').click();
-  await expect(panel.getByRole('button', { name: 'Play', exact: true })).toBeEnabled();
-  await panel.getByRole('button', { name: 'Play', exact: true }).click();
-  expect(
-    await page
-      .frameLocator('.spotify-host')
-      .locator('body')
-      .evaluate(() =>
-        (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
-          ([type]) => type === 'play',
-        ),
-      ),
-  ).toHaveLength(2);
-  expect(errors).toEqual([]);
+  await expect(panel.getByRole('button', { name: 'Next', exact: true })).toBeEnabled();
+  await page.clock.fastForward(5000);
+  await expect(panel).toContainText('Browser blocked music?');
+  await expect(panel).not.toContainText('Playing ·');
 });
 
 test('curated shuffle starts on a verified track, never repeats a bag, and keeps manual selection', async ({
@@ -156,7 +332,7 @@ test('blocked Spotify gives a playable fallback and a working retry', async ({ p
     'https://open.spotify.com/playlist/5T4KWhz9Q8r98skQBimtlH',
   );
   await panel.getByRole('button', { name: 'Retry Spotify' }).click();
-  await expect(panel.getByRole('button', { name: 'Play', exact: true })).toBeEnabled();
+  await expect(panel.getByRole('button', { name: 'Next', exact: true })).toBeEnabled();
   await page.getByTestId('jukebox-toggle').click();
   await expect(page.getByTestId('create-room')).toBeEnabled();
   expect(errors).toEqual([]);

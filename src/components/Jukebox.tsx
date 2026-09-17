@@ -1,19 +1,21 @@
-import { useEffect, useRef, useState } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef, useState } from 'react';
 import playlist from '../data/playlist.json';
 import { ItemImage } from './ItemSlot';
 import { createShuffleBag, type JukeboxTrack } from '../lib/jukebox';
 
-export function Jukebox({
-  sound,
-  onSound,
-  open: controlledOpen,
-  onOpenChange,
-}: {
+export interface JukeboxHandle {
+  requestPlayback(): void;
+}
+interface JukeboxProps {
   sound: boolean;
   onSound: () => void;
   open?: boolean;
   onOpenChange?: (open: boolean) => void;
-}) {
+}
+export const Jukebox = forwardRef<JukeboxHandle, JukeboxProps>(function Jukebox(
+  { sound, onSound, open: controlledOpen, onOpenChange },
+  ref,
+) {
   const [localOpen, setLocalOpen] = useState(false);
   const open = controlledOpen ?? localOpen;
   const [mounted, setMounted] = useState(false);
@@ -30,6 +32,10 @@ export function Jukebox({
   currentTrack.current = track;
   const frame = useRef<HTMLIFrameElement>(null);
   const enabled = useRef(sound);
+  const wanted = useRef(false);
+  const playing = useRef(false);
+  const intentionallyPaused = useRef(false);
+  const playbackTimeout = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   enabled.current = sound;
 
   function command(type: string, extra: Record<string, unknown> = {}) {
@@ -39,18 +45,47 @@ export function Jukebox({
     );
   }
 
+  function attemptPlayback() {
+    if (!enabled.current || playing.current || playbackTimeout.current) return;
+    setStatus('Starting music…');
+    command('play');
+    playbackTimeout.current = setTimeout(() => {
+      playbackTimeout.current = undefined;
+      if (!playing.current && enabled.current)
+        setStatus('Browser blocked music? Tap the Spotify player to start it.');
+    }, 4000);
+  }
+  function requestPlayback(explicit = false) {
+    if (!enabled.current || (intentionallyPaused.current && !explicit)) return;
+    intentionallyPaused.current = false;
+    wanted.current = true;
+    setMounted(true);
+    if (ready) attemptPlayback();
+  }
+  useImperativeHandle(ref, () => ({ requestPlayback: () => requestPlayback() }));
   useEffect(() => {
-    if (open) setMounted(true);
-  }, [open]);
+    if (sound || open) setMounted(true);
+  }, [sound, open]);
 
   useEffect(() => {
     command('sound', { enabled: sound });
+    if (!sound) {
+      wanted.current = false;
+      playing.current = false;
+      clearTimeout(playbackTimeout.current);
+      playbackTimeout.current = undefined;
+      setStatus('Sound is off.');
+    }
   }, [sound]);
+  useEffect(() => () => clearTimeout(playbackTimeout.current), []);
 
   useEffect(() => {
     if (!mounted) return;
     setReady(false);
     setFailed(false);
+    playing.current = false;
+    clearTimeout(playbackTimeout.current);
+    playbackTimeout.current = undefined;
     setStatus('Loading Spotify…');
     const timeout = setTimeout(() => {
       setFailed(true);
@@ -72,7 +107,29 @@ export function Jukebox({
         setReady(true);
         setFailed(false);
         command('sound', { enabled: enabled.current });
-        setStatus('Press play to start. Spotify may require sign-in or offer previews.');
+        setStatus(enabled.current ? 'Music starts with your next game action.' : 'Sound is off.');
+        if (wanted.current && enabled.current) attemptPlayback();
+      } else if (event.data.type === 'playback') {
+        if (typeof event.data.isPaused !== 'boolean') return;
+        if (event.data.playingURI && event.data.playingURI !== currentTrack.current.uri) return;
+        const wasPlaying = playing.current;
+        playing.current = !event.data.isPaused && event.data.isBuffering !== true;
+        if (playing.current) {
+          clearTimeout(playbackTimeout.current);
+          playbackTimeout.current = undefined;
+          setStatus('Playing · Spotify may offer previews.');
+        } else if (event.data.isBuffering === true) {
+          setStatus('Spotify is buffering…');
+        } else if (intentionallyPaused.current) {
+          setStatus('Music paused. Open the jukebox or choose Next to resume.');
+        } else if (wasPlaying) {
+          // Spotify gives no distinct completion event; do not interpret pause as track end.
+          intentionallyPaused.current = true;
+          wanted.current = false;
+          clearTimeout(playbackTimeout.current);
+          playbackTimeout.current = undefined;
+          setStatus('Music paused or finished. Choose Next for another favourite.');
+        }
       } else if (event.data.type === 'error') {
         clearTimeout(timeout);
         setReady(false);
@@ -93,7 +150,13 @@ export function Jukebox({
     bag.select(next.uri);
     currentTrack.current = next;
     setTrack(next);
+    playing.current = false;
+    intentionallyPaused.current = false;
+    wanted.current = enabled.current;
+    clearTimeout(playbackTimeout.current);
+    playbackTimeout.current = undefined;
     command('load', { uri: next.uri });
+    if (enabled.current) attemptPlayback();
   }
   const playlistURL = `https://open.spotify.com/playlist/${playlist.playlistUri.split(':').pop()}`;
   return (
@@ -104,7 +167,15 @@ export function Jukebox({
           data-testid="sound-toggle"
           aria-label={sound ? 'Turn sound off' : 'Turn sound on'}
           aria-pressed={sound}
-          onClick={onSound}
+          onClick={() => {
+            if (!sound) {
+              enabled.current = true;
+              intentionallyPaused.current = false;
+              command('sound', { enabled: true });
+              requestPlayback(true);
+            }
+            onSound();
+          }}
         >
           <svg
             viewBox="0 0 24 24"
@@ -125,6 +196,7 @@ export function Jukebox({
           aria-expanded={open}
           aria-controls="jukebox-panel"
           onClick={() => {
+            if (!open) requestPlayback(true);
             setLocalOpen(!open);
             onOpenChange?.(!open);
           }}
@@ -172,12 +244,17 @@ export function Jukebox({
           <div className="jukebox-actions">
             <button
               className="button compact"
-              disabled={!ready || !sound}
-              onClick={() => command('play')}
+              disabled={!ready}
+              onClick={() => {
+                intentionallyPaused.current = true;
+                wanted.current = false;
+                playing.current = false;
+                clearTimeout(playbackTimeout.current);
+                playbackTimeout.current = undefined;
+                command('pause');
+                setStatus('Music paused. Open the jukebox or choose Next to resume.');
+              }}
             >
-              Play
-            </button>
-            <button className="button compact" disabled={!ready} onClick={() => command('pause')}>
               Pause
             </button>
             <button className="button compact" disabled={!ready} onClick={() => choose(bag.next())}>
@@ -214,4 +291,4 @@ export function Jukebox({
       )}
     </div>
   );
-}
+});

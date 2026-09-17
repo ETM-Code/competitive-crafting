@@ -5,7 +5,7 @@
   let enabled = true;
   let initialized = false;
   let timeout;
-  const send = (type) => parent.postMessage({ channel, type }, location.origin);
+  const send = (type, data = {}) => parent.postMessage({ channel, type, ...data }, location.origin);
   const fail = () => {
     clearTimeout(timeout);
     send('error');
@@ -32,13 +32,26 @@
             { uri: message.uri, width: '100%', height: 152 },
             (embed) => {
               controller = embed;
+              // The SDK defaults to lazy loading; hidden menus must still prepare the player.
+              document.querySelectorAll('iframe').forEach((frame) => {
+                frame.loading = 'eager';
+              });
               embed.addListener('ready', () => {
                 clearTimeout(timeout);
                 if (!enabled) embed.pause();
                 send('ready');
               });
               embed.addListener('playback_update', (event) => {
-                if (!enabled && !event.data.isPaused) embed.pause();
+                if (!enabled && !event.data.isPaused) {
+                  embed.pause();
+                  return;
+                }
+                send('playback', {
+                  isPaused: event.data.isPaused,
+                  isBuffering: event.data.isBuffering,
+                  playingURI:
+                    typeof event.data.playingURI === 'string' ? event.data.playingURI : undefined,
+                });
               });
             },
           );
@@ -60,7 +73,6 @@
       controller?.pause();
     } else if (message.type === 'load' && validURI(message.uri)) {
       controller?.loadUri(message.uri);
-      if (enabled) controller?.play();
     }
   });
   send('loaded');
