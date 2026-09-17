@@ -4,7 +4,7 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 
 **Play:** [competitive-crafting.eoghancollins.com](https://competitive-crafting.eoghancollins.com)
 
-The gameplay overhaul is live on Cloudflare Workers. The full browser matrix passes 119 cases across Chromium, mobile Chromium, WebKit and Firefox, with 21 intentional skips; see the [acceptance status](docs/acceptance.md) for release evidence. Full authenticated Spotify playback and automatic startup remain provider/browser-dependent.
+The game is hosted on Cloudflare Workers. The latest full browser matrix passes 136 cases across Chromium, mobile Chromium, WebKit and Firefox, with 24 intentional skips; see the [acceptance status](docs/acceptance.md) for deployment and release evidence. Full authenticated Spotify playback and automatic startup remain provider/browser-dependent.
 
 ## Current game design
 
@@ -17,9 +17,10 @@ The gameplay overhaul is live on Cloudflare Workers. The full browser matrix pas
 - Native 256×256 item renders, twelve player faces including a custom Herobrine homage, and a moving Minecraft title panorama.
 - Desktop mouse-held grid painting, right-drag erasing, native item dragging and keyboard crafting.
 - Immersive mobile table/inventory with native keyboard-aware search; canonical creative tabs and ordering.
-- Animated per-round standings, score deltas, final podium and low-time edge warning.
+- Animated per-round standings, score deltas, final podium and low-time edge warning. Five-second intermissions; the connected host can choose **Next round** to start the usual three-second countdown early, or **Show results** after the final round.
 - Expandable QR invitations; tab departures transfer ownership and end multiplayer matches that become solitary. Codes expire after 30 idle minutes or six hours total.
-- Native Minecraft button sounds and a 22-track curated jukebox that attempts playback on normal user interaction, with a no-repeat Next shuffle and provider-controlled playback limits.
+- Native Minecraft button-click, item-pickup and experience-orb samples for clicks, placement and collection; no synthesized substitute effects.
+- A 22-track curated Spotify jukebox that attempts playback on normal user interaction, with a no-repeat Next shuffle and provider-controlled playback limits. Optional experimental audio-session mixing and a bounded interruption-recovery heuristic are best-effort measures, not a verified physical-device fix or a guarantee of continuous playback. See [music delivery decisions](docs/reuse.md#music-delivery).
 
 See [acceptance criteria](docs/acceptance.md) for the current requirements and verification status.
 

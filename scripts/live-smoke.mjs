@@ -130,6 +130,12 @@ try {
     '100 total XP',
   );
   await host.screenshot({ path: resolve(output, 'live-desktop-round-result.png'), scale: 'css' });
+  await expect(guest.getByTestId('skip-reveal')).toHaveCount(0);
+  await host.getByTestId('skip-reveal').click();
+  await expect(host.getByTestId('countdown')).toBeVisible();
+  await expect(guest.getByTestId('countdown')).toBeVisible();
+  await expect(targetName).toBeVisible();
+  await expect(guest.getByTestId('target-name')).toHaveText(await targetName.innerText());
   await host.reload();
   await expect(host.getByTestId('results')).toContainText(
     'All alone? Try getting some friends, loser.',
@@ -140,7 +146,7 @@ try {
   await host.screenshot({ path: resolve(output, 'live-desktop-result.png'), scale: 'css' });
   expect(errors).toEqual([]);
   console.log(
-    `Live smoke passed (${url.protocol}): assets, two players, mobile invite join, valid grid without premature points, collection, broadcast and score resync.`,
+    `Live smoke passed (${url.protocol}): assets, two players, mobile invite join, valid grid without premature points, collection, host-only intermission skip, broadcast and score resync.`,
   );
 } catch (error) {
   for (const [index, context] of contexts.entries()) {

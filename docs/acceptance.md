@@ -1,8 +1,22 @@
 # Release acceptance checklist
 
+## Intermission and audio follow-up — 2026-09-17
+
+This follow-up supersedes the eight-second reveal and synthesized placement/collection effects described in the historical overhaul evidence below. Deployment is pending the final real-provider check; full browser and local production multiplayer verification have passed.
+
+- [x] Five-second reveal. Only the connected current host sees **Next round**, or **Show results** after the final round. Next round preserves the three-second countdown.
+- [x] Skip commands are host-authorized and bound to the current round; stale/repeated commands, disconnected clients and alarm/persistence races cannot erase scores or skip later rounds.
+- [x] All effects use pinned native Minecraft samples: button click, item pickup and experience orb. Decoding is cached; mute cancels active and pending effects; stale delayed effects do not play.
+- [x] Avoid redundant AudioContext resumes; request optional ambient mixing when the browser supports it. A hidden-player pause shortly after an effect gets one bounded recovery attempt, excluding explicit pause/mute/completion. A pause after buffering is latched instead of overridden by the next gameplay gesture.
+- [x] Investigate alternative music delivery. Retain authentic Spotify because no reviewed source establishes blanket self-hosting rights for the current catalogue; do not replace it silently with different music. See [reuse decisions](reuse.md#music-delivery).
+- [x] TypeScript, ESLint, formatting, production build, 50 unit/shared tests, 68 Worker tests and four native runtime tests pass.
+- [x] Full 160-case matrix: **136 passed, 24 intentional skips, zero failures** in 9.7 minutes. Twenty-one skips avoid duplicate Chromium lifecycle/authority cases, two skip unsupported service-worker lifecycle checks, and one excludes mouse painting on touch emulation. All 44 audio cases pass across Chromium, mobile Chromium, WebKit and Firefox. Phone/landscape/desktop skip-button screenshots were refreshed and inspected.
+- [x] Local production multiplayer smoke: normal desktop/mobile clients, invitation, explicit collection, shared score, host-only skip and preserved score after departure/rejoin. Static CSP and all three WAV responses checked.
+- [ ] Live deployment and final real-provider results.
+
 ## Gameplay overhaul — 2026-09-17
 
-These requirements supersede the launch release's Overclock and reconnect-grace design. The overhaul is deployed as `5a54440d-c0f1-4277-adf5-f75e2adf1d8e` on the existing custom domain; live verification is tracked below.
+Historical baseline: these requirements superseded the launch release's Overclock and reconnect-grace design. The overhaul was deployed as `5a54440d-c0f1-4277-adf5-f75e2adf1d8e` on the existing custom domain; live verification is tracked below.
 
 ### Rules and room lifecycle
 
