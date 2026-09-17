@@ -1,4 +1,4 @@
-import { test, expect, type Page, type Locator } from '@playwright/test';
+import { test, expect, type Page, type Locator } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 
 // Audio/provider behavior has its own suite; keep layout/input checks deterministic.

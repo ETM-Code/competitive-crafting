@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import playlist from '../../src/data/playlist.json' with { type: 'json' };
 
 const spotifyAPI = '**/open.spotify.com/embed/iframe-api/v1';

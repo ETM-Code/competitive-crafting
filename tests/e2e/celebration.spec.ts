@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 
 async function fixture(page: Page, scene = 'reveal') {
@@ -75,7 +75,18 @@ test('round standings can be reached and scrolled using the keyboard', async ({ 
   expect(await standings.evaluate((element) => getComputedStyle(element).outlineStyle)).toBe(
     'solid',
   );
-  for (let i = 0; i < 8; i++) await page.keyboard.press('PageDown');
+  // Wait for each native scroll; WebKit coalesces rapid PageDown presses during animation.
+  for (let i = 0; i < 8; i++) {
+    const before = await standings.evaluate((element) => element.scrollTop);
+    const atEnd = await standings.evaluate(
+      (element) => element.scrollTop + element.clientHeight >= element.scrollHeight - 1,
+    );
+    if (atEnd) break;
+    await page.keyboard.press('PageDown');
+    await expect
+      .poll(() => standings.evaluate((element) => element.scrollTop))
+      .toBeGreaterThan(before);
+  }
   await expect(page.getByTestId('round-standing-p11')).toBeInViewport();
   expect(errors).toEqual([]);
 });

@@ -1,4 +1,4 @@
-import { test, expect, type Page } from '@playwright/test';
+import { test, expect, type Page } from './fixtures';
 
 // Audio/provider behavior has its own suite; keep layout/input checks deterministic.
 test.beforeEach(async ({ page }) => {

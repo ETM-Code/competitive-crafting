@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 
 const production = process.env.PWA_BASE_URL || 'http://127.0.0.1:8787';

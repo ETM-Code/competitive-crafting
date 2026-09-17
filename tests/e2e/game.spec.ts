@@ -1,4 +1,4 @@
-import { test, expect, type Page, type Browser } from '@playwright/test';
+import { test, expect, isolateLocalApi, type Page, type Browser } from './fixtures';
 import jsQR from 'jsqr';
 import { mkdir } from 'node:fs/promises';
 import { solutionFor } from '../../src/shared/recipes';
@@ -85,6 +85,7 @@ async function fillTarget(page: Page, touch = false) {
 }
 async function joinSecond(browser: Browser, url: string) {
   const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173' });
+  await isolateLocalApi(context);
   const page = await context.newPage();
   await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
   const errors = observe(page);

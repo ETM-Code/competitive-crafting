@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 import { DEFAULT_SETTINGS } from '../../src/shared/rules';
 import type { RoomSnapshot } from '../../src/shared/types';

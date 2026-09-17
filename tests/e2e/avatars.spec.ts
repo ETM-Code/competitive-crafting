@@ -1,6 +1,9 @@
-import { expect, test } from '@playwright/test';
+import { expect, test } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 import { AVATARS, AVATAR_NAMES } from '../../src/components/Scoreboard';
+
+// Avatar geometry/focus is independent of the separately tested animated panorama.
+test.use({ reducedMotion: 'reduce' });
 
 test.beforeEach(async ({ page }) => {
   await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));

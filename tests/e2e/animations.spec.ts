@@ -1,4 +1,4 @@
-import { test, expect } from '@playwright/test';
+import { test, expect } from './fixtures';
 import { mkdir } from 'node:fs/promises';
 
 test('animation fixtures freeze, replay and remain visible with reduced motion', async ({
