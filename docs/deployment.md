@@ -49,6 +49,8 @@ Initial deployed version: `3b62a47e-01e1-46a3-8312-cd3147ec06a7`. Cloudflare con
 
 Live HTTPS gameplay, mobile invitation joining, explicit collection, score persistence after reload, offline invitation recovery and official Spotify track switching passed. Initial DNS propagation left the development machine's resolver returning NXDOMAIN even after independent Cloudflare and Google public resolvers returned the new A records. Those first browser checks used the independently verified public answer through a per-process resolver mapping, preserving the real hostname, origin, WebSockets and normal TLS certificate validation; no system resolver settings were changed. This distinguishes deployed application verification from completion of all DNS caches' propagation. A direct query to the default recursive resolver confirmed an upstream negative answer with an older SOA serial and approximately six minutes of TTL remaining at diagnosis; clearing browser/OS caches alone would not remove that upstream answer. Public resolvers returned the new records with DNSSEC checking enabled and no validation failure.
 
+The default recursive resolver subsequently returned the correct A records, system lookup succeeded and ordinary HTTPS returned 200. Both `npm run test:live` and the deployed PWA test then passed **without any DNS override**, including two-player scoring/reload and offline invitation recovery. This closes the observed resolver blocker; the originally estimated six-minute expiry did not by itself predict when that resolver recovered.
+
 ## Recovery
 
 Inspect deployment history and choose an explicitly known-good version:

@@ -4,7 +4,7 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 
 **Play:** [competitive-crafting.eoghancollins.com](https://competitive-crafting.eoghancollins.com)
 
-Deployed to Cloudflare Workers. Live HTTPS multiplayer, mobile invitation joining, score persistence, offline recovery and the official Spotify embed have passed using independently confirmed public DNS answers. **DNS availability is still being verified:** the normal development resolver and a reported browser attempt continue to return `ERR_NAME_NOT_RESOLVED`; the deployment is not yet confirmed reachable through those resolvers.
+Live on Cloudflare Workers. HTTPS multiplayer, mobile invitation joining, score persistence and offline recovery pass through the normal DNS resolver without overrides. The initial negative DNS cache has cleared. The official Spotify embed and curated track switching are also verified; full authenticated playback remains provider-dependent.
 
 ## Current game design
 
