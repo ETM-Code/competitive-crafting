@@ -24,6 +24,14 @@
     "finaleEligible": false
   },
   {
+    "item": "arrow",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "arrow",
+    "finaleEligible": false
+  },
+  {
     "item": "bamboo_button",
     "tier": 1,
     "introduced": "by 1.20",
@@ -88,6 +96,14 @@
     "finaleEligible": false
   },
   {
+    "item": "bone_meal",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "bone_meal",
+    "finaleEligible": false
+  },
+  {
     "item": "book",
     "tier": 1,
     "introduced": "≤1.16",
@@ -109,6 +125,14 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "bread",
+    "finaleEligible": false
+  },
+  {
+    "item": "bricks",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "bricks",
     "finaleEligible": false
   },
   {
@@ -160,6 +184,14 @@
     "finaleEligible": false
   },
   {
+    "item": "coal",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "coal",
+    "finaleEligible": false
+  },
+  {
     "item": "coal_block",
     "tier": 1,
     "introduced": "≤1.16",
@@ -181,6 +213,14 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "building_stairs",
+    "finaleEligible": false
+  },
+  {
+    "item": "compass",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "compass",
     "finaleEligible": false
   },
   {
@@ -288,6 +328,14 @@
     "finaleEligible": false
   },
   {
+    "item": "diamond",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "diamond",
+    "finaleEligible": false
+  },
+  {
     "item": "diamond_axe",
     "tier": 1,
     "introduced": "≤1.16",
@@ -336,11 +384,59 @@
     "finaleEligible": false
   },
   {
+    "item": "emerald",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "emerald",
+    "finaleEligible": false
+  },
+  {
+    "item": "emerald_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "emerald_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "flint_and_steel",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "flint_and_steel",
+    "finaleEligible": false
+  },
+  {
     "item": "furnace",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "furnace",
+    "finaleEligible": false
+  },
+  {
+    "item": "glass_bottle",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "glass_bottle",
+    "finaleEligible": false
+  },
+  {
+    "item": "glass_pane",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "glass_pane",
+    "finaleEligible": false
+  },
+  {
+    "item": "glowstone",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "glowstone",
     "finaleEligible": false
   },
   {
@@ -432,6 +528,14 @@
     "finaleEligible": false
   },
   {
+    "item": "hay_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "hay_block",
+    "finaleEligible": false
+  },
+  {
     "item": "iron_axe",
     "tier": 1,
     "introduced": "≤1.16",
@@ -440,11 +544,27 @@
     "finaleEligible": false
   },
   {
+    "item": "iron_bars",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "iron_bars",
+    "finaleEligible": false
+  },
+  {
     "item": "iron_block",
     "tier": 1,
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "iron_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "iron_door",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "iron_door",
     "finaleEligible": false
   },
   {
@@ -496,6 +616,14 @@
     "finaleEligible": false
   },
   {
+    "item": "iron_trapdoor",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "iron_trapdoor",
+    "finaleEligible": false
+  },
+  {
     "item": "jungle_button",
     "tier": 1,
     "introduced": "≤1.16",
@@ -517,6 +645,30 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "wood_pressure_plate",
+    "finaleEligible": false
+  },
+  {
+    "item": "lapis_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "lapis_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "lapis_lazuli",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "lapis_lazuli",
+    "finaleEligible": false
+  },
+  {
+    "item": "lever",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "lever",
     "finaleEligible": false
   },
   {
@@ -573,6 +725,22 @@
     "introduced": "by 1.19",
     "note": "An everyday recipe. Make it count.",
     "family": "wood_pressure_plate",
+    "finaleEligible": false
+  },
+  {
+    "item": "minecart",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "minecart",
+    "finaleEligible": false
+  },
+  {
+    "item": "mushroom_stew",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "mushroom_stew",
     "finaleEligible": false
   },
   {
@@ -688,6 +856,30 @@
     "finaleEligible": false
   },
   {
+    "item": "redstone",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "redstone",
+    "finaleEligible": false
+  },
+  {
+    "item": "redstone_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "redstone_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "redstone_torch",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "redstone_torch",
+    "finaleEligible": false
+  },
+  {
     "item": "sandstone",
     "tier": 1,
     "introduced": "≤1.16",
@@ -701,6 +893,30 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "shears",
+    "finaleEligible": false
+  },
+  {
+    "item": "slime_ball",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "slime_ball",
+    "finaleEligible": false
+  },
+  {
+    "item": "slime_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "slime_block",
+    "finaleEligible": false
+  },
+  {
+    "item": "snow_block",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "snow_block",
     "finaleEligible": false
   },
   {
@@ -744,6 +960,22 @@
     "finaleEligible": false
   },
   {
+    "item": "stone_bricks",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "stone_bricks",
+    "finaleEligible": false
+  },
+  {
+    "item": "stone_button",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "stone_button",
+    "finaleEligible": false
+  },
+  {
     "item": "stone_hoe",
     "tier": 1,
     "introduced": "≤1.16",
@@ -757,6 +989,14 @@
     "introduced": "≤1.16",
     "note": "An everyday recipe. Make it count.",
     "family": "material_pickaxe",
+    "finaleEligible": false
+  },
+  {
+    "item": "stone_pressure_plate",
+    "tier": 1,
+    "introduced": "≤1.16",
+    "note": "An everyday recipe. Make it count.",
+    "family": "stone_pressure_plate",
     "finaleEligible": false
   },
   {
@@ -1088,14 +1328,6 @@
     "finaleEligible": false
   },
   {
-    "item": "beetroot_soup",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "beetroot_soup",
-    "finaleEligible": false
-  },
-  {
     "item": "birch_boat",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1304,14 +1536,6 @@
     "finaleEligible": false
   },
   {
-    "item": "bone_meal",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "bone_meal",
-    "finaleEligible": false
-  },
-  {
     "item": "bookshelf",
     "tier": 2,
     "introduced": "≤1.16",
@@ -1349,14 +1573,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_wall",
-    "finaleEligible": false
-  },
-  {
-    "item": "bricks",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "bricks",
     "finaleEligible": false
   },
   {
@@ -1621,14 +1837,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "clay",
-    "finaleEligible": false
-  },
-  {
-    "item": "coal",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "coal",
     "finaleEligible": false
   },
   {
@@ -2096,14 +2304,6 @@
     "finaleEligible": false
   },
   {
-    "item": "diamond",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "diamond",
-    "finaleEligible": false
-  },
-  {
     "item": "diamond_boots",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2181,22 +2381,6 @@
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "dripstone_block",
-    "finaleEligible": false
-  },
-  {
-    "item": "emerald",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "emerald",
-    "finaleEligible": false
-  },
-  {
-    "item": "emerald_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "emerald_block",
     "finaleEligible": false
   },
   {
@@ -2296,14 +2480,6 @@
     "finaleEligible": false
   },
   {
-    "item": "flint_and_steel",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "flint_and_steel",
-    "finaleEligible": false
-  },
-  {
     "item": "flower_banner_pattern",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2328,35 +2504,11 @@
     "finaleEligible": false
   },
   {
-    "item": "glass_bottle",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "glass_bottle",
-    "finaleEligible": false
-  },
-  {
-    "item": "glass_pane",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "glass_pane",
-    "finaleEligible": false
-  },
-  {
     "item": "glow_item_frame",
     "tier": 2,
     "introduced": "by 1.17",
     "note": "A familiar shape, a little more thought.",
     "family": "glow_item_frame",
-    "finaleEligible": false
-  },
-  {
-    "item": "glowstone",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "glowstone",
     "finaleEligible": false
   },
   {
@@ -2496,14 +2648,6 @@
     "finaleEligible": false
   },
   {
-    "item": "hay_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "hay_block",
-    "finaleEligible": false
-  },
-  {
     "item": "heavy_weighted_pressure_plate",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2544,14 +2688,6 @@
     "finaleEligible": false
   },
   {
-    "item": "iron_bars",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "iron_bars",
-    "finaleEligible": false
-  },
-  {
     "item": "iron_boots",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2568,14 +2704,6 @@
     "finaleEligible": false
   },
   {
-    "item": "iron_door",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "iron_door",
-    "finaleEligible": false
-  },
-  {
     "item": "iron_helmet",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2589,14 +2717,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "material_leggings",
-    "finaleEligible": false
-  },
-  {
-    "item": "iron_trapdoor",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "iron_trapdoor",
     "finaleEligible": false
   },
   {
@@ -2688,22 +2808,6 @@
     "finaleEligible": false
   },
   {
-    "item": "lapis_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "lapis_block",
-    "finaleEligible": false
-  },
-  {
-    "item": "lapis_lazuli",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "lapis_lazuli",
-    "finaleEligible": false
-  },
-  {
     "item": "leather",
     "tier": 2,
     "introduced": "≤1.16",
@@ -2749,14 +2853,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "leather_leggings",
-    "finaleEligible": false
-  },
-  {
-    "item": "lever",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "lever",
     "finaleEligible": false
   },
   {
@@ -3048,14 +3144,6 @@
     "finaleEligible": false
   },
   {
-    "item": "minecart",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "minecart",
-    "finaleEligible": false
-  },
-  {
     "item": "mojang_banner_pattern",
     "tier": 2,
     "introduced": "≤1.16",
@@ -3173,14 +3261,6 @@
     "introduced": "by 1.19",
     "note": "A familiar shape, a little more thought.",
     "family": "muddy_mangrove_roots",
-    "finaleEligible": false
-  },
-  {
-    "item": "mushroom_stew",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "mushroom_stew",
     "finaleEligible": false
   },
   {
@@ -3976,30 +4056,6 @@
     "finaleEligible": false
   },
   {
-    "item": "redstone",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "redstone",
-    "finaleEligible": false
-  },
-  {
-    "item": "redstone_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "redstone_block",
-    "finaleEligible": false
-  },
-  {
-    "item": "redstone_torch",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "redstone_torch",
-    "finaleEligible": false
-  },
-  {
     "item": "resin_clump",
     "tier": 2,
     "introduced": "by 1.21.9",
@@ -4045,22 +4101,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "skull_banner_pattern",
-    "finaleEligible": false
-  },
-  {
-    "item": "slime_ball",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "slime_ball",
-    "finaleEligible": false
-  },
-  {
-    "item": "slime_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "slime_block",
     "finaleEligible": false
   },
   {
@@ -4125,14 +4165,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "snow",
-    "finaleEligible": false
-  },
-  {
-    "item": "snow_block",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "snow_block",
     "finaleEligible": false
   },
   {
@@ -4237,30 +4269,6 @@
     "introduced": "≤1.16",
     "note": "A familiar shape, a little more thought.",
     "family": "building_wall",
-    "finaleEligible": false
-  },
-  {
-    "item": "stone_bricks",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "stone_bricks",
-    "finaleEligible": false
-  },
-  {
-    "item": "stone_button",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "stone_button",
-    "finaleEligible": false
-  },
-  {
-    "item": "stone_pressure_plate",
-    "tier": 2,
-    "introduced": "≤1.16",
-    "note": "A familiar shape, a little more thought.",
-    "family": "stone_pressure_plate",
     "finaleEligible": false
   },
   {
@@ -4664,22 +4672,6 @@
     "finaleEligible": false
   },
   {
-    "item": "armor_stand",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "armor_stand",
-    "finaleEligible": false
-  },
-  {
-    "item": "arrow",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "arrow",
-    "finaleEligible": false
-  },
-  {
     "item": "bamboo_hanging_sign",
     "tier": 3,
     "introduced": "by 1.20",
@@ -4696,19 +4688,19 @@
     "finaleEligible": false
   },
   {
-    "item": "beacon",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "beacon",
-    "finaleEligible": false
-  },
-  {
     "item": "beehive",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "beehive",
+    "finaleEligible": false
+  },
+  {
+    "item": "beetroot_soup",
+    "tier": 3,
+    "introduced": "≤1.16",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "beetroot_soup",
     "finaleEligible": false
   },
   {
@@ -4976,14 +4968,6 @@
     "finaleEligible": false
   },
   {
-    "item": "brush",
-    "tier": 3,
-    "introduced": "by 1.20",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "brush",
-    "finaleEligible": false
-  },
-  {
     "item": "campfire",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5093,14 +5077,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "comparator",
-    "finaleEligible": false
-  },
-  {
-    "item": "compass",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "compass",
     "finaleEligible": false
   },
   {
@@ -5224,22 +5200,6 @@
     "finaleEligible": false
   },
   {
-    "item": "daylight_detector",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "daylight_detector",
-    "finaleEligible": false
-  },
-  {
-    "item": "detector_rail",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "detector_rail",
-    "finaleEligible": false
-  },
-  {
     "item": "diamond_spear",
     "tier": 3,
     "introduced": "by 26.1",
@@ -5272,22 +5232,6 @@
     "finaleEligible": false
   },
   {
-    "item": "end_crystal",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "end_crystal",
-    "finaleEligible": false
-  },
-  {
-    "item": "end_rod",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "end_rod",
-    "finaleEligible": false
-  },
-  {
     "item": "ender_chest",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5296,35 +5240,11 @@
     "finaleEligible": false
   },
   {
-    "item": "exposed_copper_bulb",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "copper_bulb",
-    "finaleEligible": false
-  },
-  {
-    "item": "fermented_spider_eye",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "fermented_spider_eye",
-    "finaleEligible": false
-  },
-  {
     "item": "field_masoned_banner_pattern",
     "tier": 3,
     "introduced": "by 1.21.9",
     "note": "Less common. Every ingredient has its place.",
     "family": "field_masoned_banner_pattern",
-    "finaleEligible": false
-  },
-  {
-    "item": "fire_charge",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "fire_charge",
     "finaleEligible": false
   },
   {
@@ -5520,14 +5440,6 @@
     "finaleEligible": false
   },
   {
-    "item": "grindstone",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "grindstone",
-    "finaleEligible": false
-  },
-  {
     "item": "hopper",
     "tier": 3,
     "introduced": "≤1.16",
@@ -5597,14 +5509,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "lead",
-    "finaleEligible": false
-  },
-  {
-    "item": "lectern",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "lectern",
     "finaleEligible": false
   },
   {
@@ -5848,27 +5752,11 @@
     "finaleEligible": false
   },
   {
-    "item": "lodestone",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "lodestone",
-    "finaleEligible": false
-  },
-  {
     "item": "loom",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "loom",
-    "finaleEligible": false
-  },
-  {
-    "item": "mace",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "mace",
     "finaleEligible": false
   },
   {
@@ -5965,14 +5853,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "map",
-    "finaleEligible": false
-  },
-  {
-    "item": "name_tag",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "name_tag",
     "finaleEligible": false
   },
   {
@@ -6096,14 +5976,6 @@
     "finaleEligible": false
   },
   {
-    "item": "oxidized_copper_bulb",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "copper_bulb",
-    "finaleEligible": false
-  },
-  {
     "item": "painting",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6149,6 +6021,14 @@
     "introduced": "by 1.21.9",
     "note": "Less common. Every ingredient has its place.",
     "family": "wood_fence_gate",
+    "finaleEligible": false
+  },
+  {
+    "item": "pale_oak_hanging_sign",
+    "tier": 3,
+    "introduced": "by 1.21.9",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "wood_hanging_sign",
     "finaleEligible": false
   },
   {
@@ -6384,6 +6264,14 @@
     "finaleEligible": false
   },
   {
+    "item": "poplar_hanging_sign",
+    "tier": 3,
+    "introduced": "by 26.3",
+    "note": "Less common. Every ingredient has its place.",
+    "family": "wood_hanging_sign",
+    "finaleEligible": false
+  },
+  {
     "item": "poplar_sign",
     "tier": 3,
     "introduced": "by 26.3",
@@ -6560,14 +6448,6 @@
     "finaleEligible": false
   },
   {
-    "item": "rabbit_stew",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "rabbit_stew",
-    "finaleEligible": false
-  },
-  {
     "item": "rail",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6720,14 +6600,6 @@
     "finaleEligible": false
   },
   {
-    "item": "respawn_anchor",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "respawn_anchor",
-    "finaleEligible": false
-  },
-  {
     "item": "saddle",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6741,14 +6613,6 @@
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "scaffolding",
-    "finaleEligible": false
-  },
-  {
-    "item": "shulker_box",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "shulker_box",
     "finaleEligible": false
   },
   {
@@ -6768,14 +6632,6 @@
     "finaleEligible": false
   },
   {
-    "item": "soul_campfire",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "soul_campfire",
-    "finaleEligible": false
-  },
-  {
     "item": "soul_lantern",
     "tier": 3,
     "introduced": "≤1.16",
@@ -6792,27 +6648,11 @@
     "finaleEligible": false
   },
   {
-    "item": "spectral_arrow",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "spectral_arrow",
-    "finaleEligible": false
-  },
-  {
     "item": "spruce_hanging_sign",
     "tier": 3,
     "introduced": "by 1.20",
     "note": "Less common. Every ingredient has its place.",
     "family": "wood_hanging_sign",
-    "finaleEligible": false
-  },
-  {
-    "item": "spyglass",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "spyglass",
     "finaleEligible": false
   },
   {
@@ -6928,35 +6768,11 @@
     "finaleEligible": false
   },
   {
-    "item": "target",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "target",
-    "finaleEligible": false
-  },
-  {
-    "item": "tinted_glass",
-    "tier": 3,
-    "introduced": "by 1.17",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "tinted_glass",
-    "finaleEligible": false
-  },
-  {
     "item": "tnt",
     "tier": 3,
     "introduced": "≤1.16",
     "note": "Less common. Every ingredient has its place.",
     "family": "tnt",
-    "finaleEligible": false
-  },
-  {
-    "item": "tripwire_hook",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "tripwire_hook",
     "finaleEligible": false
   },
   {
@@ -6973,14 +6789,6 @@
     "introduced": "by 1.20",
     "note": "Less common. Every ingredient has its place.",
     "family": "wood_hanging_sign",
-    "finaleEligible": false
-  },
-  {
-    "item": "weathered_copper_bulb",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "copper_bulb",
     "finaleEligible": false
   },
   {
@@ -7064,27 +6872,11 @@
     "finaleEligible": false
   },
   {
-    "item": "wolf_armor",
-    "tier": 3,
-    "introduced": "by 1.21",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "wolf_armor",
-    "finaleEligible": false
-  },
-  {
     "item": "wooden_spear",
     "tier": 3,
     "introduced": "by 26.1",
     "note": "Less common. Every ingredient has its place.",
     "family": "material_spear",
-    "finaleEligible": false
-  },
-  {
-    "item": "writable_book",
-    "tier": 3,
-    "introduced": "≤1.16",
-    "note": "Less common. Every ingredient has its place.",
-    "family": "writable_book",
     "finaleEligible": false
   },
   {
@@ -7176,11 +6968,11 @@
     "finaleEligible": false
   },
   {
-    "item": "activator_rail",
+    "item": "armor_stand",
     "tier": 4,
     "introduced": "≤1.16",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "activator_rail",
+    "family": "armor_stand",
     "finaleEligible": false
   },
   {
@@ -7200,19 +6992,11 @@
     "finaleEligible": false
   },
   {
-    "item": "blast_furnace",
+    "item": "brush",
     "tier": 4,
-    "introduced": "≤1.16",
+    "introduced": "by 1.20",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "blast_furnace",
-    "finaleEligible": false
-  },
-  {
-    "item": "cake",
-    "tier": 4,
-    "introduced": "≤1.16",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "cake",
+    "family": "brush",
     "finaleEligible": false
   },
   {
@@ -7237,14 +7021,6 @@
     "introduced": "by 1.20",
     "note": "A specialist recipe. Trust your memory.",
     "family": "chiseled_bookshelf",
-    "finaleEligible": false
-  },
-  {
-    "item": "conduit",
-    "tier": 4,
-    "introduced": "≤1.16",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "conduit",
     "finaleEligible": false
   },
   {
@@ -7312,11 +7088,67 @@
     "finaleEligible": false
   },
   {
+    "item": "end_rod",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "end_rod",
+    "finaleEligible": false
+  },
+  {
+    "item": "exposed_copper_bulb",
+    "tier": 4,
+    "introduced": "by 1.21",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "copper_bulb",
+    "finaleEligible": false
+  },
+  {
+    "item": "fermented_spider_eye",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "fermented_spider_eye",
+    "finaleEligible": false
+  },
+  {
+    "item": "fire_charge",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "fire_charge",
+    "finaleEligible": false
+  },
+  {
+    "item": "grindstone",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "grindstone",
+    "finaleEligible": false
+  },
+  {
     "item": "jungle_shelf",
     "tier": 4,
     "introduced": "by 1.21.9",
     "note": "A specialist recipe. Trust your memory.",
     "family": "wood_shelf",
+    "finaleEligible": false
+  },
+  {
+    "item": "lectern",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "lectern",
+    "finaleEligible": false
+  },
+  {
+    "item": "mace",
+    "tier": 4,
+    "introduced": "by 1.21",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "mace",
     "finaleEligible": false
   },
   {
@@ -7328,6 +7160,14 @@
     "finaleEligible": false
   },
   {
+    "item": "name_tag",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "name_tag",
+    "finaleEligible": false
+  },
+  {
     "item": "oak_shelf",
     "tier": 4,
     "introduced": "by 1.21.9",
@@ -7336,11 +7176,11 @@
     "finaleEligible": false
   },
   {
-    "item": "pale_oak_hanging_sign",
+    "item": "oxidized_copper_bulb",
     "tier": 4,
-    "introduced": "by 1.21.9",
+    "introduced": "by 1.21",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "wood_hanging_sign",
+    "family": "copper_bulb",
     "finaleEligible": false
   },
   {
@@ -7352,14 +7192,6 @@
     "finaleEligible": false
   },
   {
-    "item": "poplar_hanging_sign",
-    "tier": 4,
-    "introduced": "by 26.3",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "wood_hanging_sign",
-    "finaleEligible": false
-  },
-  {
     "item": "poplar_shelf",
     "tier": 4,
     "introduced": "by 26.3",
@@ -7368,19 +7200,35 @@
     "finaleEligible": false
   },
   {
-    "item": "recovery_compass",
-    "tier": 4,
-    "introduced": "by 1.19",
-    "note": "A specialist recipe. Trust your memory.",
-    "family": "recovery_compass",
-    "finaleEligible": false
-  },
-  {
-    "item": "sea_lantern",
+    "item": "rabbit_stew",
     "tier": 4,
     "introduced": "≤1.16",
     "note": "A specialist recipe. Trust your memory.",
-    "family": "sea_lantern",
+    "family": "rabbit_stew",
+    "finaleEligible": false
+  },
+  {
+    "item": "shulker_box",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "shulker_box",
+    "finaleEligible": false
+  },
+  {
+    "item": "soul_campfire",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "soul_campfire",
+    "finaleEligible": false
+  },
+  {
+    "item": "spectral_arrow",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "spectral_arrow",
     "finaleEligible": false
   },
   {
@@ -7392,6 +7240,38 @@
     "finaleEligible": false
   },
   {
+    "item": "spyglass",
+    "tier": 4,
+    "introduced": "by 1.17",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "spyglass",
+    "finaleEligible": false
+  },
+  {
+    "item": "target",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "target",
+    "finaleEligible": false
+  },
+  {
+    "item": "tinted_glass",
+    "tier": 4,
+    "introduced": "by 1.17",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "tinted_glass",
+    "finaleEligible": false
+  },
+  {
+    "item": "tripwire_hook",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "tripwire_hook",
+    "finaleEligible": false
+  },
+  {
     "item": "warped_shelf",
     "tier": 4,
     "introduced": "by 1.21.9",
@@ -7400,10 +7280,74 @@
     "finaleEligible": false
   },
   {
+    "item": "weathered_copper_bulb",
+    "tier": 4,
+    "introduced": "by 1.21",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "copper_bulb",
+    "finaleEligible": false
+  },
+  {
+    "item": "wolf_armor",
+    "tier": 4,
+    "introduced": "by 1.21",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "wolf_armor",
+    "finaleEligible": false
+  },
+  {
+    "item": "writable_book",
+    "tier": 4,
+    "introduced": "≤1.16",
+    "note": "A specialist recipe. Trust your memory.",
+    "family": "writable_book",
+    "finaleEligible": false
+  },
+  {
+    "item": "activator_rail",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "activator_rail",
+    "finaleEligible": true
+  },
+  {
+    "item": "beacon",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "beacon",
+    "finaleEligible": true
+  },
+  {
+    "item": "blast_furnace",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "blast_furnace",
+    "finaleEligible": true
+  },
+  {
+    "item": "cake",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "cake",
+    "finaleEligible": true
+  },
+  {
+    "item": "conduit",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "conduit",
+    "finaleEligible": true
+  },
+  {
     "item": "copper_chest",
     "tier": 5,
     "introduced": "by 1.21.9",
-    "note": "A recent full-grid recipe for the final showdown.",
+    "note": "A full-grid specialist recipe for the final showdown.",
     "family": "copper_chest",
     "finaleEligible": true
   },
@@ -7411,7 +7355,7 @@
     "item": "copper_lantern",
     "tier": 5,
     "introduced": "by 1.21.9",
-    "note": "A recent full-grid recipe for the final showdown.",
+    "note": "A full-grid specialist recipe for the final showdown.",
     "family": "copper_lantern",
     "finaleEligible": true
   },
@@ -7419,24 +7363,80 @@
     "item": "crafter",
     "tier": 5,
     "introduced": "by 1.21",
-    "note": "A recent full-grid recipe for the final showdown.",
+    "note": "A full-grid specialist recipe for the final showdown.",
     "family": "crafter",
+    "finaleEligible": true
+  },
+  {
+    "item": "daylight_detector",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "daylight_detector",
+    "finaleEligible": true
+  },
+  {
+    "item": "detector_rail",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "detector_rail",
     "finaleEligible": true
   },
   {
     "item": "dried_ghast",
     "tier": 5,
     "introduced": "by 1.21.9",
-    "note": "A recent full-grid recipe for the final showdown.",
+    "note": "A full-grid specialist recipe for the final showdown.",
     "family": "dried_ghast",
+    "finaleEligible": true
+  },
+  {
+    "item": "end_crystal",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "end_crystal",
     "finaleEligible": true
   },
   {
     "item": "golden_dandelion",
     "tier": 5,
     "introduced": "by 26.1",
-    "note": "A recent full-grid recipe for the final showdown.",
+    "note": "A full-grid specialist recipe for the final showdown.",
     "family": "golden_dandelion",
+    "finaleEligible": true
+  },
+  {
+    "item": "lodestone",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "lodestone",
+    "finaleEligible": true
+  },
+  {
+    "item": "recovery_compass",
+    "tier": 5,
+    "introduced": "by 1.19",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "recovery_compass",
+    "finaleEligible": true
+  },
+  {
+    "item": "respawn_anchor",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "respawn_anchor",
+    "finaleEligible": true
+  },
+  {
+    "item": "sea_lantern",
+    "tier": 5,
+    "introduced": "≤1.16",
+    "note": "A full-grid specialist recipe for the final showdown.",
+    "family": "sea_lantern",
     "finaleEligible": true
   }
 ]

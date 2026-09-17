@@ -84,6 +84,73 @@ const common = new Set([
   'sandstone',
   'cobblestone_slab',
   'cobblestone_stairs',
+  'arrow',
+  'bone_meal',
+  'bricks',
+  'coal',
+  'compass',
+  'diamond',
+  'emerald',
+  'emerald_block',
+  'flint_and_steel',
+  'glass_bottle',
+  'glass_pane',
+  'glowstone',
+  'hay_block',
+  'iron_bars',
+  'iron_door',
+  'iron_trapdoor',
+  'lapis_block',
+  'lapis_lazuli',
+  'lever',
+  'minecart',
+  'mushroom_stew',
+  'redstone',
+  'redstone_block',
+  'redstone_torch',
+  'slime_ball',
+  'slime_block',
+  'snow_block',
+  'stone_bricks',
+  'stone_button',
+  'stone_pressure_plate',
+]);
+// Full-grid specialists remain a finale challenge without repeating five recent additions.
+const finaleSpecialists = new Set([
+  'activator_rail',
+  'beacon',
+  'blast_furnace',
+  'cake',
+  'conduit',
+  'daylight_detector',
+  'detector_rail',
+  'end_crystal',
+  'lodestone',
+  'recovery_compass',
+  'respawn_anchor',
+  'sea_lantern',
+]);
+const specialists = new Set([
+  'armor_stand',
+  'brush',
+  'creaking_heart',
+  'end_rod',
+  'fermented_spider_eye',
+  'fire_charge',
+  'grindstone',
+  'lectern',
+  'mace',
+  'name_tag',
+  'rabbit_stew',
+  'shulker_box',
+  'soul_campfire',
+  'spectral_arrow',
+  'spyglass',
+  'target',
+  'tinted_glass',
+  'tripwire_hook',
+  'wolf_armor',
+  'writable_book',
 ]);
 const explicit = {
   ladder: 2,
@@ -135,7 +202,7 @@ for (const [item, variants] of byOutput) {
     ).length;
     const width = recipe.pattern?.[0]?.length ?? 0;
     const height = recipe.pattern?.length ?? 0;
-    const holes = width * height - occupied;
+    const holes = recipe.kind === 'shaped' ? width * height - occupied : 0;
     const asymmetric =
       recipe.pattern &&
       recipe.pattern.some((row) => JSON.stringify(row) !== JSON.stringify([...row].reverse()));
@@ -187,11 +254,12 @@ for (const [item, variants] of byOutput) {
     tier = 2;
   // Familiar stair/armor shapes do not become expert recipes just by changing material.
   if (family.startsWith('building_')) tier = Math.min(tier, firstIndex >= 5 ? 3 : 2);
-  if (family === 'wood_shelf') tier = 4;
+  if (family === 'wood_hanging_sign') tier = 3;
+  if (family === 'wood_shelf' || family === 'copper_bulb' || specialists.has(item)) tier = 4;
   if (common.has(item)) tier = 1;
   if (explicit[item]) tier = explicit[item];
   const finaleEligible =
-    firstIndex >= 4 &&
+    (firstIndex >= 4 || finaleSpecialists.has(item)) &&
     !family.endsWith('hanging_sign') &&
     metrics.every((m) => m.occupied >= 8 && m.unique >= 2);
   if (finaleEligible) tier = 5;
@@ -209,7 +277,7 @@ for (const [item, variants] of byOutput) {
           ? 'Less common. Every ingredient has its place.'
           : tier === 4
             ? 'A specialist recipe. Trust your memory.'
-            : 'A recent full-grid recipe for the final showdown.';
+            : 'A full-grid specialist recipe for the final showdown.';
   if (!excluded) targets.push({ item, tier, introduced, note, family, finaleEligible });
   audit.push({
     item,

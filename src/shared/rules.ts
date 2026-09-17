@@ -2,6 +2,9 @@ import { targets } from './catalogue';
 import { solutionFor, shuffle } from './recipes';
 import type { Player, Preset, Settings, Target } from './types';
 
+export const REVEAL_MS = 8000;
+export const COUNTDOWN_MS = 3000;
+
 export const DEFAULT_SETTINGS: Settings = {
   preset: 'classic',
   inventory: 'constrained',
@@ -35,7 +38,9 @@ export function selectTargets(
   excludedFamilies: string[] = [],
 ): Target[] {
   const selected: Target[] = [];
-  const recentFamilies = new Set(excludedFamilies);
+  const selectedFamilies = new Set<string>();
+  // Stored oldest-first across rematches. Keep recency when a small tier exhausts.
+  const lastSeen = new Map(excludedFamilies.map((family, index) => [family, index]));
   for (let i = 0; i < settings.rounds; i++) {
     const progress = i / Math.max(1, settings.rounds - 1);
     const tier =
@@ -53,8 +58,12 @@ export function selectTargets(
     );
     let pool = unused.filter((target) => target.tier === tier);
     if (!pool.length) pool = unused.filter((target) => Math.abs(target.tier - tier) <= 1);
-    const fresh = pool.filter((target) => !recentFamilies.has(target.family ?? target.item));
-    if (fresh.length) pool = fresh;
+    const different = pool.filter((target) => !selectedFamilies.has(target.family ?? target.item));
+    if (different.length) pool = different;
+    const oldest = Math.min(
+      ...pool.map((target) => lastSeen.get(target.family ?? target.item) ?? -1),
+    );
+    pool = pool.filter((target) => (lastSeen.get(target.family ?? target.item) ?? -1) === oldest);
     const families = new Map<string, Target[]>();
     for (const target of pool) {
       const key = target.family ?? target.item;
@@ -66,7 +75,9 @@ export function selectTargets(
     if (!family?.length) throw new Error('Not enough unique targets for match');
     const choice = shuffle(family, random)[0];
     selected.push(choice);
-    recentFamilies.add(choice.family ?? choice.item);
+    const key = choice.family ?? choice.item;
+    selectedFamilies.add(key);
+    lastSeen.set(key, excludedFamilies.length + i);
   }
   return selected;
 }
