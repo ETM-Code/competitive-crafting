@@ -174,7 +174,9 @@ export function useConnection(session: Session | null) {
       };
       ws.onerror = () => ws.close();
     };
-    connect();
+    // StrictMode mounts, cleans up and remounts effects in development. Let that
+    // cleanup cancel the first attempt before opening an immediately aborted socket.
+    timer = setTimeout(connect, 0);
     return () => {
       stopped = true;
       clearTimeout(timer);

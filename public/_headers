@@ -1,0 +1,27 @@
+/*
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: no-referrer
+  X-Frame-Options: DENY
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://open.spotify.com https://embed-cdn.spotifycdn.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob: https://i.scdn.co; font-src 'self'; connect-src 'self' wss://competitive-crafting.eoghancollins.com ws://127.0.0.1:8787 ws://localhost:8787 https://open.spotify.com; frame-src 'self' https://open.spotify.com; media-src 'self' blob: https://*.scdn.co; manifest-src 'self'; worker-src 'self'; object-src 'none'; base-uri 'self'; frame-ancestors 'none'
+
+/spotify-player
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-eval' https://open.spotify.com https://embed-cdn.spotifycdn.com; style-src 'unsafe-inline'; img-src data: https://i.scdn.co; connect-src https://open.spotify.com; frame-src https://open.spotify.com; object-src 'none'; base-uri 'none'; frame-ancestors 'self'
+  X-Frame-Options: SAMEORIGIN
+
+/spotify-player.html
+  ! Content-Security-Policy
+  ! X-Frame-Options
+  Content-Security-Policy: default-src 'none'; script-src 'self' 'unsafe-eval' https://open.spotify.com https://embed-cdn.spotifycdn.com; style-src 'unsafe-inline'; img-src data: https://i.scdn.co; connect-src https://open.spotify.com; frame-src https://open.spotify.com; object-src 'none'; base-uri 'none'; frame-ancestors 'self'
+  X-Frame-Options: SAMEORIGIN
+
+/sw.js
+  Cache-Control: no-cache
+
+/manifest.webmanifest
+  Cache-Control: no-cache
+
+https://competitive-crafting.eoghancollins.com/*
+  Strict-Transport-Security: max-age=31536000

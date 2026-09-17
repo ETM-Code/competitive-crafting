@@ -1,0 +1,753 @@
+/* Minecraft-like menu screens: the scene stays still; only bounded panels scroll. */
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) {
+  height: var(--viewport-height, 100dvh);
+  min-height: 0;
+  padding-bottom: max(8px, env(safe-area-inset-bottom, 0px));
+}
+.animation-lab > .app:is([data-phase='lobby'], [data-phase='finished']) {
+  height: calc(var(--viewport-height, 100dvh) - 50px);
+  min-height: 0;
+  max-height: calc(var(--viewport-height, 100dvh) - 50px);
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-header {
+  flex: 0 0 64px;
+  min-height: 0;
+  padding-block: 4px;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > main {
+  min-height: 0;
+  padding: 8px 0;
+  overflow: hidden;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-footer {
+  flex: 0 0 auto;
+  min-height: 56px;
+  padding: 4px 0;
+  margin-top: 0;
+  gap: 12px;
+  background: transparent;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-footer > span {
+  font-size: 10px;
+  text-align: left;
+  width: auto;
+  order: 0;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox {
+  width: auto;
+  min-width: 180px;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox-toggle {
+  min-height: 48px;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .sound-button {
+  min-width: 48px;
+}
+.app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox-panel {
+  max-height: calc(var(--viewport-height, 100dvh) - 100px);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.app.on-menu .title-menu {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px 12px;
+  max-width: 620px;
+  padding: 0;
+}
+.app.on-menu .title-menu > :not(details) {
+  grid-column: 1 / -1;
+}
+.app.on-menu .title-art {
+  height: clamp(90px, 17vh, 158px);
+  width: 270px;
+  margin: 0 auto;
+}
+.app.on-menu .title-art > .item-image {
+  width: clamp(90px, 17vh, 158px);
+  height: clamp(90px, 17vh, 158px);
+}
+.app.on-menu .game-title {
+  margin: 0;
+  font-size: clamp(25px, 4.5vw, 48px);
+}
+.app.on-menu .menu-kicker {
+  margin: 0;
+}
+.app.on-menu .tagline {
+  margin: 0 0 6px;
+}
+.app.on-menu .menu-form {
+  width: min(408px, 100%);
+}
+.app.on-menu .identity {
+  margin-bottom: 8px;
+  padding: 10px 12px 6px;
+}
+.app.on-menu .identity input {
+  margin-top: 4px;
+}
+.app.on-menu .avatar-picker {
+  margin-top: 6px;
+  gap: 5px;
+}
+.app.on-menu .menu-primary {
+  min-height: 48px;
+}
+.app.on-menu .menu-secondary {
+  margin-top: 8px;
+  gap: 8px;
+}
+.app.on-menu .menu-footnote {
+  margin: 4px 0 0;
+}
+.app.on-menu .how-to,
+.app.on-menu .install-app {
+  margin: 0;
+  width: 100%;
+  max-width: none;
+  align-self: end;
+  font-size: 11px;
+}
+.app.on-menu .how-to > summary,
+.app.on-menu .install-app > summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 48px;
+  padding: 6px;
+  border: 1px solid #7e92715c;
+  background: #1c2c24c9;
+  cursor: pointer;
+  list-style: none;
+}
+.app.on-menu :is(.how-to, .install-app)[open] {
+  position: fixed;
+  z-index: 50;
+  top: max(16px, env(safe-area-inset-top));
+  left: 50%;
+  transform: translateX(-50%);
+  width: min(460px, calc(100% - 32px));
+  max-height: calc(var(--viewport-height, 100dvh) - 32px);
+  overflow: auto;
+  overscroll-behavior: contain;
+  background: #202e25;
+  color: #edf0df;
+  border: 2px solid #8ca173;
+  box-shadow:
+    0 0 0 100vmax #101912a8,
+    0 12px 40px #101912a8;
+  padding: 12px;
+}
+.app.on-menu :is(.how-to, .install-app)[open] > summary {
+  position: sticky;
+  top: -12px;
+  background: #2b3d2e;
+  margin-bottom: 12px;
+}
+.app.on-menu :is(.how-to, .install-app)[open] > summary::after {
+  content: '×';
+  font-size: 24px;
+  margin-left: auto;
+  padding-inline: 12px;
+}
+.app.on-menu .join-code-label {
+  margin-bottom: 8px;
+}
+.app.on-menu .code-input {
+  color: #f2eddc;
+  font-size: 16px;
+}
+.app.on-menu .code-input::placeholder {
+  color: #a7b89a;
+  opacity: 1;
+}
+.app[data-phase='lobby'] .lobby-window {
+  display: flex;
+  flex-direction: column;
+  max-height: 100%;
+  height: 100%;
+  padding: 22px;
+}
+.app[data-phase='lobby'] .window-heading {
+  flex-shrink: 0;
+  padding-bottom: 14px;
+  margin-bottom: 14px;
+}
+.app[data-phase='lobby'] .window-heading > .item-image {
+  width: 56px;
+  height: 56px;
+}
+.app[data-phase='lobby'] .window-heading h1 {
+  font-size: 25px;
+  margin: 2px 0 4px;
+}
+.app[data-phase='lobby'] .lobby-columns {
+  flex: 1;
+  min-height: 0;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 24px;
+}
+.app[data-phase='lobby'] .lobby-party-panel {
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.app[data-phase='lobby'] .lobby-party-panel .scoreboard {
+  min-height: 70px;
+  display: flex;
+  flex-direction: column;
+}
+.app[data-phase='lobby'] .scoreboard ol {
+  overflow: auto;
+  min-height: 0;
+  overscroll-behavior: contain;
+}
+.app[data-phase='lobby'] .scoreboard li {
+  min-height: 56px;
+  padding: 8px;
+}
+.app[data-phase='lobby'] .invite {
+  flex-shrink: 0;
+  margin: 0;
+  padding: 12px;
+  gap: 8px 12px;
+}
+.app[data-phase='lobby'] .invite input {
+  min-height: 40px;
+  margin-bottom: 6px;
+}
+.app[data-phase='lobby'] .invite .button {
+  min-height: 48px;
+}
+.app[data-phase='lobby'] .invite > p {
+  font-size: 10px;
+}
+.app[data-phase='lobby'] .lobby-rules-panel {
+  overflow: auto;
+  min-height: 0;
+  padding: 2px 4px 6px;
+  overscroll-behavior: contain;
+}
+.app[data-phase='lobby'] .preset-tabs {
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+  margin-bottom: 12px;
+}
+.app[data-phase='lobby'] .settings-fields {
+  gap: 10px 12px;
+}
+.app[data-phase='lobby'] .settings legend {
+  margin-bottom: 12px;
+}
+.app[data-phase='lobby'] .settings .small {
+  margin: 0;
+}
+.app[data-phase='lobby'] .lobby-actions {
+  flex-shrink: 0;
+  margin-top: 12px;
+  padding-top: 12px;
+}
+.app[data-phase='lobby'] .lobby-actions p {
+  font-size: 11px;
+}
+.lobby-panel-tabs {
+  display: none;
+}
+.app[data-phase='finished'] .results {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  max-height: 100%;
+  padding: 20px;
+}
+.app[data-phase='finished'] .results-hero {
+  flex-shrink: 0;
+  padding: 0 0 12px;
+}
+.app[data-phase='finished'] .results-hero > .item-image {
+  width: 90px;
+  height: 90px;
+  margin: 0 auto 8px;
+}
+.app[data-phase='finished'] .results-hero h1 {
+  font-size: 25px;
+  margin: 6px 0;
+}
+.app[data-phase='finished'] .results-panel-tabs {
+  display: flex;
+  gap: 8px;
+  flex-shrink: 0;
+  margin-bottom: 12px;
+}
+.app[data-phase='finished'] .results-panel-tabs > button {
+  flex: 1;
+}
+.app[data-phase='finished'] .results-panels {
+  min-height: 0;
+  overflow: auto;
+  overscroll-behavior: contain;
+  text-align: left;
+}
+.app[data-phase='finished'] .results-panels[data-panel='standings'] .match-history,
+.app[data-phase='finished'] .results-panels[data-panel='history'] .scoreboard {
+  display: none;
+}
+.app[data-phase='finished'] .match-history {
+  margin: 0;
+}
+.app[data-phase='finished'] .match-history > h2 {
+  display: none;
+}
+.app[data-phase='finished'] .results-tiebreak {
+  margin: 10px 0 0;
+  flex-shrink: 0;
+}
+.app[data-phase='finished'] .results > .button,
+.app[data-phase='finished'] .results > .waiting {
+  flex-shrink: 0;
+  margin: 10px 0 0;
+  min-width: 0;
+}
+@media (min-width: 801px) and (min-height: 541px) {
+  .app[data-phase='finished'] .results {
+    max-width: 1040px;
+  }
+  .app[data-phase='finished'] .results-panel-tabs {
+    display: none;
+  }
+  .app[data-phase='finished'] .results-panels {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+    gap: 24px;
+    overflow: hidden;
+  }
+  .app[data-phase='finished'] .results-panels[data-panel] .scoreboard,
+  .app[data-phase='finished'] .results-panels[data-panel] .match-history {
+    display: block;
+    overflow: auto;
+    min-height: 0;
+    overscroll-behavior: contain;
+  }
+  .app[data-phase='finished'] .match-history > h2 {
+    display: block;
+  }
+  .app[data-phase='finished'] .match-history > div {
+    grid-template-columns: 1fr;
+  }
+}
+@media (max-height: 850px) {
+  .app.on-menu .title-art {
+    height: 90px;
+  }
+  .app.on-menu .title-art > .item-image {
+    width: 100px;
+    height: 100px;
+  }
+  .app.on-menu .orbit-one {
+    top: 6px;
+    width: 44px;
+    height: 44px;
+  }
+  .app.on-menu .orbit-two {
+    top: 40px;
+    width: 50px;
+    height: 50px;
+  }
+  .app.on-menu .menu-kicker {
+    display: none;
+  }
+  .app.on-menu .game-title {
+    font-size: 34px;
+  }
+  .app.on-menu .title-menu {
+    gap: 6px 10px;
+  }
+  .app.on-menu .title-menu:has(.join-code-label) .title-art {
+    height: 58px;
+  }
+  .app.on-menu .title-menu:has(.join-code-label) .title-art > .item-image {
+    width: 70px;
+    height: 70px;
+  }
+  .app.on-menu .title-menu:has(.join-code-label) .tagline {
+    display: none;
+  }
+}
+@media (max-width: 800px), (max-height: 540px) {
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-header {
+    flex-basis: 52px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-footer {
+    min-height: 52px;
+    gap: 8px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-footer > span {
+    font-size: 8px;
+    line-height: 1.4;
+    max-width: 45%;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox {
+    min-width: 152px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox-toggle {
+    font-size: 9px;
+    gap: 6px;
+    padding: 4px 6px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox-toggle > .item-image {
+    width: 22px;
+    height: 22px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) .jukebox-toggle small {
+    font-size: 8px;
+  }
+  .app[data-phase='lobby'] .lobby-window {
+    padding: 12px;
+    max-width: 680px;
+  }
+  .app[data-phase='lobby'] .window-heading {
+    gap: 10px;
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+  }
+  .app[data-phase='lobby'] .window-heading > .item-image {
+    width: 44px;
+    height: 44px;
+  }
+  .app[data-phase='lobby'] .window-heading h1 {
+    font-size: 19px;
+    margin: 0;
+  }
+  .app[data-phase='lobby'] .window-heading .eyebrow,
+  .app[data-phase='lobby'] .window-heading p {
+    display: none;
+  }
+  .app[data-phase='lobby'] .lobby-panel-tabs {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+    margin-bottom: 10px;
+  }
+  .app[data-phase='lobby'] .lobby-panel-tabs > button {
+    flex: 1;
+    min-height: 48px;
+    padding: 8px;
+    font-size: 10px;
+  }
+  .app[data-phase='lobby'] .lobby-columns {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .app[data-phase='lobby'] .lobby-columns > div {
+    flex: 1;
+  }
+  .app[data-phase='lobby'] .lobby-columns[data-panel='party'] .lobby-rules-panel,
+  .app[data-phase='lobby'] .lobby-columns[data-panel='rules'] .lobby-party-panel {
+    display: none;
+  }
+  .app[data-phase='lobby'] .lobby-party-panel {
+    gap: 8px;
+  }
+  .app[data-phase='lobby'] .lobby-party-panel .scoreboard {
+    flex: 1;
+  }
+  .app[data-phase='lobby'] .invite {
+    grid-template-columns: minmax(0, 1fr) 104px;
+    padding: 8px;
+  }
+  .app[data-phase='lobby'] .qr {
+    width: 104px;
+    height: 104px;
+    border-width: 4px;
+  }
+  .app[data-phase='lobby'] .room-code {
+    font-size: 22px;
+    padding: 0;
+    min-height: 38px;
+  }
+  .app[data-phase='lobby'] .invite .eyebrow {
+    display: none;
+  }
+  .app[data-phase='lobby'] .invite input {
+    font-size: 16px;
+    min-height: 40px;
+    padding: 4px;
+  }
+  .app[data-phase='lobby'] .lobby-actions {
+    gap: 8px;
+    margin-top: 8px;
+    padding-top: 8px;
+    flex-wrap: wrap;
+  }
+  .app[data-phase='lobby'] .lobby-actions p {
+    width: 100%;
+    max-width: none;
+    font-size: 10px;
+    line-height: 1.4;
+  }
+  .app[data-phase='lobby'] .lobby-actions > button {
+    flex: 1;
+    padding: 8px;
+    font-size: 10px;
+    min-height: 48px;
+  }
+  .app[data-phase='lobby'] .settings-fields input,
+  .app[data-phase='lobby'] .settings-fields select {
+    font-size: 16px;
+  }
+  .app[data-phase='lobby'] .settings legend {
+    display: none;
+  }
+  .app[data-phase='finished'] .results {
+    padding: 12px;
+  }
+  .app[data-phase='finished'] .results-hero > .item-image {
+    width: 64px;
+    height: 64px;
+  }
+  .app[data-phase='finished'] .results-hero .eyebrow {
+    display: none;
+  }
+  .app[data-phase='finished'] .results-hero h1 {
+    font-size: 20px;
+  }
+  .app[data-phase='finished'] .results-tiebreak {
+    font-size: 10px;
+  }
+}
+@media (max-width: 650px) {
+  .app.on-menu .title-menu {
+    max-width: 408px;
+  }
+  .app.on-menu .game-title {
+    font-size: clamp(25px, 7.6vw, 32px);
+  }
+  .app.on-menu .title-art {
+    width: 216px;
+  }
+  .app.on-menu .tagline {
+    font-size: 11px;
+  }
+  .app.on-menu .avatar-picker {
+    gap: 0;
+    justify-content: space-between;
+  }
+  .app.on-menu .identity {
+    padding: 8px 8px 4px;
+  }
+  .app.on-menu .menu-footnote {
+    font-size: 9px;
+  }
+  .app.on-menu .how-to > summary,
+  .app.on-menu .install-app > summary {
+    font-size: 10px;
+  }
+}
+@media (max-height: 620px) and (max-width: 650px) {
+  .app[data-phase='lobby'] .lobby-party-panel {
+    overflow: auto;
+    overscroll-behavior: contain;
+  }
+  .app[data-phase='lobby'] .lobby-party-panel .scoreboard {
+    flex: 0 0 auto;
+    min-height: 0;
+  }
+  .app[data-phase='lobby'] .lobby-party-panel .scoreboard ol {
+    max-height: 120px;
+  }
+  .app.on-menu .title-art,
+  .app.on-menu .tagline,
+  .app.on-menu .menu-footnote,
+  .app.on-menu .identity > label {
+    display: none;
+  }
+  .app.on-menu .game-title {
+    font-size: 22px;
+  }
+  .app.on-menu .title-menu {
+    gap: 4px 8px;
+  }
+  .app.on-menu .identity {
+    padding: 4px;
+  }
+  .app.on-menu .identity input {
+    margin-top: 0;
+  }
+  .app.on-menu .join-code-label {
+    font-size: 0;
+  }
+  .app.on-menu .join-code-label input {
+    margin-top: 0;
+  }
+  .app.on-menu > .site-header {
+    flex-basis: 40px;
+  }
+  .app.on-menu > main {
+    padding: 2px 0;
+  }
+  .app.on-menu > .site-footer {
+    min-height: 48px;
+    padding: 0;
+  }
+}
+@media (max-height: 540px) and (min-width: 651px) {
+  .app.on-menu > main {
+    padding: 2px 0;
+  }
+  .app.on-menu .title-menu {
+    max-width: 860px;
+    grid-template-columns: minmax(200px, 1fr) minmax(300px, 1fr);
+    gap: 4px 28px;
+    align-items: center;
+  }
+  .app.on-menu .title-menu > :not(details) {
+    grid-column: 1;
+  }
+  .app.on-menu .title-menu > .menu-form {
+    grid-column: 2;
+    grid-row: 1 / 6;
+  }
+  .app.on-menu .title-art,
+  .app.on-menu .title-menu:has(.join-code-label) .title-art {
+    height: 72px;
+    width: 220px;
+  }
+  .app.on-menu .title-art > .item-image {
+    width: 88px;
+    height: 88px;
+  }
+  .app.on-menu .game-title {
+    font-size: 28px;
+  }
+  .app.on-menu .menu-kicker,
+  .app.on-menu .tagline,
+  .app.on-menu .menu-footnote,
+  .app.on-menu .identity > label {
+    display: none;
+  }
+  .app.on-menu .identity {
+    padding: 4px;
+    margin-bottom: 6px;
+  }
+  .app.on-menu .identity input {
+    margin-top: 0;
+  }
+  .app.on-menu .avatar-picker {
+    margin-top: 2px;
+  }
+  .app.on-menu .menu-secondary {
+    margin-top: 6px;
+  }
+  .app.on-menu .title-menu > .how-to,
+  .app.on-menu .title-menu > .install-app {
+    grid-column: 1;
+  }
+  .app.on-menu .how-to > summary,
+  .app.on-menu .install-app > summary {
+    min-height: 48px;
+  }
+  .app.on-menu .join-code-label {
+    font-size: 0;
+    margin-bottom: 4px;
+  }
+  .app.on-menu .join-code-label input {
+    margin-top: 0;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-header {
+    flex-basis: 40px;
+  }
+  .app:is(.on-menu, [data-phase='lobby'], [data-phase='finished']) > .site-footer {
+    min-height: 48px;
+    padding: 0;
+  }
+  .app[data-phase='lobby'] .lobby-window {
+    max-width: none;
+    padding: 8px 12px;
+    position: relative;
+  }
+  .app[data-phase='lobby'] .window-heading {
+    min-height: 48px;
+    margin: 0 0 6px;
+    padding: 0 240px 4px 0;
+  }
+  .app[data-phase='lobby'] .lobby-panel-tabs {
+    position: absolute;
+    right: 12px;
+    top: 8px;
+    width: 230px;
+    margin: 0;
+  }
+  .app[data-phase='lobby'] .lobby-party-panel {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+  }
+  .app[data-phase='lobby'] .invite {
+    min-width: 0;
+    grid-template-columns: minmax(0, 1fr) 90px;
+  }
+  .app[data-phase='lobby'] .qr {
+    width: 90px;
+    height: 90px;
+  }
+  .app[data-phase='lobby'] .invite input {
+    display: none;
+  }
+  .app[data-phase='lobby'] .lobby-actions {
+    flex-wrap: nowrap;
+  }
+  .app[data-phase='lobby'] .lobby-actions p {
+    width: auto;
+    flex: 1;
+  }
+  .app[data-phase='lobby'] .lobby-actions > button {
+    flex: 0 0 auto;
+    min-width: 142px;
+  }
+  .app[data-phase='finished'] .results {
+    width: 100%;
+    max-width: 920px;
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    grid-template-rows: 48px minmax(0, 1fr) 48px;
+    gap: 8px 24px;
+    height: 100%;
+  }
+  .app[data-phase='finished'] .results-hero {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    align-self: center;
+    padding: 0;
+  }
+  .app[data-phase='finished'] .results-hero > .item-image {
+    width: 64px;
+    height: 64px;
+  }
+  .app[data-phase='finished'] .results-hero h1 {
+    font-size: 19px;
+  }
+  .app[data-phase='finished'] .results-panel-tabs {
+    grid-column: 2;
+    grid-row: 1;
+    margin: 0;
+  }
+  .app[data-phase='finished'] .results-panels {
+    grid-column: 2;
+    grid-row: 2 / 4;
+  }
+  .app[data-phase='finished'] .results > .button,
+  .app[data-phase='finished'] .results > .waiting {
+    grid-column: 1;
+    grid-row: 3;
+    margin: 0;
+  }
+  .app[data-phase='finished'] .results-tiebreak {
+    display: none;
+  }
+}

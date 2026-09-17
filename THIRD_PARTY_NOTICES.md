@@ -21,6 +21,8 @@ Monocraft: https://github.com/IdreesInc/Monocraft, licensed under the SIL Open F
 
 ## Libraries
 
+Pannellum 2.5.7 (MIT) renders the moving native Minecraft cubemap on the home screen: https://github.com/mpetroff/pannellum. See [panorama reuse measurements](docs/panorama-reuse.md).
+
 React, React DOM, Vite, TypeScript, Zod, qrcode, jsQR, Playwright, Vitest and Prettier retain their respective upstream licenses. Installed package distributions include full license notices. Cloudflare Workers tooling is used under its upstream license. No code was copied from the inspected React crafting demo or canvas inventory renderer.
 
 ## Music

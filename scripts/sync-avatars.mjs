@@ -6,7 +6,7 @@ import { PNG } from 'pngjs';
 const root = resolve(dirname(fileURLToPath(import.meta.url)), '..');
 const lock = JSON.parse(await readFile(resolve(root, 'scripts/sources.lock.json'), 'utf8'));
 const output = resolve(root, 'public/assets/avatars');
-const cache = resolve(root, 'build/avatar-sources');
+const cache = resolve(root, 'build/cache/avatar-sources', lock.assets);
 await mkdir(output, { recursive: true });
 await mkdir(cache, { recursive: true });
 const definitions = [

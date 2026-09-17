@@ -2,7 +2,7 @@
 
 An independent Minecraft recipe-racing game. Create a room, share a link/code/QR, and race friends to arrange the correct ingredients and collect the output.
 
-**In development:** the UI and multiplayer implementation are being integrated and tested. The public deployment is not yet live.
+**Local implementation available:** multiplayer, responsive game screens, moving panorama, installation support and testing tools are implemented. Final verification status is recorded below. Public deployment is blocked on Cloudflare account authentication; the requested domain is not yet live.
 
 ## Current game design
 
@@ -12,7 +12,9 @@ An independent Minecraft recipe-racing game. Create a room, share a link/code/QR
 - Optional Overclock before your first crafting interaction: half the original time, 1.5× earned points.
 - Classic first-finisher scoring and an all-finish option.
 - Hundreds of classified recipe targets with family-balanced selection and a recent, full-grid finale.
-- Native 256×256 item renders, responsive tap/place controls, and Spotify jukebox.
+- Native 256×256 item renders, six mob-face avatars, and a moving Minecraft title panorama.
+- Fixed game screens with internal inventory/settings scrolling; desktop drag/keyboard and mobile tap/place controls.
+- Spotify official jukebox, add-to-home-screen guidance, and an honest offline/reconnect screen.
 
 See [acceptance criteria](docs/acceptance.md) for the current requirements and verification status.
 
@@ -22,7 +24,6 @@ See [acceptance criteria](docs/acceptance.md) for the current requirements and v
 npm ci
 npm run sync:data
 npm run sync:playlist
-node scripts/classify-recipes.mjs
 npm run build
 npm run dev:worker
 # In another terminal:
@@ -39,11 +40,13 @@ Game artwork/font downloads are deliberately not committed; `sync:data` restores
 npm run format
 npm run check
 npm run test:worker
+npm run test:runtime
 npm run test:e2e
+npm run test:load -- --local
 node scripts/capture-progress.mjs
 ```
 
-Current UI screenshots are in ignored `ui-progress/latest-*.png`; timestamped directories preserve earlier states. The screenshot script records browser console errors alongside them. Development-only animation fixtures live at `/__lab`.
+Current UI screenshots are in ignored `ui-progress/latest-*.png`; timestamped directories preserve earlier states. The screenshot script records browser console errors alongside them. Development-only animation fixtures live at `/__lab`. See [testing and debugging](docs/testing.md) for the browser matrix, production/offline verification, and bounded local multiplayer smoke test.
 
 ## Deploy
 
