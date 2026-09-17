@@ -43,6 +43,12 @@ Check both API and static-asset headers. Static assets are asset-first and recei
 
 Do not log WebSocket URLs: they contain resume tokens. Worker observability redacts query strings, and browser smoke diagnostics redact the token field. Any additional log sink needs equivalent handling.
 
+## Release verification — 2026-09-17
+
+Initial deployed version: `3b62a47e-01e1-46a3-8312-cd3147ec06a7`. Cloudflare confirmed the enabled custom domain, assigned certificate and 100% production traffic to that version. The reveal-only layout correction is deployed as `374ddeb3-08c1-4249-af32-5da5f3460cc6`, after the 28-case visual matrix passed. Both ordinary deployments succeeded without force or changes to unrelated routes.
+
+Live HTTPS gameplay, mobile invitation joining, explicit collection, score persistence after reload, offline invitation recovery and official Spotify track switching passed. Initial DNS propagation left the development machine's resolver returning NXDOMAIN even after independent Cloudflare and Google public resolvers returned the new A records. Those first browser checks used the independently verified public answer through a per-process resolver mapping, preserving the real hostname, origin, WebSockets and normal TLS certificate validation; no system resolver settings were changed. This distinguishes deployed application verification from completion of all DNS caches' propagation. A direct query to the default recursive resolver confirmed an upstream negative answer with an older SOA serial and approximately six minutes of TTL remaining at diagnosis; clearing browser/OS caches alone would not remove that upstream answer. Public resolvers returned the new records with DNSSEC checking enabled and no validation failure.
+
 ## Recovery
 
 Inspect deployment history and choose an explicitly known-good version:

@@ -94,6 +94,14 @@ try {
   await expect(host.locator('.game-sidebar .score').first()).toHaveText('100');
   await host.reload();
   await expect(host.locator('.game-sidebar .score').first()).toHaveText('100');
+  await host.evaluate(() => document.fonts.ready);
+  const targetBounds = await host.locator('.target').boundingBox();
+  for (const text of await host.locator('.target .eyebrow, .target h1, .target p').all()) {
+    if (!(await text.isVisible())) continue;
+    const bounds = await text.boundingBox();
+    expect(bounds.y).toBeGreaterThanOrEqual(targetBounds.y - 1);
+    expect(bounds.y + bounds.height).toBeLessThanOrEqual(targetBounds.y + targetBounds.height + 1);
+  }
   await host.screenshot({ path: resolve(output, 'live-desktop-result.png'), scale: 'css' });
   expect(errors).toEqual([]);
   console.log(

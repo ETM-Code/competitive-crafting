@@ -31,11 +31,13 @@
 - [x] Public GitHub repository and incremental milestones using configured Git identity without AI attribution.
 - [x] Core gameplay matrix after reconnect fixes: 11 passed, nine intentional duplicate-engine skips. Visual regression reruns passed after focus and inventory-scroller corrections.
 - [x] Short-desktop controls remain inside panel padding at 1280×650, 1280×720 and 1366×768 in Chromium/WebKit. Jukebox has 22 verified favourites, random initial selection, visible title and a no-repeat Next shuffle; 12 browser and three shuffle unit tests pass.
-- [ ] Final full formatting/typecheck/build and implementation milestone commit.
+- [x] Final full formatting/typecheck/build and implementation milestone commit (`d909cf8`, pushed to `development`).
 - [ ] Cloudflare custom-domain deployment verified.
 
 ## Verification boundaries
 
 As of 2026-09-17, the final integrated run passes formatting, TypeScript, ESLint, shared/shuffle tests (12), Worker tests (55), native runtime tests (4), production build and the full Playwright suite: **65 passed, 11 intentionally skipped**, with no failures. Nine skips avoid duplicating specialized Chromium gameplay cases across engines, and two skip the service-worker lifecycle on engines where that check is not supported here. Chromium desktop/mobile, WebKit and Firefox all pass their supported cases. Earlier focus-restoration and development WebSocket cleanup failures were corrected and pass in this final run. The bounded local concurrency smoke also passed. Screenshots and verification commands are recorded in [testing documentation](testing.md).
 
-Wrangler authentication is verified. Deployment preflight is underway; the requested public domain is **not claimed live**. Browser emulation and WebKit checks are not equivalent to hands-on testing of every real iOS/Android device, browser toolbar or installation flow.
+The requested custom domain is deployed. Real HTTPS two-player smoke passes: invitation/mobile join, valid grid with zero premature points, explicit collection, broadcast and score persistence after reload. Live service-worker offline invitation recovery and official Spotify track switching pass. Public Cloudflare and Google DNS resolve the hostname; initial live checks used their verified A answer with normal certificate validation because the development machine retained a negative DNS cache. No system resolver or certificate settings were changed. Normal-resolver propagation verification remains separate.
+
+Visual inspection of the live reveal screenshot caught clipped target copy at short desktop height after the full suite passed. A reveal-only sizing correction and child-text containment regression now pass the entire **28-case visual matrix** across Chromium desktop/mobile, WebKit and Firefox, plus formatting/typecheck/lint/shared tests and the production build. Browser emulation and WebKit checks are not equivalent to hands-on testing of every real iOS/Android device, browser toolbar or installation flow.

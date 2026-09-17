@@ -183,6 +183,57 @@ test('short desktop window contains the full workbench and inventory panel', asy
   await mainScreenIsFixed(page);
 });
 
+test('reveal target text fits between the timer and recipe at compact sizes', async ({
+  page,
+}, info) => {
+  const errors: string[] = [];
+  page.on('pageerror', (error) => errors.push(error.message));
+  await mkdir('ui-progress', { recursive: true });
+  for (const size of [
+    { width: 1280, height: 650 },
+    { width: 1280, height: 720 },
+    { width: 1366, height: 768 },
+    { width: 390, height: 664 },
+    { width: 844, height: 390 },
+  ]) {
+    await page.setViewportSize(size);
+    await page.goto('/__lab');
+    await page.evaluate(() => document.fonts.ready);
+    await page.locator('.lab-toolbar > summary').click();
+    await page.getByRole('combobox', { name: 'Fixture' }).selectOption('reveal');
+    await page.locator('.lab-toolbar > summary').click();
+    const target = page.locator('.target');
+    await withinViewport(page, target);
+    const targetBounds = (await target.boundingBox())!;
+    const text = target.locator('.eyebrow, h1, .target-meta, p');
+    for (const child of await text.all()) {
+      if (!(await child.isVisible())) continue;
+      const bounds = (await child.boundingBox())!;
+      const label = await child.innerText();
+      expect(bounds.y, label).toBeGreaterThanOrEqual(targetBounds.y - 1);
+      expect(bounds.y + bounds.height, label).toBeLessThanOrEqual(
+        targetBounds.y + targetBounds.height + 1,
+      );
+    }
+    const recipe = page.getByTestId('recipe-reveal');
+    const recipeBounds = (await recipe.boundingBox())!;
+    expect(targetBounds.y + targetBounds.height).toBeLessThanOrEqual(recipeBounds.y + 1);
+    if (size.width > 1100) {
+      const timerTrack = (await page.locator('.xp-track').boundingBox())!;
+      expect(targetBounds.y).toBeGreaterThanOrEqual(timerTrack.y + timerTrack.height);
+      await expect(target.locator('.eyebrow')).toBeVisible();
+      await expect(target.locator('p')).toContainText('crafted it first');
+    }
+    await withinViewport(page, recipe.locator('.craft-grid'));
+    await mainScreenIsFixed(page);
+    await page.screenshot({
+      path: `ui-progress/${info.project.name}-reveal-${size.width}x${size.height}.png`,
+      scale: 'css',
+    });
+  }
+  expect(errors).toEqual([]);
+});
+
 test('menus are exclusive and touch-only controls stay off desktop', async ({ page }) => {
   await page.setViewportSize({ width: 1440, height: 1000 });
   await page.goto('/');

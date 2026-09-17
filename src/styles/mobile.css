@@ -1010,6 +1010,32 @@
     grid-template-rows: auto 6px 60px minmax(0, 1fr);
   }
 }
+/* Reveal adds a winner line, so its target must size to text rather than the playing art. */
+@media (min-width: 651px) and (min-height: 541px), (min-width: 1101px) {
+  .active-play[data-phase='reveal'] .crafting-window {
+    grid-template-rows: auto 6px max-content minmax(0, 1fr);
+  }
+  .active-play[data-phase='reveal'] .target {
+    padding: 6px 0;
+  }
+  .active-play[data-phase='reveal'] .target .eyebrow {
+    display: block;
+  }
+  .active-play[data-phase='reveal'] .target p {
+    margin: 6px 0 0;
+  }
+}
+@media (max-width: 650px) {
+  .active-play[data-phase='reveal'] .target > div:last-child {
+    display: block;
+  }
+  .active-play[data-phase='reveal'] .target .eyebrow {
+    display: block;
+  }
+  .active-play[data-phase='reveal'] .target p {
+    margin: 6px 0 0;
+  }
+}
 /* The keyboard temporarily gets a compact search view; picking an item dismisses it. */
 @media (max-height: 620px) and (max-width: 650px) {
   .active-play:has(.inventory-search:focus),

@@ -2,7 +2,9 @@
 
 An independent Minecraft recipe-racing game. Create a room, share a link/code/QR, and race friends to arrange the correct ingredients and collect the output.
 
-**Local implementation available:** multiplayer, responsive game screens, moving panorama, installation support and testing tools are implemented. Final verification status is recorded below. Cloudflare authentication is verified; deployment preflight is underway. The requested domain is not yet claimed live.
+**Play:** [competitive-crafting.eoghancollins.com](https://competitive-crafting.eoghancollins.com)
+
+Deployed to Cloudflare Workers. Live HTTPS multiplayer, mobile invitation joining, score persistence, offline recovery and the official Spotify embed have passed using independently confirmed public DNS answers. **DNS availability is still being verified:** the normal development resolver and a reported browser attempt continue to return `ERR_NAME_NOT_RESOLVED`; the deployment is not yet confirmed reachable through those resolvers.
 
 ## Current game design
 
