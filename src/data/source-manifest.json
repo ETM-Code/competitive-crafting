@@ -1,0 +1,85 @@
+{
+  "version": "26.3",
+  "sources": {
+    "version": "26.3",
+    "data": "5f312935898c8f75f64d185b9874b129d0c67287",
+    "assets": "79962f2b091fb6213b425b277a8725d737f3def8",
+    "renders": "bc96011714c0eb3770bd641a3b86459ad5f860c7",
+    "font": "e498bf70aeb25b4bdcff1e44d878fb2cb4f7c2a9"
+  },
+  "items": 1657,
+  "recipes": 1185,
+  "outputs": 1009,
+  "catalogueSha256": "35af697983b95d8a5d0d2459bf8981882d98be46f412f778229b75a62e7e0e6f",
+  "invalidRenders": [],
+  "excluded": [
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_blue_orchid.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_azure_bluet.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_allium.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_dandelion.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_golden_dandelion.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_cornflower.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_lily_of_the_valley.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_closed_eyeblossom.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_orange_tulip.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_open_eyeblossom.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_pink_tulip.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_oxeye_daisy.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_red_tulip.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_poppy.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_wither_rose.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_torchflower.json",
+      "reason": "component-dependent output"
+    },
+    {
+      "path": "data/minecraft/recipe/suspicious_stew_from_white_tulip.json",
+      "reason": "component-dependent output"
+    }
+  ]
+}

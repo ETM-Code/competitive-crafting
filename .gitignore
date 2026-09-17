@@ -1,0 +1,13 @@
+node_modules/
+dist/
+build/
+.wrangler/
+test-results/
+playwright-report/
+.env*
+.dev.vars
+*.log
+.DS_Store
+ui-progress/
+public/assets/
+docs/implementation-contract.md

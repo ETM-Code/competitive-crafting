@@ -1,0 +1,78 @@
+{
+  "playlistUri": "spotify:playlist:5T4KWhz9Q8r98skQBimtlH",
+  "name": "Minecraft Creator-Safe Playlist",
+  "tracks": [
+    {
+      "title": "Sweden",
+      "artist": "C418",
+      "uri": "spotify:track:4NsPgRYUdHu2Q5JRNgXYU5",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Minecraft",
+      "artist": "C418",
+      "uri": "spotify:track:6xwhCiWXREsAIQVZqHswVw",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Mice on Venus",
+      "artist": "C418",
+      "uri": "spotify:track:5fqjfiMOFapIb8uFcxBStH",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Aria Math",
+      "artist": "C418",
+      "uri": "spotify:track:4K0odcECsBvgzv9Lr9z4kd",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Subwoofer Lullaby",
+      "artist": "C418",
+      "uri": "spotify:track:1OJxI8lIWRqBvouJxW1nzN",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Wet Hands",
+      "artist": "C418",
+      "uri": "spotify:track:1tinoQpYXzpZDrb0BjK1e7",
+      "mood": "nostalgic"
+    },
+    {
+      "title": "Pigstep - Stereo Mix",
+      "artist": "Lena Raine, Minecraft",
+      "uri": "spotify:track:2TmUt0ofWMa02MdYkKhK4C",
+      "mood": "hype"
+    },
+    {
+      "title": "otherside",
+      "artist": "Lena Raine, Minecraft",
+      "uri": "spotify:track:4PtJNlcpEGyNAkYy44m5fI",
+      "mood": "hype"
+    },
+    {
+      "title": "Creator",
+      "artist": "Lena Raine, Minecraft",
+      "uri": "spotify:track:1mbLvyFNIifliPtmMmRQN9",
+      "mood": "hype"
+    },
+    {
+      "title": "otherside (Turbo Remix)",
+      "artist": "Minecraft, Turbo",
+      "uri": "spotify:track:7zm0TIsT5jYwAqKcLymxAL",
+      "mood": "hype"
+    },
+    {
+      "title": "Arch-Illager's Pigstep",
+      "artist": "Minecraft, Hyper Potions",
+      "uri": "spotify:track:4oz9oCfHStGbOKf83MvKTf",
+      "mood": "hype"
+    },
+    {
+      "title": "Comforting Memories (Synthion Remix)",
+      "artist": "Minecraft, Synthion",
+      "uri": "spotify:track:574J1JkXMi5B88GPkroRLv",
+      "mood": "hype"
+    }
+  ]
+}
