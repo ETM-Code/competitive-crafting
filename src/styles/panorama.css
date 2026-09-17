@@ -1,0 +1,42 @@
+.world-backdrop.panorama-world {
+  /* Keep an overscan margin for Safari toolbar / visual-viewport changes. */
+  inset: -2px;
+  overflow: hidden;
+  animation: none;
+  transform: none;
+  background: #819da7 url('/assets/panorama.png') center / cover no-repeat;
+  filter: saturate(0.82);
+}
+
+.panorama-world .panorama-viewer {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 700ms ease-out;
+  background: transparent;
+}
+
+.panorama-world .panorama-viewer.is-ready {
+  opacity: 1;
+}
+
+.panorama-world .pnlm-ui,
+.panorama-world .pnlm-about-msg,
+.panorama-world .pnlm-lbar,
+.panorama-world .pnlm-load-button,
+.panorama-world .pnlm-panorama-info,
+.panorama-world .pnlm-error-msg,
+.panorama-world .pnlm-loading {
+  display: none !important;
+}
+
+.panorama-world .pnlm-render-container {
+  cursor: default;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .panorama-world .panorama-viewer {
+    transition: none;
+  }
+}
