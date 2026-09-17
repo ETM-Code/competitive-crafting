@@ -1,6 +1,14 @@
 import { useState } from 'react';
 import { itemById } from '../shared/catalogue';
-export function ItemImage({ id, className = '' }: { id: string; className?: string }) {
+export function ItemImage({
+  id,
+  className = '',
+  lazy = false,
+}: {
+  id: string;
+  className?: string;
+  lazy?: boolean;
+}) {
   const item = itemById[id];
   const [failed, setFailed] = useState<string | null>(null);
   return item && failed !== id ? (
@@ -11,6 +19,7 @@ export function ItemImage({ id, className = '' }: { id: string; className?: stri
       width="256"
       height="256"
       draggable={false}
+      loading={lazy ? 'lazy' : undefined}
       onError={() => setFailed(id)}
     />
   ) : (
@@ -27,6 +36,9 @@ export function ItemSlot({
   onClick,
   onPlace,
   onInteract,
+  draggable,
+  gridIndex,
+  lazy,
   testId,
   children,
 }: {
@@ -37,6 +49,9 @@ export function ItemSlot({
   onClick?: () => void;
   onPlace?: (id: string) => void;
   onInteract?: () => void;
+  draggable?: boolean;
+  gridIndex?: number;
+  lazy?: boolean;
   testId?: string;
   children?: React.ReactNode;
 }) {
@@ -51,7 +66,8 @@ export function ItemSlot({
       disabled={disabled}
       data-testid={testId}
       data-item-id={id || undefined}
-      draggable={!!id && !disabled}
+      data-grid-index={gridIndex}
+      draggable={(draggable ?? !!id) && !disabled}
       onClick={onClick}
       onDragStart={(event) => {
         if (id) {
@@ -74,7 +90,7 @@ export function ItemSlot({
       onContextMenu={(event) => {
         if (onPlace) {
           event.preventDefault();
-          onPlace('');
+          if (gridIndex === undefined) onPlace('');
         }
       }}
       onKeyDown={(event) => {
@@ -84,7 +100,7 @@ export function ItemSlot({
         }
       }}
     >
-      {id && <ItemImage key={id} id={id} />}
+      {id && <ItemImage key={id} id={id} lazy={lazy} />}
       {children}
     </button>
   );

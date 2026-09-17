@@ -2,13 +2,15 @@ import { useEffect, useRef, useState } from 'react';
 import { VERSION } from './shared/catalogue';
 import type { Session } from './shared/types';
 import { enterRoom, persistSession, storedSession, useConnection } from './lib/connection';
-import { playSound, saveSound, soundEnabled } from './lib/audio';
+import { playSound, prepareSounds, saveSound, soundEnabled } from './lib/audio';
 import { ItemImage } from './components/ItemSlot';
-import { AVATARS, Avatar, Scoreboard } from './components/Scoreboard';
+import { Scoreboard } from './components/Scoreboard';
+import { AvatarPicker } from './components/AvatarPicker';
 import { Lobby } from './components/Lobby';
 import { CraftingGame } from './components/CraftingGame';
 import { Results } from './components/Results';
-import { Jukebox } from './components/Jukebox';
+import { Jukebox, type JukeboxHandle } from './components/Jukebox';
+import './styles/application.css';
 import { InstallApp } from './components/InstallApp';
 import { Panorama } from './components/Panorama';
 function invitation() {
@@ -40,6 +42,42 @@ export default function App() {
     { state: room, status, send } = connection;
   const [now, setNow] = useState(Date.now());
   const previousFocus = useRef<HTMLElement | null>(null);
+  const jukebox = useRef<JukeboxHandle>(null);
+  const menuTrigger = useRef<HTMLElement | null>(null);
+  const [forfeitOpen, setForfeitOpen] = useState(false);
+  useEffect(() => {
+    if (sound) prepareSounds();
+  }, [sound]);
+  useEffect(() => {
+    const activateMusic = (event: Event) => {
+      if (!event.isTrusted || !sound) return;
+      if (event instanceof KeyboardEvent && (event.repeat || !['Enter', ' '].includes(event.key)))
+        return;
+      if (event.target instanceof Element && event.target.closest('[data-testid="sound-toggle"]'))
+        return;
+      jukebox.current?.requestPlayback();
+    };
+    const clickSound = (event: MouseEvent) => {
+      if (!event.isTrusted || !sound || !(event.target instanceof Element)) return;
+      const button = event.target.closest<HTMLElement>('button, summary');
+      if (!button || button.matches(':disabled, [aria-disabled="true"]')) return;
+      if (
+        button.matches(
+          '[data-testid="sound-toggle"], [data-testid="collect-output"], [data-testid="craft-output"], [data-testid^="grid-slot-"]',
+        )
+      )
+        return;
+      playSound('click', true);
+    };
+    document.addEventListener('pointerup', activateMusic, true);
+    document.addEventListener('keydown', activateMusic, true);
+    document.addEventListener('click', clickSound, true);
+    return () => {
+      document.removeEventListener('pointerup', activateMusic, true);
+      document.removeEventListener('keydown', activateMusic, true);
+      document.removeEventListener('click', clickSound, true);
+    };
+  }, [sound]);
   useEffect(() => {
     if (!leaveOpen) return;
     return () => previousFocus.current?.focus();
@@ -69,7 +107,7 @@ export default function App() {
     }
     setBusy(mode);
     setEntryError('');
-    playSound('click', sound);
+    if (sound) jukebox.current?.requestPlayback();
     try {
       const next = await enterRoom(mode === 'join' ? `/api/rooms/${code}/join` : '/api/rooms', {
         name: name.trim(),
@@ -101,24 +139,36 @@ export default function App() {
     history.replaceState(null, '', '/');
   }
   const activePlay = !!room && ['countdown', 'playing', 'reveal'].includes(room.phase);
-  const menuButton = useRef<HTMLButtonElement | null>(null);
   const menuClose = useRef<HTMLButtonElement | null>(null);
-  const [compactViewport, setCompactViewport] = useState(
-    () => matchMedia('(max-width: 1100px)').matches,
+  const menuVisible = activePlay && menuOpen;
+  const immersiveMobile = !!room && room.phase !== 'lobby';
+  const ownRound = session && room?.round?.playerStates[session.playerId];
+  const canForfeit = !!(
+    status === 'connected' &&
+    room?.phase === 'playing' &&
+    ownRound &&
+    !ownRound.forfeited &&
+    !ownRound.expired &&
+    !room.round?.finishers.some((finisher) => finisher.playerId === session?.playerId)
   );
   useEffect(() => {
-    const media = matchMedia('(max-width: 1100px)');
-    const update = () => setCompactViewport(media.matches);
-    media.addEventListener('change', update);
-    return () => media.removeEventListener('change', update);
-  }, []);
-  const menuVisible = activePlay && compactViewport && menuOpen;
+    setForfeitOpen(false);
+    setMenuOpen(false);
+  }, [room?.phase, room?.round?.id]);
+  function openGameMenu() {
+    // Safari does not focus pointer-clicked buttons, so activeElement may be the body or search.
+    menuTrigger.current = document.querySelector<HTMLElement>('[data-testid="game-menu-toggle"]');
+    setMenuOpen(true);
+  }
   const restoreMenuFocus = useRef(false);
   useEffect(() => {
     if (menuVisible) menuClose.current?.focus();
     else if (restoreMenuFocus.current) {
       // Wait until React removes inert from the header before restoring focus.
-      menuButton.current?.focus();
+      (menuTrigger.current?.isConnected
+        ? menuTrigger.current
+        : document.querySelector<HTMLElement>('[data-testid="game-menu-toggle"]')
+      )?.focus();
       restoreMenuFocus.current = false;
     }
   }, [menuVisible]);
@@ -146,7 +196,7 @@ export default function App() {
   const error = entryError || connection.error;
   return (
     <div
-      className={`app ${session ? 'in-world' : 'on-menu'}${activePlay ? ' active-play' : ''}`}
+      className={`app ${session ? 'in-world' : 'on-menu'}${activePlay ? ' active-play' : ''}${immersiveMobile ? ' immersive-mobile' : ''}`}
       data-phase={room?.phase || 'home'}
     >
       <Panorama active={!session} />
@@ -198,18 +248,6 @@ export default function App() {
               </button>
             </>
           )}
-          {activePlay && (
-            <button
-              ref={menuButton}
-              className="text-button light game-menu-toggle"
-              data-testid="game-menu-toggle"
-              aria-expanded={menuOpen}
-              aria-controls="game-menu"
-              onClick={() => setMenuOpen(!menuOpen)}
-            >
-              Menu
-            </button>
-          )}
           <span className="edition">JAVA RECIPES · {VERSION}</span>
         </div>
       </header>
@@ -218,7 +256,9 @@ export default function App() {
           (room.phase === 'reveal'
             ? room.round?.finishers.length
               ? `${room.players.find((p) => p.id === room.round?.finishers[0]?.playerId)?.name || 'A player'} finished first. Round complete.`
-              : 'Time expired. The recipe is revealed.'
+              : room.round?.endReason === 'forfeit'
+                ? 'Everyone forfeited. The recipe is revealed.'
+                : 'Time expired. The recipe is revealed.'
             : room.phase === 'playing'
               ? `Round ${(room.round?.index || 0) + 1} started. Craft the target and collect the output.`
               : room.phase === 'finished'
@@ -260,21 +300,7 @@ export default function App() {
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                 />
-                <div className="avatar-picker" role="group" aria-label="Choose your avatar">
-                  {AVATARS.map((value) => (
-                    <button
-                      type="button"
-                      aria-label={`${value.replaceAll('_', ' ')} avatar`}
-                      title={value.replaceAll('_', ' ')}
-                      aria-pressed={avatar === value}
-                      className={avatar === value ? 'chosen' : ''}
-                      key={value}
-                      onClick={() => setAvatar(value)}
-                    >
-                      <Avatar value={value} />
-                    </button>
-                  ))}
-                </div>
+                <AvatarPicker value={avatar} onChange={setAvatar} />
               </div>
               {joining && (
                 <label className="join-code-label">
@@ -375,6 +401,7 @@ export default function App() {
                 session={session}
                 send={send}
                 connected={status === 'connected'}
+                onLeave={leave}
               />
             ) : (
               <CraftingGame
@@ -385,6 +412,7 @@ export default function App() {
                 connected={status === 'connected'}
                 now={now}
                 sound={sound}
+                onOpenMenu={openGameMenu}
               />
             )}
           </>
@@ -406,7 +434,7 @@ export default function App() {
       )}
       <footer
         id="game-menu"
-        className={`site-footer${menuOpen ? ' menu-open' : ''}`}
+        className={`site-footer${menuVisible ? ' menu-open' : ''}`}
         inert={leaveOpen}
         role={menuVisible ? 'dialog' : undefined}
         aria-modal={menuVisible || undefined}
@@ -437,11 +465,53 @@ export default function App() {
             <button ref={menuClose} className="button game-menu-close" onClick={closeMenu}>
               Back to crafting
             </button>
+            {canForfeit && !forfeitOpen && (
+              <button
+                className="button"
+                data-testid="forfeit-round"
+                onClick={() => setForfeitOpen(true)}
+              >
+                Forfeit round
+              </button>
+            )}
+            {canForfeit && forfeitOpen && (
+              <div className="forfeit-confirmation" role="group" aria-label="Confirm forfeit">
+                <p>Skip this craft for 0 XP? You can’t undo this round’s forfeit.</p>
+                <button className="button" onClick={() => setForfeitOpen(false)}>
+                  Keep trying
+                </button>
+                <button
+                  className="button danger"
+                  data-testid="confirm-forfeit"
+                  onClick={() => {
+                    if (room?.round && send({ type: 'forfeit', roundId: room.round.id })) {
+                      setForfeitOpen(false);
+                      closeMenu();
+                    }
+                  }}
+                >
+                  Forfeit
+                </button>
+              </div>
+            )}
             <button className="text-button light" onClick={openLeaveDialog}>
               Leave room
             </button>
           </div>
         )}
+        {menuVisible &&
+          room?.settings.hints &&
+          room.round?.solution &&
+          room.phase === 'playing' && (
+            <details className="menu-recipe-hint">
+              <summary>Recipe hint</summary>
+              <div className="menu-hint-grid" aria-label="Recipe hint">
+                {room.round.solution.map((id, index) => (
+                  <span key={index}>{id && <ItemImage id={id} />}</span>
+                ))}
+              </div>
+            </details>
+          )}
         {menuVisible && room && session && (
           <div className="game-menu-standings">
             <Scoreboard
@@ -458,6 +528,7 @@ export default function App() {
           Not affiliated with Mojang or Microsoft.
         </span>
         <Jukebox
+          ref={jukebox}
           open={jukeboxOpen}
           onOpenChange={(open) => {
             if (open)

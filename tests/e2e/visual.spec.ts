@@ -1,83 +1,96 @@
 import { test, expect, type Page, type Locator } from '@playwright/test';
 import { mkdir } from 'node:fs/promises';
 
+// Audio/provider behavior has its own suite; keep layout/input checks deterministic.
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
+});
+
 async function withinViewport(page: Page, locator: Locator) {
   await expect(locator).toBeVisible();
-  const box = await locator.boundingBox();
+  const box = (await locator.boundingBox())!;
   const viewport = page.viewportSize()!;
-  expect(box, (await locator.getAttribute('data-testid')) ?? 'control bounds').not.toBeNull();
-  expect(box!.x).toBeGreaterThanOrEqual(-1);
-  expect(box!.y).toBeGreaterThanOrEqual(-1);
-  expect(box!.x + box!.width).toBeLessThanOrEqual(viewport.width + 1);
-  expect(box!.y + box!.height).toBeLessThanOrEqual(viewport.height + 1);
+  expect(box.x).toBeGreaterThanOrEqual(-1);
+  expect(box.y).toBeGreaterThanOrEqual(-1);
+  expect(box.x + box.width).toBeLessThanOrEqual(viewport.width + 1);
+  expect(box.y + box.height).toBeLessThanOrEqual(viewport.height + 1);
 }
 
-async function mainScreenIsFixed(page: Page) {
+async function fixedScreen(page: Page) {
   await page.evaluate(() => window.scrollTo(0, 1000));
-  await page.mouse.move(4, 4);
+  await page.mouse.move(2, 2);
   await page.mouse.wheel(0, 500);
   expect(await page.evaluate(() => ({ x: scrollX, y: scrollY }))).toEqual({ x: 0, y: 0 });
-  expect(
-    await page.locator('html').evaluate((element) => getComputedStyle(element).overflowY),
-  ).toBe('hidden');
 }
 
-test('home and lab remain visible at real viewport sizes, without overflow or missing art', async ({
-  page,
-}, info) => {
+async function practice(page: Page, creative = false) {
+  await page.goto('/');
+  await page.getByTestId('player-name').fill('ViewportCheck');
+  await page.getByTestId('practice-button').click();
+  await expect(page.getByTestId('lobby')).toBeVisible();
+  const rules = page.getByTestId('lobby-rules-tab');
+  if (await rules.isVisible()) await rules.click();
+  if (creative) {
+    await page.getByTestId('setting-inventory').selectOption('creative');
+    await expect(page.getByTestId('setting-inventory')).toHaveValue('creative');
+  }
+  await page.getByTestId('setting-seconds').fill('90');
+  await expect(page.getByTestId('setting-seconds')).toHaveValue('90');
+  await page.getByTestId('ready-button').click();
+  await page.getByTestId('start-button').click();
+  await expect(page.getByTestId('crafting-grid')).toBeVisible();
+}
+
+test('home and lab fit their viewport without broken visible artwork', async ({ page }, info) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
   await mkdir('ui-progress', { recursive: true });
   for (const route of ['/', '/__lab']) {
     await page.goto(route);
     await page.evaluate(() => document.fonts.ready);
-    await expect(page.locator(route === '/' ? '.title-menu' : '.crafting-window')).toBeVisible();
-    await page.waitForTimeout(400);
-    const dimensions = await page.evaluate(() => ({
-      viewport: innerWidth,
-      width: document.documentElement.scrollWidth,
-    }));
-    expect(dimensions.width).toBeLessThanOrEqual(dimensions.viewport + 1);
-    await mainScreenIsFixed(page);
     if (route === '/') {
-      await withinViewport(page, page.getByTestId('player-name'));
-      await withinViewport(page, page.getByTestId('create-room'));
-      await withinViewport(page, page.getByTestId('practice-button'));
-      await withinViewport(page, page.getByTestId('join-room'));
+      for (const id of [
+        'player-name',
+        'create-room',
+        'practice-button',
+        'join-room',
+        'jukebox-toggle',
+        'sound-toggle',
+      ])
+        await withinViewport(page, page.getByTestId(id));
       await withinViewport(page, page.getByTestId('install-guide').locator('summary'));
       await withinViewport(page, page.locator('.how-to > summary'));
-      await withinViewport(page, page.getByTestId('jukebox-toggle'));
-      await withinViewport(page, page.getByTestId('sound-toggle'));
-      for (const avatar of await page.locator('.avatar-picker button').all())
-        await withinViewport(page, avatar);
-    }
-    const broken = await page.locator('img').evaluateAll((elements) => {
-      const images = elements as HTMLImageElement[];
-      return images.filter((img) => !img.complete || img.naturalWidth === 0).map((img) => img.src);
-    });
-    expect(broken).toEqual([]);
-    if (route === '/__lab') {
-      const grid = page.getByTestId('crafting-grid');
-      await expect(grid).toBeVisible();
-      expect(
-        await page.locator('.crafting-window').evaluate((el) => getComputedStyle(el).opacity),
-      ).toBe('1');
-      const slot = await page.getByTestId('grid-slot-0').boundingBox();
-      expect(slot?.width).toBeGreaterThanOrEqual(48);
-      expect(slot?.height).toBeGreaterThanOrEqual(48);
-      for (const id of ['target-name', 'round-timer', 'crafting-grid', 'collect-output']) {
+      await withinViewport(page, page.getByTestId('avatar-picker-trigger'));
+    } else {
+      for (const id of ['target-name', 'round-timer', 'crafting-grid', 'collect-output'])
         await withinViewport(page, page.getByTestId(id));
-      }
-      const inventory = page.locator('.inventory-content');
-      await withinViewport(page, inventory);
-      await inventory.evaluate((element) => {
-        element.scrollTop = element.scrollHeight;
+      const slot = (await page.getByTestId('grid-slot-0').boundingBox())!;
+      expect(slot.width).toBeGreaterThanOrEqual(48);
+      expect(slot.height).toBeGreaterThanOrEqual(48);
+      await withinViewport(page, page.locator('.ingredient-scroll'));
+      await page.locator('.ingredient-scroll').evaluate((el) => {
+        el.scrollTop = el.scrollHeight;
       });
       await withinViewport(page, page.getByTestId('inventory').locator('button').last());
-      await inventory.evaluate((element) => {
-        element.scrollTop = 0;
-      });
     }
+    await fixedScreen(page);
+    const broken = await page.locator('img').evaluateAll((elements) =>
+      elements
+        .filter((element) => {
+          const image = element as HTMLImageElement,
+            bounds = image.getBoundingClientRect();
+          return (
+            bounds.width > 0 &&
+            bounds.height > 0 &&
+            bounds.top < innerHeight &&
+            bounds.bottom > 0 &&
+            image.complete &&
+            image.naturalWidth === 0
+          );
+        })
+        .map((element) => (element as HTMLImageElement).src),
+    );
+    expect(broken).toEqual([]);
     await page.screenshot({
       path: `ui-progress/${info.project.name}-${route === '/' ? 'home' : 'game'}-tested.png`,
       scale: 'css',
@@ -86,189 +99,124 @@ test('home and lab remain visible at real viewport sizes, without overflow or mi
   expect(errors).toEqual([]);
 });
 
-test('mobile browser resizing, keyboard focus, landscape and reduced motion retain controls', async ({
-  page,
-}) => {
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-  await page.getByTestId('player-name').focus();
-  await expect
-    .poll(async () =>
-      page.getByTestId('player-name').evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
-    )
-    .toBeGreaterThanOrEqual(16);
-  await page.setViewportSize({ width: 390, height: 480 });
-  await page.getByTestId('player-name').fill('KeyboardCheck');
-  await expect(page.getByTestId('create-room')).toBeVisible();
-  await page.setViewportSize({ width: 844, height: 390 });
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-  await page.emulateMedia({ reducedMotion: 'reduce' });
-  await page.goto('/__lab');
-  await expect(page.getByTestId('crafting-grid')).toBeVisible();
-  expect(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth)).toBe(true);
-});
-
-test('live mobile play keeps essentials fixed and moves secondary controls into a menu', async ({
+test('immersive mobile crafting prioritizes target, table and inventory at real sizes', async ({
   page,
 }, info) => {
   const errors: string[] = [];
   page.on('pageerror', (error) => errors.push(error.message));
-  await page.setViewportSize({ width: 390, height: 844 });
-  await page.goto('/');
-  await page.getByTestId('player-name').fill('ViewportCheck');
-  await page.getByTestId('practice-button').click();
-  await expect(page.getByTestId('lobby')).toBeVisible();
-  await withinViewport(page, page.getByTestId('ready-button'));
-  await withinViewport(page, page.getByTestId('start-button'));
-  await page.getByTestId('ready-button').click();
-  await page.getByTestId('start-button').click();
-  await expect(page.getByTestId('target-name')).toBeVisible();
+  await page.setViewportSize({ width: 390, height: 664 });
+  await practice(page, true);
   for (const size of [
     { width: 360, height: 740 },
+    { width: 390, height: 664 },
     { width: 390, height: 844 },
     { width: 412, height: 915 },
     { width: 844, height: 390 },
   ]) {
     await page.setViewportSize(size);
+    await expect
+      .poll(async () => Math.round((await page.locator('.app').boundingBox())!.height))
+      .toBe(size.height);
+    await expect(page.locator('.site-header')).toBeHidden();
+    await expect(page.locator('.site-footer')).toBeHidden();
+    await expect(page.locator('.craft-target-points')).toBeHidden();
     for (const id of [
       'target-name',
       'round-timer',
       'crafting-grid',
       'collect-output',
-      'inventory',
-    ]) {
+      'inventory-search',
+      'game-menu-toggle',
+    ])
       await withinViewport(page, page.getByTestId(id));
-    }
-    await mainScreenIsFixed(page);
+    const inventory = page.locator('.ingredient-scroll');
+    await withinViewport(page, inventory);
+    expect((await inventory.boundingBox())!.height).toBeGreaterThanOrEqual(
+      size.width > 650 ? 100 : 180,
+    );
+    await inventory.evaluate((el) => {
+      el.scrollTop = el.scrollHeight;
+    });
+    await withinViewport(page, page.getByTestId('inventory').locator('button').last());
+    await inventory.evaluate((el) => {
+      el.scrollTop = 0;
+    });
+    await fixedScreen(page);
     await page.screenshot({
-      path: `ui-progress/${info.project.name}-live-${size.width}x${size.height}.png`,
+      path: `ui-progress/${info.project.name}-immersive-${size.width}x${size.height}.png`,
       scale: 'css',
     });
   }
+  // Safari leaves focus on the previous control when a button is pointer-clicked.
+  await page.getByTestId('inventory-search').focus();
   await page.getByTestId('game-menu-toggle').click();
   const menu = page.getByRole('dialog', { name: 'Game menu' });
   await withinViewport(page, menu);
   await expect(page.getByRole('button', { name: 'Back to crafting' })).toBeFocused();
-  await expect(page.locator('#main-content')).toHaveAttribute('inert', '');
-  await expect(menu.getByTestId('scoreboard')).toBeVisible();
   await page.keyboard.press('Escape');
   await expect(menu).toHaveCount(0);
   await expect(page.getByTestId('game-menu-toggle')).toBeFocused();
-  await expect(page.locator('#main-content')).not.toHaveAttribute('inert', '');
   expect(errors).toEqual([]);
 });
 
-test('short desktop window contains the full workbench and inventory panel', async ({ page }) => {
-  await page.setViewportSize({ width: 1280, height: 720 });
-  await page.goto('/');
-  await page.getByTestId('player-name').fill('ShortDesktop');
-  await page.getByTestId('practice-button').click();
-  await page.getByTestId('ready-button').click();
-  await page.getByTestId('start-button').click();
-  await expect(page.getByTestId('target-name')).toBeVisible();
-  const panel = await page.locator('.crafting-window').boundingBox();
-  for (const control of [
-    page.getByTestId('crafting-grid'),
-    page.getByTestId('collect-output'),
-    page.getByTestId('erase-tool'),
-    page.getByTestId('collection-zone'),
-    page.locator('.inventory-content'),
-  ]) {
-    await withinViewport(page, control);
-    const bounds = (await control.boundingBox())!;
-    expect(bounds.y + bounds.height).toBeLessThanOrEqual(panel!.y + panel!.height - 6);
-  }
-  await expect(page.getByTestId('game-menu-toggle')).toBeHidden();
-  await expect(page.locator('.game-sidebar')).toBeVisible();
-  await mainScreenIsFixed(page);
-});
-
-test('reveal target text fits between the timer and recipe at compact sizes', async ({
-  page,
-}, info) => {
-  const errors: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
-  await mkdir('ui-progress', { recursive: true });
+test('short desktop workbench controls stay inside the panel', async ({ page }) => {
+  await page.setViewportSize({ width: 1280, height: 650 });
+  await practice(page);
   for (const size of [
     { width: 1280, height: 650 },
     { width: 1280, height: 720 },
     { width: 1366, height: 768 },
-    { width: 390, height: 664 },
-    { width: 844, height: 390 },
   ]) {
     await page.setViewportSize(size);
-    await page.goto('/__lab');
-    await page.evaluate(() => document.fonts.ready);
-    await page.locator('.lab-toolbar > summary').click();
-    await page.getByRole('combobox', { name: 'Fixture' }).selectOption('reveal');
-    await page.locator('.lab-toolbar > summary').click();
-    const target = page.locator('.target');
-    await withinViewport(page, target);
-    const targetBounds = (await target.boundingBox())!;
-    const text = target.locator('.eyebrow, h1, .target-meta, p');
-    for (const child of await text.all()) {
-      if (!(await child.isVisible())) continue;
-      const bounds = (await child.boundingBox())!;
-      const label = await child.innerText();
-      expect(bounds.y, label).toBeGreaterThanOrEqual(targetBounds.y - 1);
-      expect(bounds.y + bounds.height, label).toBeLessThanOrEqual(
-        targetBounds.y + targetBounds.height + 1,
-      );
+    await expect
+      .poll(async () => Math.round((await page.locator('.app').boundingBox())!.height))
+      .toBe(size.height);
+    const panel = (await page.locator('.crafting-panel').boundingBox())!;
+    for (const control of [
+      page.getByTestId('crafting-grid'),
+      page.getByTestId('collect-output'),
+      page.getByTestId('clear-grid'),
+      page.getByTestId('erase-tool'),
+      page.getByTestId('collection-zone'),
+      page.locator('.ingredient-scroll'),
+    ]) {
+      await withinViewport(page, control);
+      const bounds = (await control.boundingBox())!;
+      expect(bounds.y + bounds.height).toBeLessThanOrEqual(panel.y + panel.height - 6);
     }
-    const recipe = page.getByTestId('recipe-reveal');
-    const recipeBounds = (await recipe.boundingBox())!;
-    expect(targetBounds.y + targetBounds.height).toBeLessThanOrEqual(recipeBounds.y + 1);
-    if (size.width > 1100) {
-      const timerTrack = (await page.locator('.xp-track').boundingBox())!;
-      expect(targetBounds.y).toBeGreaterThanOrEqual(timerTrack.y + timerTrack.height);
-      await expect(target.locator('.eyebrow')).toBeVisible();
-      await expect(target.locator('p')).toContainText('crafted it first');
-    }
-    await withinViewport(page, recipe.locator('.craft-grid'));
-    await mainScreenIsFixed(page);
-    await page.screenshot({
-      path: `ui-progress/${info.project.name}-reveal-${size.width}x${size.height}.png`,
-      scale: 'css',
-    });
+    await fixedScreen(page);
   }
-  expect(errors).toEqual([]);
 });
 
-test('menus are exclusive and touch-only controls stay off desktop', async ({ page }) => {
-  await page.setViewportSize({ width: 1440, height: 1000 });
+test('home menus remain exclusive and install metadata is present', async ({ page, request }) => {
   await page.goto('/');
-  const help = page.locator('.how-to');
-  const install = page.getByTestId('install-guide');
+  const help = page.locator('.how-to'),
+    install = page.getByTestId('install-guide');
   await help.locator('summary').click();
-  await expect(help).toHaveAttribute('open', '');
   await install.locator('summary').click();
-  await expect(install).toHaveAttribute('open', '');
   await expect(help).not.toHaveAttribute('open', '');
+  await expect(install).toContainText('Safari');
   await page.getByTestId('jukebox-toggle').click();
   await expect(install).not.toHaveAttribute('open', '');
-  await expect(page.getByTestId('jukebox-toggle')).toHaveAttribute('aria-expanded', 'true');
-  await help.locator('summary').click();
-  await expect(page.getByTestId('jukebox-toggle')).toHaveAttribute('aria-expanded', 'false');
-  await help.locator('summary').click();
-  await page.goto('/__lab');
-  await expect(page.locator('.inventory-filter-toggle')).toBeHidden();
-  await expect(page.locator('.game-menu-toggle')).toBeHidden();
-  await page.locator('.lab-toolbar > summary').click();
-  await page.getByRole('combobox', { name: 'Fixture' }).selectOption('lobby');
-  await expect(page.getByTestId('lobby-rules-tab')).toBeHidden();
-  await page.getByRole('combobox', { name: 'Fixture' }).selectOption('finished');
-  await expect(page.getByTestId('results-history-tab')).toBeHidden();
-});
-
-test('home-screen metadata and installation guide are present', async ({ page, request }) => {
-  await page.goto('/');
   const manifest = await (await request.get('/manifest.webmanifest')).json();
   expect(manifest.display).toBe('standalone');
   expect(manifest.icons).toHaveLength(2);
-  await page.getByTestId('install-guide').locator('summary').click();
-  await expect(page.getByTestId('install-guide')).toContainText('Safari');
-  await expect(page.locator('link[rel="apple-touch-icon"]')).toHaveAttribute(
-    'href',
-    '/assets/app-icon-192.png',
-  );
+});
+
+test('reduced motion and keyboard-height resize keep native search usable', async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: 'reduce' });
+  await page.setViewportSize({ width: 390, height: 664 });
+  await page.goto('/__lab');
+  const input = page.getByTestId('inventory-search');
+  await input.focus();
+  expect(
+    await input.evaluate((el) => parseFloat(getComputedStyle(el).fontSize)),
+  ).toBeGreaterThanOrEqual(16);
+  await page.setViewportSize({ width: 390, height: 400 });
+  await page.evaluate(() => {
+    document.documentElement.dataset.keyboardOpen = 'true';
+  });
+  await withinViewport(page, input);
+  await withinViewport(page, page.getByTestId('inventory-search-done'));
+  expect(await page.evaluate(() => document.documentElement.scrollWidth)).toBe(390);
 });

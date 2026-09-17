@@ -17,7 +17,7 @@ const viewports = [
     'mobile',
     {
       ...devices['iPhone 13'],
-      viewport: { width: 390, height: 844 },
+      viewport: { width: 390, height: 664 },
       deviceScaleFactor: 1,
       defaultBrowserType: undefined,
     },
@@ -35,9 +35,11 @@ const viewports = [
 for (const [name, options] of viewports) {
   const context = await browser.newContext(options);
   const page = await context.newPage();
-  page.on('pageerror', (error) => errors.push(`${name}: ${error.message}`));
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
+  const redact = (text) => text.replace(/([?&]token=)[^&\s'"]+/g, '$1[redacted]');
+  page.on('pageerror', (error) => errors.push(`${name}: ${redact(error.message)}`));
   page.on('console', (message) => {
-    if (message.type() === 'error') errors.push(`${name}: ${message.text()}`);
+    if (message.type() === 'error') errors.push(`${name}: ${redact(message.text())}`);
   });
   for (const [screen, path] of [
     ['home', '/'],

@@ -5,6 +5,7 @@ import type { ClientMessage, RoomSnapshot, Session } from '../shared/types';
 import { Settings } from './Settings';
 import { Scoreboard } from './Scoreboard';
 import { ItemImage } from './ItemSlot';
+import { RoomQr } from './RoomQr';
 export function Lobby({
   room,
   session,
@@ -23,7 +24,7 @@ export function Lobby({
   useEffect(() => {
     let active = true;
     void QRCode.toDataURL(url, {
-      width: 256,
+      width: 768,
       margin: 4,
       errorCorrectionLevel: 'M',
       color: { dark: '#202725', light: '#f2eddc' },
@@ -114,16 +115,7 @@ export function Lobby({
                   Copy invite link
                 </button>
               </div>
-              {qr && (
-                <img
-                  className="qr"
-                  data-testid="room-qr"
-                  src={qr}
-                  width="144"
-                  height="144"
-                  alt={`Scan to join room ${room.code}`}
-                />
-              )}
+              {qr && <RoomQr src={qr} code={room.code} />}
               <p className="small" role="status" data-testid="copy-status">
                 {copied || 'Join with the code, link, or QR.'}
               </p>

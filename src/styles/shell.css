@@ -9,7 +9,10 @@ body,
 
 #root {
   position: fixed;
-  inset: 0;
+  top: var(--viewport-offset-top, 0px);
+  right: 0;
+  left: 0;
+  height: var(--viewport-height, 100dvh);
 }
 
 .app {

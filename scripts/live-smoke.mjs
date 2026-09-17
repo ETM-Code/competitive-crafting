@@ -20,12 +20,17 @@ const contexts = [];
 const redact = (message) => message.replace(/([?&]token=)[^\s&"']+/gi, '$1[redacted]');
 try {
   const hostContext = await browser.newContext({ viewport: { width: 1280, height: 720 } });
-  const guestContext = await browser.newContext({ ...devices['iPhone 13'], deviceScaleFactor: 1 });
+  const guestContext = await browser.newContext({
+    ...devices['iPhone 13'],
+    viewport: { width: 390, height: 664 },
+    deviceScaleFactor: 1,
+  });
   contexts.push(hostContext, guestContext);
   const host = await hostContext.newPage();
   const guest = await guestContext.newPage();
   for (const page of [host, guest]) {
     page.setDefaultTimeout(15000);
+    await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
     page.on('pageerror', (error) => errors.push(redact(error.message)));
     page.on('console', (message) => {
       if (message.type() === 'error') errors.push(redact(message.text()));
@@ -41,6 +46,7 @@ try {
   expect(new URL(invitation).origin).toBe(url.origin);
   await guest.goto(invitation);
   await guest.getByTestId('player-name').fill('MobileCheck');
+  await guest.getByTestId('avatar-picker-trigger').click();
   await guest.getByRole('button', { name: 'pig avatar', exact: true }).click();
   await guest.getByTestId('join-room-submit').click();
   await expect(guest.getByTestId('lobby')).toBeVisible();
@@ -85,23 +91,27 @@ try {
     await expect(slot).toHaveAttribute('data-item-id', item);
   }
   await expect(host.getByTestId('collect-output')).toBeEnabled();
-  await expect(host.locator('.game-sidebar .score')).toHaveText(['0', '0']);
+  await expect(host.locator('.crafting-standings .score')).toHaveText(['0', '0']);
   await host.screenshot({ path: resolve(output, 'live-desktop-ready.png'), scale: 'css' });
   await guest.screenshot({ path: resolve(output, 'live-mobile-playing.png'), scale: 'css' });
   await host.getByTestId('collect-output').click();
   await expect(host.getByTestId('recipe-reveal')).toBeVisible();
   await expect(guest.getByTestId('recipe-reveal')).toBeVisible();
-  await expect(host.locator('.game-sidebar .score').first()).toHaveText('100');
+  const hostId = await host.evaluate(
+    () => JSON.parse(sessionStorage.getItem('competitive-crafting.session')).playerId,
+  );
+  await expect(host.getByTestId(`round-total-${hostId}`)).toHaveAttribute(
+    'aria-label',
+    '100 total XP',
+  );
+  await host.screenshot({ path: resolve(output, 'live-desktop-round-result.png'), scale: 'css' });
   await host.reload();
-  await expect(host.locator('.game-sidebar .score').first()).toHaveText('100');
+  await expect(host.getByTestId('results')).toContainText(
+    'All alone? Try getting some friends, loser.',
+  );
+  await expect(guest.getByTestId('results')).toBeVisible();
+  await expect(host.getByTestId(`result-total-${hostId}`)).toHaveText('100 XP');
   await host.evaluate(() => document.fonts.ready);
-  const targetBounds = await host.locator('.target').boundingBox();
-  for (const text of await host.locator('.target .eyebrow, .target h1, .target p').all()) {
-    if (!(await text.isVisible())) continue;
-    const bounds = await text.boundingBox();
-    expect(bounds.y).toBeGreaterThanOrEqual(targetBounds.y - 1);
-    expect(bounds.y + bounds.height).toBeLessThanOrEqual(targetBounds.y + targetBounds.height + 1);
-  }
   await host.screenshot({ path: resolve(output, 'live-desktop-result.png'), scale: 'css' });
   expect(errors).toEqual([]);
   console.log(

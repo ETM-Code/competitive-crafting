@@ -34,7 +34,7 @@ const reports = [];
 try {
   for (const [name, viewport] of [
     ['desktop', { width: 1440, height: 1000 }],
-    ['mobile', { width: 390, height: 844 }],
+    ['mobile', { width: 390, height: 664 }],
   ]) {
     if (device !== 'both' && device !== name) continue;
     const context = await browser.newContext({
@@ -45,10 +45,12 @@ try {
       recordVideo: { dir: resolve(output, 'recordings'), size: viewport },
     });
     const page = await context.newPage();
+    await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
     const errors = [];
-    page.on('pageerror', (error) => errors.push(error.message));
+    const redact = (text) => text.replace(/([?&]token=)[^&\s'"]+/g, '$1[redacted]');
+    page.on('pageerror', (error) => errors.push(redact(error.message)));
     page.on('console', (message) => {
-      if (message.type() === 'error') errors.push(message.text());
+      if (message.type() === 'error') errors.push(redact(message.text()));
     });
     await page.goto('http://127.0.0.1:5173/');
     await page.evaluate(() => document.fonts.ready);
@@ -62,11 +64,11 @@ try {
     await page.getByRole('button', { name: 'Play timeline', exact: true }).click();
     await page.getByRole('combobox', { name: 'Fixture' }).selectOption('reveal');
     await toolbar.locator(':scope > summary').click();
-    await page.waitForTimeout(2200);
+    await page.waitForTimeout(4000);
     await toolbar.locator(':scope > summary').click();
     await page.getByRole('combobox', { name: 'Fixture' }).selectOption('finished');
     await toolbar.locator(':scope > summary').click();
-    await page.waitForTimeout(2200);
+    await page.waitForTimeout(4000);
     const video = page.video();
     await context.close();
     const path = resolve(output, `latest-${name}.webm`);

@@ -67,6 +67,17 @@ test('music preloads silently, starts with normal game gesture, and sound-off pa
   await page.getByTestId('sound-toggle').click();
   await expect(panel).toContainText('Sound is off');
   expect(await page.evaluate(() => localStorage.getItem('craft.sound'))).toBe('off');
+  // The sound preference renders before its postMessage reaches the provider frame.
+  await expect
+    .poll(() =>
+      host.evaluate(
+        () =>
+          (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(
+            ([type]) => type === 'pause',
+          ).length,
+      ),
+    )
+    .toBeGreaterThan(0);
   const pauses = await host.evaluate(
     () =>
       (window as unknown as { __spotifyCalls: string[][] }).__spotifyCalls.filter(

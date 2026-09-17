@@ -3,6 +3,10 @@ import { mkdir } from 'node:fs/promises';
 
 const production = process.env.PWA_BASE_URL || 'http://127.0.0.1:8787';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
+});
+
 test('production service worker controls first visit and preserves offline invitation recovery', async ({
   page,
   context,

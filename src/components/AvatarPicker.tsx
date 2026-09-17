@@ -49,16 +49,14 @@ export function AvatarPicker({
         onClose={() => trigger.current?.focus({ preventScroll: true })}
         onKeyDown={(event) => {
           if (event.key !== 'Tab') return;
-          const buttons = event.currentTarget.querySelectorAll<HTMLButtonElement>('button');
-          const first = buttons[0];
-          const last = buttons[buttons.length - 1];
-          if (event.shiftKey && document.activeElement === first) {
-            event.preventDefault();
-            last?.focus();
-          } else if (!event.shiftKey && document.activeElement === last) {
-            event.preventDefault();
-            first?.focus();
-          }
+          // Safari can omit buttons from native tab order; keep every dialog action reachable.
+          const buttons = Array.from(
+            event.currentTarget.querySelectorAll<HTMLButtonElement>('button'),
+          );
+          const index = buttons.findIndex((button) => button === document.activeElement);
+          const next = (index + (event.shiftKey ? -1 : 1) + buttons.length) % buttons.length;
+          event.preventDefault();
+          buttons[next]?.focus();
         }}
         onClick={(event) => {
           if (event.target !== event.currentTarget) return;

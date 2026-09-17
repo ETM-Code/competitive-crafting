@@ -4,9 +4,15 @@ import { mkdir } from 'node:fs/promises';
 import { solutionFor } from '../../src/shared/recipes';
 import { itemById } from '../../src/shared/catalogue';
 
+test.beforeEach(async ({ page }) => {
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
+});
+
 function observe(page: Page) {
   const errors: string[] = [];
-  page.on('pageerror', (error) => errors.push(error.message));
+  page.on('pageerror', (error) =>
+    errors.push(error.message.replace(/([?&]token=)[^&\s'"]+/g, '$1[redacted]')),
+  );
   page.on('console', (message) => {
     if (message.type() === 'error') {
       errors.push(message.text().replace(/([?&]token=)[^&\s'"]+/g, '$1[redacted]'));
@@ -26,17 +32,26 @@ async function lobbyTab(page: Page, tab: 'rules' | 'party') {
 }
 async function expectScore(page: Page, points: string, present = true) {
   const menu = page.getByTestId('game-menu-toggle');
-  // A reload first renders the reconnect screen; wait before choosing the layout.
-  await expect(page.locator('.connection-status.connected')).toBeVisible();
-  const compact = await menu.isVisible();
-  if (compact) await menu.click();
-  const scoreboard = compact
-    ? page.getByRole('dialog', { name: 'Game menu' }).getByTestId('scoreboard')
-    : page.getByTestId('scoreboard').first();
-  await expect(scoreboard).toBeVisible();
+  await expect(
+    page.locator('[data-testid="game"], [data-testid="round-summary"], [data-testid="results"]'),
+  ).toBeVisible();
+  if (await page.getByTestId('round-summary').isVisible()) {
+    const totals = page.locator('.standing-points strong');
+    if (present) await expect(totals.first()).toHaveAttribute('aria-label', `${points} total XP`);
+    else await expect(totals.first()).not.toHaveAttribute('aria-label', `${points} total XP`);
+    return;
+  }
+  if (await page.getByTestId('results').isVisible()) {
+    const result = page.locator('.final-standing-list');
+    if (present) await expect(result).toContainText(points);
+    else await expect(result).not.toContainText(points);
+    return;
+  }
+  await menu.click();
+  const scoreboard = page.getByRole('dialog', { name: 'Game menu' }).getByTestId('scoreboard');
   if (present) await expect(scoreboard).toContainText(points);
   else await expect(scoreboard).not.toContainText(points);
-  if (compact) await page.getByRole('button', { name: 'Back to crafting' }).click();
+  await page.getByRole('button', { name: 'Back to crafting' }).click();
 }
 async function readyStart(page: Page) {
   await page.getByTestId('ready-button').click();
@@ -59,6 +74,8 @@ async function fillTarget(page: Page, touch = false) {
       else await ingredient.click();
       await expect(ingredient).toHaveAttribute('aria-pressed', 'true');
     }
+    const done = page.getByTestId('inventory-search-done');
+    if (await done.isVisible()) await done.click();
     const slot = page.getByTestId(`grid-slot-${index}`);
     if (touch) await slot.tap();
     else await slot.click();
@@ -69,6 +86,7 @@ async function fillTarget(page: Page, touch = false) {
 async function joinSecond(browser: Browser, url: string) {
   const context = await browser.newContext({ baseURL: 'http://127.0.0.1:5173' });
   const page = await context.newPage();
+  await page.addInitScript(() => localStorage.setItem('craft.sound', 'off'));
   const errors = observe(page);
   await page.goto(url);
   await page.getByTestId('player-name').fill('PigGuest');
@@ -77,7 +95,7 @@ async function joinSecond(browser: Browser, url: string) {
   return { context, page, errors };
 }
 
-test('host invite link and QR join, default rules, Overclock, explicit collection and reconnect', async ({
+test('host invite link and QR join, default rules, explicit collection and departures', async ({
   page,
   browser,
 }, info) => {
@@ -112,11 +130,9 @@ test('host invite link and QR join, default rules, Overclock, explicit collectio
   await expect(guest.page.getByTestId('target-name')).toHaveText(
     await page.getByTestId('target-name').innerText(),
   );
-  await page.getByTestId('overclock-button').click();
-  await expect(page.getByTestId('overclock-active')).toBeVisible();
-  await expect(page.getByTestId('round-points')).toContainText('150');
+  await expect(page.getByTestId('overclock-button')).toHaveCount(0);
   await fillTarget(page, info.project.name === 'mobile');
-  await expectScore(page, '150', false);
+  await expectScore(page, '100', false);
   await mkdir('ui-progress', { recursive: true });
   await page.screenshot({
     path: `ui-progress/${info.project.name}-multiplayer-ready.png`,
@@ -125,15 +141,19 @@ test('host invite link and QR join, default rules, Overclock, explicit collectio
   await page.getByTestId('collect-output').click();
   await expect(page.getByTestId('recipe-reveal')).toBeVisible();
   await expect(guest.page.getByTestId('recipe-reveal')).toBeVisible();
-  await expectScore(page, '150');
+  await expectScore(page, '100');
   await page.reload();
-  await expectScore(page, '150');
+  await expect(page.getByTestId('results')).toContainText(
+    'All alone? Try getting some friends, loser.',
+  );
+  await expectScore(page, '100');
+  await expect(guest.page.getByTestId('results')).toBeVisible();
   expect(errors).toEqual([]);
   expect(guest.errors).toEqual([]);
   await guest.context.close();
 });
 
-test('creative search locks Overclock, preserves grid on refresh and accepts output', async ({
+test('creative search preserves practice grid on refresh and accepts output', async ({
   page,
 }, info) => {
   const errors = observe(page);
@@ -222,8 +242,95 @@ test('keyboard placement, Delete removal, ingredient drag and output drag collec
   await expect(page.locator('.app')).toHaveAttribute('data-phase', 'playing');
   await page.getByTestId('craft-output').dragTo(page.getByTestId('collection-zone'));
   await expect(page.getByTestId('recipe-reveal')).toBeVisible();
-  await expect(page.getByTestId('scoreboard').first()).toContainText('100');
+  await expectScore(page, '100');
   expect(errors).toEqual([]);
+});
+
+test('pagehide closes practice transport and BFCache return resumes the same round', async ({
+  page,
+}, info) => {
+  test.skip(
+    info.project.name !== 'chromium',
+    'Page lifecycle is covered once alongside cross-engine input.',
+  );
+  const errors = observe(page);
+  await create(page, true);
+  await readyStart(page);
+  const target = await page.getByTestId('target-name').innerText();
+  const ingredient = page.locator('[data-testid^="ingredient-"]').first();
+  const item = await ingredient.getAttribute('data-item-id');
+  await ingredient.click();
+  await page.getByTestId('grid-slot-0').click();
+  await expect(page.getByTestId('grid-slot-0')).toHaveAttribute('data-item-id', item!);
+  await page.evaluate(() =>
+    window.dispatchEvent(new PageTransitionEvent('pagehide', { persisted: true })),
+  );
+  await expect(page.getByTestId('grid-slot-0')).toBeDisabled();
+  await page.evaluate(() =>
+    window.dispatchEvent(new PageTransitionEvent('pageshow', { persisted: true })),
+  );
+  await expect(page.getByTestId('grid-slot-0')).toBeEnabled();
+  await expect(page.getByTestId('grid-slot-0')).toHaveAttribute('data-item-id', item!);
+  await expect(page.getByTestId('target-name')).toHaveText(target);
+  expect(errors).toEqual([]);
+});
+
+async function forfeitRound(page: Page) {
+  await page.getByTestId('game-menu-toggle').click();
+  await page.getByTestId('forfeit-round').click();
+  await page.getByTestId('confirm-forfeit').click();
+}
+
+test('individual forfeit is irreversible and all forfeits skip the round', async ({
+  page,
+  browser,
+}, info) => {
+  test.skip(info.project.name !== 'chromium', 'Server forfeit protocol tested once in browser.');
+  const errors = observe(page);
+  await create(page);
+  const guest = await joinSecond(browser, await page.getByTestId('room-link').inputValue());
+  await guest.page.getByTestId('ready-button').click();
+  await readyStart(page);
+  await forfeitRound(page);
+  await expect(page.getByTestId('collect-output')).toBeDisabled();
+  await expect(page.locator('.app')).toHaveAttribute('data-phase', 'playing');
+  await expect(guest.page.getByTestId('crafting-grid')).toBeVisible();
+  await forfeitRound(guest.page);
+  await expect(page.getByTestId('round-summary')).toContainText('Tools down. Next craft!');
+  await expect(guest.page.getByTestId('round-summary')).toBeVisible();
+  await expect(page.locator('.standing-points strong')).toHaveText(['0', '0']);
+  expect(errors).toEqual([]);
+  expect(guest.errors).toEqual([]);
+  await guest.context.close();
+});
+
+test('closing the host tab transfers ownership and rejoining preserves the ended match', async ({
+  page,
+  browser,
+}, info) => {
+  test.skip(info.project.name !== 'chromium', 'Transport departure lifecycle tested once.');
+  await create(page);
+  const url = await page.getByTestId('room-link').inputValue();
+  const session = await page.evaluate(() => sessionStorage.getItem('competitive-crafting.session'));
+  const guest = await joinSecond(browser, url);
+  await guest.page.getByTestId('ready-button').click();
+  await readyStart(page);
+  const hostContext = page.context();
+  await page.close();
+  await expect(guest.page.getByTestId('results')).toContainText(
+    'All alone? Try getting some friends, loser.',
+  );
+  await expect(guest.page.getByTestId('rematch-button')).toBeVisible();
+  const reopened = await hostContext.newPage();
+  await reopened.addInitScript(
+    (stored) => sessionStorage.setItem('competitive-crafting.session', stored!),
+    session,
+  );
+  await reopened.goto(url);
+  await expect(reopened.getByTestId('results')).toBeVisible();
+  await expect(reopened.getByTestId('rematch-button')).toHaveCount(0);
+  expect(guest.errors).toEqual([]);
+  await guest.context.close();
 });
 
 test('complete short custom match and return for rematch', async ({ page }, info) => {
@@ -243,6 +350,24 @@ test('complete short custom match and return for rematch', async ({ page }, info
       await expect(page.getByTestId('recipe-reveal')).toHaveCount(0, { timeout: 15000 });
   }
   await expect(page.getByTestId('results')).toBeVisible({ timeout: 15000 });
+  for (const viewport of [
+    { width: 390, height: 664 },
+    { width: 844, height: 390 },
+  ]) {
+    await page.setViewportSize(viewport);
+    await expect(page.getByTestId('sound-toggle')).toBeVisible();
+    await expect(page.getByTestId('jukebox-toggle')).toBeVisible();
+    await expect(page.getByTestId('rematch-button')).toBeInViewport();
+    await expect(page.getByTestId('results-leave')).toBeInViewport();
+    expect(
+      await page.locator('.match-detail-scroll').evaluate((element) => element.clientHeight),
+    ).toBeGreaterThanOrEqual(48);
+    expect(await page.evaluate(() => ({ x: scrollX, y: scrollY }))).toEqual({ x: 0, y: 0 });
+    await page.screenshot({
+      path: `ui-progress/actual-results-${viewport.width}x${viewport.height}.png`,
+      scale: 'css',
+    });
+  }
   await page.getByTestId('rematch-button').click();
   await expect(page.getByTestId('lobby')).toBeVisible();
 });

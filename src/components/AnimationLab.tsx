@@ -1,59 +1,72 @@
 import { useEffect, useMemo, useState } from 'react';
 import { targets } from '../shared/catalogue';
 import { makePalette, solutionFor } from '../shared/recipes';
-import { DEFAULT_SETTINGS, pointsFor } from '../shared/rules';
-import type { Phase, RoomSnapshot, Session } from '../shared/types';
+import { DEFAULT_SETTINGS, pointsFor, REVEAL_MS } from '../shared/rules';
+import type { Phase, RoomSnapshot, Session, RoundStanding } from '../shared/types';
 import { CraftingGame } from './CraftingGame';
 import { Lobby } from './Lobby';
 import { Results } from './Results';
+import { AVATARS } from './Scoreboard';
 const session: Session = { code: 'DEVLAB', playerId: 'lab-one', token: '' };
+const names = [
+  'Oak & Ember',
+  'Copperfox',
+  'Redstone Rosie',
+  'Block Party',
+  'Ender Pearl',
+  'Moss Boss',
+  'Stone Cold',
+  'Iron Giant',
+  'Golden Goose',
+  'Diamond Dave',
+  'Night Miner',
+  'Birch Please',
+];
 export default function AnimationLab() {
-  const [scene, setScene] = useState<Phase>('playing'),
-    [replay, setReplay] = useState(0),
-    [paused, setPaused] = useState(true),
-    [slow, setSlow] = useState(false),
-    [connected, setConnected] = useState(true),
-    [timeout, setTimeoutResult] = useState(false),
-    [now, setNow] = useState(0),
-    [overclocked, setOverclocked] = useState(false),
-    [expired, setExpired] = useState(false);
+  const [scene, setScene] = useState<Phase>('playing');
+  const [replay, setReplay] = useState(0);
+  const [paused, setPaused] = useState(true);
+  const [slow, setSlow] = useState(false);
+  const [connected, setConnected] = useState(true);
+  const [timeout, setTimeoutResult] = useState(false);
+  const [forfeited, setForfeited] = useState(false);
+  const [alone, setAlone] = useState(false);
+  const [creative, setCreative] = useState(false);
+  const [now, setNow] = useState(0);
   const room = useMemo<RoomSnapshot>(() => {
     const target = targets.find((entry) => entry.item === 'crafter') ?? targets[0];
-    const finishers =
-      scene === 'reveal' && !timeout
-        ? [{ playerId: session.playerId, points: 100, elapsed: 4200 }]
-        : [];
+    const players = names.map((name, index) => ({
+      id: index === 0 ? session.playerId : `lab-${index + 1}`,
+      name,
+      avatar: AVATARS[index % AVATARS.length],
+      ready: true,
+      connected: index === 0 || (!alone && connected),
+      score: index === 0 ? 850 : 800 - index * 50,
+      wins: index === 0 ? 3 : 1,
+      winningTime: index === 0 ? 21000 : 12000 + index * 1000,
+      spectator: false,
+    }));
+    const standings: RoundStanding[] = players.map((player, index) => ({
+      playerId: player.id,
+      name: player.name,
+      avatar: player.avatar,
+      scoreBefore: player.score - (index === 0 && !timeout && !forfeited ? 300 : 0),
+      scoreAfter: player.score,
+      points: index === 0 && !timeout && !forfeited ? 300 : 0,
+      rankBefore:
+        timeout || forfeited ? index + 1 : index === 0 ? 5 : index < 5 ? index : index + 1,
+      rankAfter: index + 1,
+      status: forfeited ? 'forfeited' : index === 0 && !timeout ? 'crafted' : 'timeout',
+    }));
+    const reason = forfeited ? 'forfeit' : timeout ? 'timeout' : 'crafted';
     return {
       code: session.code,
       hostId: session.playerId,
       phase: scene,
-      settings: { ...DEFAULT_SETTINGS },
-      players: [
-        {
-          id: 'lab-one',
-          name: 'Oak & Ember',
-          avatar: 'creeper',
-          ready: true,
-          connected: true,
-          score: 450,
-          wins: 3,
-          winningTime: 21000,
-          spectator: false,
-        },
-        {
-          id: 'lab-two',
-          name: 'Copperfox',
-          avatar: 'pig',
-          ready: true,
-          connected,
-          score: 250,
-          wins: 1,
-          winningTime: 12000,
-          spectator: false,
-        },
-      ],
+      settings: { ...DEFAULT_SETTINGS, inventory: creative ? 'creative' : 'constrained' },
+      players,
       round:
-        scene === 'countdown' || scene === 'lobby' || !target
+        scene === 'countdown' || scene === 'lobby'
           ? null
           : {
               id: `lab-${replay}`,
@@ -64,34 +77,38 @@ export default function AnimationLab() {
               palette: makePalette(target.item, 8, () => 0.42),
               startsAt: 0,
               endsAt: 30000,
-              finishers,
-              playerStates: {
-                [session.playerId]: {
-                  engaged: overclocked,
-                  overclocked,
-                  deadline: overclocked ? 15000 : 30000,
-                  expired,
-                  grid: Array(9).fill(null),
-                },
-                'lab-two': {
-                  engaged: false,
-                  overclocked: false,
-                  deadline: 30000,
-                  expired: false,
-                  grid: Array(9).fill(null),
-                },
-              },
+              finishers:
+                scene === 'reveal' && !timeout && !forfeited
+                  ? [{ playerId: session.playerId, points: 300, elapsed: 4200 }]
+                  : [],
+              playerStates: Object.fromEntries(
+                players.map((player) => [
+                  player.id,
+                  {
+                    forfeited,
+                    expired: timeout,
+                    grid: Array(9).fill(null),
+                  },
+                ]),
+              ),
+              endReason: scene === 'reveal' ? reason : null,
+              standings,
               ...(scene === 'reveal' ? { solution: solutionFor(target.item) } : {}),
             },
-      deadline: scene === 'countdown' ? 3000 : scene === 'reveal' ? 5000 : 30000,
+      deadline: scene === 'countdown' ? 3000 : scene === 'reveal' ? REVEAL_MS : 30000,
       serverNow: 0,
       revision: replay,
       practice: false,
-      history: targets
-        .slice(0, 5)
-        .map((t) => ({ target: t.item, winnerId: 'lab-one', points: 100 })),
+      endReason: alone ? 'alone' : null,
+      history: targets.slice(0, 5).map((t) => ({
+        target: t.item,
+        winnerId: timeout || forfeited ? null : session.playerId,
+        points: timeout || forfeited ? 0 : 300,
+        endReason: reason,
+        standings,
+      })),
     };
-  }, [scene, replay, connected, timeout, overclocked, expired]);
+  }, [scene, replay, connected, timeout, forfeited, alone, creative]);
   useEffect(() => {
     setNow(0);
   }, [scene, replay]);
@@ -114,7 +131,7 @@ export default function AnimationLab() {
           <select
             aria-label="Fixture"
             value={scene}
-            onChange={(e) => setScene(e.target.value as Phase)}
+            onChange={(event) => setScene(event.target.value as Phase)}
           >
             {['lobby', 'countdown', 'playing', 'reveal', 'finished'].map((value) => (
               <option key={value}>{value}</option>
@@ -127,14 +144,18 @@ export default function AnimationLab() {
             Replay
           </button>
           <label>
-            <input type="checkbox" checked={slow} onChange={(e) => setSlow(e.target.checked)} />{' '}
+            <input
+              type="checkbox"
+              checked={slow}
+              onChange={(event) => setSlow(event.target.checked)}
+            />{' '}
             Slow
           </label>
           <label>
             <input
               type="checkbox"
               checked={!connected}
-              onChange={(e) => setConnected(!e.target.checked)}
+              onChange={(event) => setConnected(!event.target.checked)}
             />{' '}
             Offline
           </label>
@@ -142,36 +163,44 @@ export default function AnimationLab() {
             <input
               type="checkbox"
               checked={timeout}
-              onChange={(e) => setTimeoutResult(e.target.checked)}
+              onChange={(event) => setTimeoutResult(event.target.checked)}
             />{' '}
             Timeout
           </label>
           <label>
             <input
               type="checkbox"
-              checked={overclocked}
-              onChange={(e) => setOverclocked(e.target.checked)}
+              checked={forfeited}
+              onChange={(event) => setForfeited(event.target.checked)}
             />{' '}
-            Overclock
+            Forfeit
           </label>
           <label>
             <input
               type="checkbox"
-              checked={expired}
-              onChange={(e) => setExpired(e.target.checked)}
+              checked={alone}
+              onChange={(event) => setAlone(event.target.checked)}
             />{' '}
-            Personal expiry
+            Alone
+          </label>
+          <label>
+            <input
+              type="checkbox"
+              checked={creative}
+              onChange={(event) => setCreative(event.target.checked)}
+            />{' '}
+            Creative
           </label>
           <span>Fixtures only · no room messages</span>
         </nav>
       </details>
       <div
-        className={`app in-world ${['countdown', 'playing', 'reveal'].includes(scene) ? 'active-play' : ''}`}
+        className={`app in-world immersive-mobile ${['countdown', 'playing', 'reveal'].includes(scene) ? 'active-play' : ''}`}
         data-phase={scene}
       >
         <div className="world-backdrop" />
         <div className="world-shade" />
-        <main key={replay}>
+        <main id="main-content" key={replay}>
           {scene === 'lobby' ? (
             <Lobby room={room} session={session} send={() => false} connected={connected} />
           ) : scene === 'finished' ? (

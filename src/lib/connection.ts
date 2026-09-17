@@ -61,7 +61,8 @@ export function useConnection(session: Session | null) {
       !own ||
       snapshot.round?.id !== draft.roundId ||
       snapshot.phase !== 'playing' ||
-      own.expired
+      own.expired ||
+      own.forfeited
     )
       return snapshot;
     return {
@@ -82,11 +83,12 @@ export function useConnection(session: Session | null) {
     setLatency(null);
     if (!session) return;
     let stopped = false,
+      away = false,
       attempts = 0;
     let timer: ReturnType<typeof setTimeout>;
     let heartbeat: ReturnType<typeof setInterval>;
     const connect = () => {
-      if (stopped) return;
+      if (stopped || away) return;
       setStatus(attempts ? 'reconnecting' : 'connecting');
       const url = new URL(`/api/rooms/${encodeURIComponent(session.code)}/ws`, location.href);
       url.protocol = location.protocol === 'https:' ? 'wss:' : 'ws:';
@@ -96,7 +98,7 @@ export function useConnection(session: Session | null) {
       const ws = new WebSocket(url);
       socket.current = ws;
       ws.onopen = () => {
-        if (stopped) {
+        if (stopped || away || socket.current !== ws) {
           ws.close();
           return;
         }
@@ -108,7 +110,7 @@ export function useConnection(session: Session | null) {
         }, 15000);
       };
       ws.onmessage = (event) => {
-        if (stopped) return;
+        if (stopped || away || socket.current !== ws) return;
         try {
           const message = JSON.parse(event.data) as ServerMessage;
           if (message.type === 'state') {
@@ -148,9 +150,9 @@ export function useConnection(session: Session | null) {
         }
       };
       ws.onclose = (event) => {
+        if (stopped || away || socket.current !== ws) return;
         clearInterval(heartbeat);
         clearTimeout(barrierTimer.current);
-        if (stopped) return;
         // Terminal closes need an explicit retry. Reclaiming a replaced session
         // automatically makes two tabs evict one another indefinitely.
         const terminalMessages: Partial<Record<number, string>> = {
@@ -174,11 +176,29 @@ export function useConnection(session: Session | null) {
       };
       ws.onerror = () => ws.close();
     };
+    const depart = () => {
+      away = true;
+      clearTimeout(timer);
+      clearTimeout(barrierTimer.current);
+      clearInterval(heartbeat);
+      optimistic.current = null;
+      socket.current?.close(1000, 'Page left');
+      setStatus('disconnected');
+    };
+    const returnToPage = (event: PageTransitionEvent) => {
+      if (!event.persisted || !away || stopped) return;
+      away = false;
+      connect();
+    };
+    window.addEventListener('pagehide', depart);
+    window.addEventListener('pageshow', returnToPage);
     // StrictMode mounts, cleans up and remounts effects in development. Let that
     // cleanup cancel the first attempt before opening an immediately aborted socket.
     timer = setTimeout(connect, 0);
     return () => {
       stopped = true;
+      window.removeEventListener('pagehide', depart);
+      window.removeEventListener('pageshow', returnToPage);
       clearTimeout(timer);
       clearTimeout(barrierTimer.current);
       clearInterval(heartbeat);
@@ -196,7 +216,7 @@ export function useConnection(session: Session | null) {
       optimistic.current = { roundId: message.roundId, grid: [...message.grid] };
       if (authoritative.current) setState(project(authoritative.current));
     }
-    if (['grid', 'engage', 'overclock', 'collect'].includes(message.type)) {
+    if (['grid', 'collect', 'forfeit'].includes(message.type)) {
       // Coalesce acknowledgement probes, never placements; every grid goes on wire.
       const ticket = --barrier.current;
       clearTimeout(barrierTimer.current);

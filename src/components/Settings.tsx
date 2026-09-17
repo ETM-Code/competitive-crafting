@@ -134,7 +134,8 @@ export function Settings({
         {value.inventory === 'creative'
           ? 'Creative adds 2 seconds per occupied recipe slot to the base timer.'
           : 'Recipe supplies use the base timer with no extra time.'}{' '}
-        Overclock halves that total time for 1.5× points. The server receives and orders all crafts.
+        Forfeit an unfamiliar recipe from the game menu for zero points. The server receives and
+        orders all crafts.
       </p>
     </fieldset>
   );
